@@ -1,0 +1,302 @@
+body{
+    background-color: #ecf0f1;
+}
+
+.info-profil{
+    max-width: 940px;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+
+
+
+.info-profil #profil_medecin{
+    display: flex;
+    overflow: hidden;
+    padding-bottom: 20px;
+}
+
+
+.info-profil #profil_medecin #profil-pic{
+    float: left;
+    width: 130px;
+    height: 130px;
+    margin-right: 20px;
+    overflow: hidden;
+    border-radius: 65px;
+    object-fit: cover;
+}
+
+
+#profil-info{
+    overflow: hidden;
+    margin: 0;
+}
+
+#profil-info h1{
+    margin: 0;
+    padding: 0;
+    font-size: 21px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+
+#profil-info > p{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    font-weight: 400;
+    color: #999;
+}
+
+#coord-medecin a img, #coord-medecin p img {
+    float: left;
+    width: 19px;
+    height: 12px;
+    margin-right: 10px;
+    padding-top: 2px;
+}
+
+#coord-medecin a, #coord-medecin p {
+    display: block;
+    margin: 0;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+}
+
+
+#description-container {
+    clear: both;
+    padding: 20px;
+    background-color: #3c8b96;
+    border-radius: 3px;
+    color: #fff;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+}
+
+#specialites-medecin 
+{
+    display: flex;
+    flex-direction: column;
+}
+
+#specialites-medecin p
+{
+    margin: 0;
+}
+
+
+.block_profil {
+    max-width: 940px;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+}
+
+
+#infos_planning #horloge_rdv {
+    height: 18px;
+    width: 18px;
+    margin: 1px;
+    margin-right: 10px;
+}
+
+#planning_header {
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+
+.rdv_libre_entete {
+    height: 30px;
+    line-height: 30px;
+    background-color: #ecf0f1;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.rdv_libre_ctn:first-child {
+    margin-top: 0;
+}
+
+.rdv_libre_entete_day {
+    float: left;
+    width: 90px;
+    padding: 0 10px;
+    background-color: #3c8b96;
+    color: #fff;
+    border-top-left-radius: 3px;
+}
+
+.rdv_libre_entete span {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+}
+
+.rdv_libre_entete span {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+}
+
+.rdv_libre_entete_date {
+    float: right;
+    margin-right: 10px;
+    color: #8e8e8e;
+}
+
+
+.rdv_libre_ctn {
+    display: block;
+    margin-top: 20px;
+    overflow: hidden;
+    -moz-box-shadow: 0 2px 4px #bfbfbf;
+    -webkit-box-shadow: 0 2px 4px #bfbfbf;
+    -o-box-shadow: 0 2px 4px #bfbfbf;
+    box-shadow: 0 2px 4px #bfbfbf;
+}
+
+.rdv_libre_entete{
+    margin: 0;
+}
+
+.rdv_libre_ctn div {
+    overflow: hidden;
+}
+
+.rdv_libre_ctn div{
+    padding: 10px;
+}
+
+
+
+.rdv_libre_ctn div a{
+    padding: 0 20px 0 20px;
+    color: #3c8b96;
+}
+
+
+
+
+.rdv_libre_ctn div a:hover{
+    color: #FFFFFF;
+    background-color: #3c8b96;
+    cursor: pointer;
+}
+
+
+
+.rdv_libre_entete {
+    height: 30px;
+    line-height: 30px;
+    background-color: #ecf0f1;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+
+#planning{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 100px;
+}
+
+
+.list_collab_img_pro {
+    width: 41px;
+    height: 41px;
+    margin: 5px 0;
+    margin-right: 8px;
+    border-radius: 25px;
+    object-fit: cover;
+}
+
+.list_collab_i {
+    float: left;
+    padding: 10px;
+    cursor: pointer;
+    border-left: solid 1px #e3e3e3;
+}
+
+
+.doctor{
+    display: flex;
+    align-items: flex-start;
+}
+
+.infos p{
+    margin: 0;
+}
+
+
+.list_collab_i_name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #000000;
+}
+
+.list_collab_i_spe {
+    display: block;
+    font-size: 12px;
+    padding-top: 3px;
+    color: #999;
+}
+
+
+#specialites-medecin, .spe-medecin{
+    display: none;
+    width: 20%;
+    margin: auto;
+}
+
+#choix-medecin{
+    display: flex;
+    background-color: #000000;
+    color: #FFFFFF;
+    margin-bottom: 12px;
+}
+
+#choix-medecin img{
+    float: right;
+    width: 30px;
+    padding: 6px 7px;
+    cursor: pointer;
+}
+
+.list-medecin-invisible{
+    display: none;
+}
+
+.medecin-spe{
+    cursor: pointer;
+}
+
+
+.medecin-selected{
+    background-color: black;
+    color: #FFFFFF;
+}
+
+.title-assurance{
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    #planning{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+  }

@@ -1,0 +1,38 @@
+.resultElement{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.result{
+    display: none;
+}
+
+.resultElement:hover{
+    background-color: #337747;
+}
+
+.resultElement:hover small{
+    color: #FFFFFF;
+}
+
+.resultElement img{
+    width: 70px;
+    border-radius: 50px;
+}
+
+.resultElement small{
+    color: black;
+}
+
+
+
+.resultElement .content{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
