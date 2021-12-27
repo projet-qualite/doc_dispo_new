@@ -1,42 +1,44 @@
-function getDays(month, year)
+function getDays(month, year, initialize = true)
 {
     
     let daysInMonth = new Date(year, month, 0).getDate();
     let days = []
     let week = 1;
 
-    
 
+    
     for(let i = 1; i <= daysInMonth; i++)
     {
         dayLabel = new Date(year, month-1, i).getDay()
         let selected = false
         let heures = []
 
-        for(let j = 0; j < creneaux.length ; j++)
+        if(initialize)
         {
-            let d = new Date(creneaux[j].jour)
-           
-            if(d.getTime() === new Date(year, month-1, i, 1,0).getTime())
+            for(let j = 0; j < creneaux.length ; j++)
             {
-                if(creneaux[j].id_motif_consult === 0)
+                let d = new Date(creneaux[j].jour)
+            
+                if(d.getTime() === new Date(year, month-1, i, 1,0).getTime())
                 {
-                    selected = true
-                }
-                else{
-                   
-                    if(specialites_medecin.value == creneaux[j].id_motif_consult)
+                    if(creneaux[j].id_motif_consult === 0)
                     {
                         selected = true
                     }
+                    else{
+                    
+                        if(specialites_medecin.value == creneaux[j].id_motif_consult)
+                        {
+                            selected = true
+                        }
+                    }
+                
+                    
+                    heures.push(creneaux[j].heure)
+                    
                 }
-               
-                
-                heures.push(creneaux[j].heure)
-                
             }
         }
-
         days.push({
             'day': i,
             'dayLabel': dayLabel,
@@ -53,11 +55,14 @@ function getDays(month, year)
         heures = []
 
     }
+    
 
-    console.log(days)
+    //console.log(days)
 
     return days;
 }
+
+
 
 
 function hoursOfDay(day)
@@ -214,7 +219,7 @@ var currentMonth = new Date().getMonth() +1
 
 choice_month.textContent = numberToMonth.get(currentMonth)
 var currentYear = new Date().getFullYear()
-var days = getDays(currentMonth, currentYear)
+var days = getDays(currentMonth, currentYear, false)
 var calendar = document.querySelector('#app-calendar')
 
 

@@ -14,35 +14,7 @@
         <!--/aside -->
         <br> <br>
 			<div class="container" style="text-align: center">
-				<div class="main_title">
-					<h1>Pourquoi Doc & Moi ?</h1>
-				</div> <br>
-				<div class="row justify-content-center" >
-					<div class="col-lg-10">
-                        <h4 style="text-align: center">
-                            <strong>
-                                Docetmoi.ci est un pionnier de la prise en ligne de rendez-vous médicaux en Côte d’Ivoire
-                            </strong>
-                        </h4>  <br>
-                        <p>   
-                            Notre mission consiste à offrir aux patients une solution simplissime pour prendre 
-                            rendez-vous avec leurs médecins depuis un ordinateur ou un smartphone. RDV medicaux 
-                            bénéficie d'un large savoir-faire en terme de prise de rendez-vous qui lui permet de 
-                            gérer tous les cas particuliers, notamment grâce à une stratégie de développement 
-                            étroitement liée à celle des permanences téléphoniques. Aujourd'hui, nous aidons des 
-                            milliers de médecins répartis dans plus de 500 villes en France à proposer une solution innovante de prise de rendez-vous.
-                        </p>
-					</div>
-				</div> <br> <br>
-				<!--/row-->
-                
 
-
-
-
-
-
-			</div> <br> <br>
 			<!--/container-->
             <div class="container" style="text-align: center">
 				<div class="main_title">

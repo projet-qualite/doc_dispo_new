@@ -289,5 +289,43 @@ class UsersController extends Controller
         }
     }
 
+
+
+    public function forgot(Request $request)
+    {
+        $validator = Validator::make($request->all(),
+            [
+                'user_type' => 'required',
+                'email' => 'required',
+            ]
+        );
+
+        if($validator->fails())
+        {
+            return back()->withErrors($validator)->withInput();
+        }
+
+
+        //try{
+            $type = $request->user_type;
+            switch($type)
+            {
+                case 'hopital':
+                    return HopitalController::forgot($request);
+                    break;
+                case 'medecin':
+                    return MedecinController::forgot($request);
+                    break;
+                case 'utilisateur':
+                    return PatientController::forgot($request);
+                    break;
+            }
+        /*}
+        catch(\ Exception $e)
+        {
+            Session::put('fail', 'Une erreur s\'est produite. Veuillez vérifier vos informations.');
+            return redirect()->back();
+        } */
+    }
     
 }

@@ -144,6 +144,9 @@
                 <div id="app-calendar"></div>
               </div>
         </div>
+        @error('id_creneau')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
 
         
         
@@ -168,6 +171,9 @@
                         @foreach ($proches as $proche)
                             <option value="{{ $proche->id }}">{{ $proche->nom }} {{ $proche->prenom }}</option>
                         @endforeach
+                        @error('proche')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </select>
                 
             

@@ -8,23 +8,13 @@
         <div class="container margin_120_95">			
             <div class="row">
                 <div class="col-lg-6">
-                    <h1>Inscrivez vous</h1>
-                    <p class="lead">Te pri adhuc simul. No eros errem mea. Diam mandamus has ad. Invenire senserit ad has, has ei quis iudico, ad mei nonumes periculis.</p>
-                    <div class="box_feat_2">
-                        <i class="pe-7s-map-2"></i>
-                        <h3>Let patients to Find you!</h3>
-                        <p>Ut nam graece accumsan cotidieque. Has voluptua vivendum accusamus cu. Ut per assueverit temporibus dissentiet.</p>
-                    </div>
-                    <div class="box_feat_2">
-                        <i class="pe-7s-date"></i>
-                        <h3>Easly manage Bookings</h3>
-                        <p>Has voluptua vivendum accusamus cu. Ut per assueverit temporibus dissentiet. Eum no atqui putant democritum, velit nusquam sententiae vis no.</p>
-                    </div>
-                    <div class="box_feat_2">
-                        <i class="pe-7s-phone"></i>
-                        <h3>Instantly via Mobile</h3>
-                        <p>Eos eu epicuri eleifend suavitate, te primis placerat suavitate his. Nam ut dico intellegat reprehendunt, everti audiam diceret in pri, id has clita consequat suscipiantur.</p>
-                    </div>
+                    <h1>Mot de passe oublié</h1>
+                    <p class="lead">
+                        Veuillez entrer votre adresse mail pour pouvoir réinitialiser votre 
+                        mot de passe.
+                    </p>
+                    
+                   
                 </div>
                 <!-- /col -->
                 <div class="col-lg-5 ml-auto">
@@ -56,7 +46,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" required class="form-control" name="email" placeholder="Your email address">
+                                    <input type="email" required class="form-control" name="email" placeholder="Votre adresse mail">
                                 </div>
 
                                

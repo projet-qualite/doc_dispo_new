@@ -634,14 +634,13 @@ a.specialite-:hover{
   height: 56px;
   display: block;
   background: url(../img/logo.png) no-repeat 0 0;
-  background-size: 163px 45px;
+  background-size: 160px 80px;
   text-indent: -9999px;
 }
 
 @media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   #logo_home h1 a {
-    background-image: url(../img/logo_doc.png);
-    background-size: 163px 45px;
+    background-image: url(../img/logo.png);
   }
 }
 /* Footer */

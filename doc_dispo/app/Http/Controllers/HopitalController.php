@@ -8,6 +8,8 @@ use App\Models\Assurance;
 use App\Models\Specialite;
 use App\Models\Medecin;
 use App\Models\Creneau;
+use App\Mail\MailAccount;
+use Illuminate\Support\Facades\Mail;
 
 use Session;
 use Validator;
@@ -84,14 +86,35 @@ class HopitalController extends Controller
                         ->get();
 
 
-            $rdvH = DB::table('rdv')
+            /*$rdvH = DB::table('rdv')
                     ->join('creneau', 'creneau.id', '=', 'rdv.id_creneau')
                     ->join('motif_consultation', 'motif_consultation.id', '=', 'creneau.id_motif_consult')
                     ->join('medecin', 'medecin.id', '=', 'motif_consultation.id_medecin')
                     ->select('rdv.*', 'medecin.*')
                     ->where('medecin.id_hopital', Session::get('hopital')->id)
-                    ->get();
-            return view('back.pages.dashboard')->with('medecinsH', count($medecinsH))->with('rdvH', count($rdvH));
+                    ->get();*/
+
+
+        $rdvs = DB::table('rdv')
+                ->join('creneau', 'creneau.id', '=', 'rdv.id_creneau')
+                ->join('medecin', 'medecin.id', '=', 'creneau.id_medecin')
+                ->join('specialite', 'specialite.id', '=', 'medecin.id_specialite')
+                ->join('proche', 'proche.id', '=', 'rdv.id_proche')
+                ->select(
+                    'creneau.jour',
+                    'creneau.heure',
+                    'rdv.slug as slug_rdv',
+                    'rdv.etat',
+                    'rdv.id_proche',
+                    'specialite.libelle as libelle_specialite',
+                    'medecin.*',
+                    'proche.nom as nom_proche',
+                    'proche.prenom as prenom_proche'
+                )
+                ->where('medecin.id_hopital', Session::get('hopital')->id)
+                ->get();
+
+            return view('back.pages.dashboard')->with('medecinsH', count($medecinsH))->with('rdvH', count($rdvs));
     }
 
 
@@ -481,8 +504,8 @@ class HopitalController extends Controller
                 )
                 ->where('medecin.id_hopital', Session::get('hopital')->id)
                 ->whereDate('creneau.jour', '>=', date('Y-m-d'))
-                ->whereDate('creneau.heure', '>=', date('H:i'))
-                ->orderBy('jour', 'ASC')
+                ->orderBy('creneau.jour', 'ASC')
+                ->orderBy(DB::raw('HOUR(creneau.heure)'))
                 ->get();
 
                                    
@@ -523,5 +546,34 @@ class HopitalController extends Controller
     }
 
 
+
+    // Reinitialisation d'un mot de passe
+
+    public static function forgot(Request $request)
+    {
+        try{
+            $hopital = Hopital::where('email', $request->email)->first();
+
+            if(is_null($hopital))
+            {
+                Session::put('fail','Cette adresse mail n\'existe pas');
+            }
+            else{
+                $hopital->mdp = sha1('1234567890');
+                $hopital->update();
+                $message = "Votre nouveau mot de passe est: 123456789. Veuillez vous connecter et le changer rapidement.";
+                $informations = ["Mot de passe oublié", $message];
+                Mail::to($hopital->email)->send(new MailAccount($informations));
+                Session::put('success','Vous avez reçu un email pour la réinitialisation du mot de passe');
+            }
+
+            return redirect()->back();
+        }
+        catch(\Exception $e)
+       {
+            Session::put('fail', 'Une erreur s\'est produite.');
+            return redirect()->back();
+       }
+    }
 
 }

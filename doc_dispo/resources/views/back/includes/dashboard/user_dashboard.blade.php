@@ -23,7 +23,7 @@
           </div>
             <div class="mr-5"><h5>Mes rendez vous ( {{ $rdvU }} )</h5></div>
         </div>
-        <a class="card-footer text-white clearfix small z-1" href="{{ URL::to('/rdv') }}">
+        <a class="card-footer text-white clearfix small z-1" href="{{ URL::to('/rdv/prochains') }}">
           <span class="float-left">Voir en détail</span>
           <span class="float-right">
             <i class="fa fa-angle-right"></i>

@@ -9,6 +9,8 @@ use App\Models\Specialite;
 use App\Models\Creneau;
 use App\Models\Proche;
 use Illuminate\Http\Request;
+use App\Mail\MailAccount;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 use Session;
 use DB;
@@ -457,7 +459,8 @@ class MedecinController extends Controller
             $creneaux [] = Creneau::where('id_medecin', $medecin->id)
                                     ->where('etat', 0)
                                     ->whereDate('jour', '>=', date('Y-m-d'))
-                                    ->orderBy('jour', 'DESC')
+                                    ->orderBy('jour', 'ASC')
+                                    ->orderBy(DB::raw('HOUR(creneau.heure)'))
                                     ->get();
         }
                 
@@ -486,13 +489,11 @@ class MedecinController extends Controller
                 )
                 ->where('creneau.id_medecin', Session::get('medecin')->id)
                 ->whereDate('creneau.jour', '>=', date('Y-m-d'))
-                ->whereDate('creneau.heure', '>=', date('H:i'))
-                ->orderBy('jour', 'ASC')
-                ->orderBy('heure', 'ASC')
+                ->orderBy('creneau.jour', 'ASC')
+                ->orderBy(DB::raw('HOUR(creneau.heure)'))
                 ->get();
 
-                                   
-        
+               
         return view('back.pages.rdv')->with('rdvs', $rdvs);
 
     }
@@ -523,5 +524,32 @@ class MedecinController extends Controller
     }
 
 
+    // Pour réinitialiser le mot de passe
+    public static function forgot(Request $request)
+    {
+        try{
+            $medecin = Medecin::where('email', $request->email)->first();
+
+            if(is_null($medecin))
+            {
+                Session::put('fail','Cette adresse mail n\'existe pas');
+            }
+            else{
+                $medecin->mdp = sha1('1234567890');
+                $medecin->update();
+                $message = "Votre nouveau mot de passe est: 123456789. Veuillez vous connecter et le changer rapidement.";
+                $informations = ["Mot de passe oublié", $message];
+                Mail::to($medecin->email)->send(new MailAccount($informations));
+                Session::put('success','Vous avez reçu un email pour la réinitialisation du mot de passe');
+            }
+
+            return redirect()->back();
+        }
+        catch(\Exception $e)
+       {
+            Session::put('fail', 'Une erreur s\'est produite.');
+            return redirect()->back();
+       }
+    }
 
 }

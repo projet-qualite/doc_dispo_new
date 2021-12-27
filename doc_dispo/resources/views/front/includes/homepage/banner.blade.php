@@ -10,13 +10,13 @@
             <input type="text" class="search-query" required placeholder="Ex. Nom, Specialisation, Hôpital ....">
             <input type="submit" class="btn_search" value="Rechercher">
           </div>
-         <div class="result" style="position: absolute; top: 55px;background-color: white; height: 18vh; width: 100%; overflow-y: auto">
+         <div class="result" style="position: absolute; top: 55px;background-color: white; height: 38vh; width: 100%; overflow-y: auto">
          @foreach ($medecins as $medecin)
             <a href="{{URL::to('/medecin/'.$medecin->id)}}">
               <div class="resultElement">
-                <img src="http://via.placeholder.com/565x565.jpg" alt="">
+                <img src="{{ asset('front/img/default.jpg') }}" alt="">
                 <div class="content">
-                  <small>{{ (isset($medecin->type_medecin)) ? $medecin->type_medecin : '' }} {{ $medecin->nom }}</small>
+                  <small>{{ (isset($medecin->type)) ? $medecin->type : '' }} {{ $medecin->nom }}</small>
                   <small></small>
                 </div>
               </div>

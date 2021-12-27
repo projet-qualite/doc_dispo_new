@@ -45,6 +45,10 @@ Route::get('/connexion_admin', function(){
     return view('front.pages.connexion_admin');
 });
 
+Route::get('/forgot', function(){
+    return view('front.pages.forgot');
+});
+Route::get('/mdp_oublie', [UsersController::class, 'forgot']);
 
 
 Route::get('/assurance', [AssuranceController::class, 'view']);
@@ -138,3 +142,12 @@ Route::get('/hopitaux/assurance/{ass}', [HopitalController::class, 'hopitauxAssu
 
 Route::post('/ajouter/rdv/{id}', [RdvController::class, 'ajouter']);
 Route::get('/annuler/rdv/{slug}', [RdvController::class, 'supprimer']);
+
+
+
+Route::get('/mail',function(){
+    return view('mails.mail');
+});
+
+
+
