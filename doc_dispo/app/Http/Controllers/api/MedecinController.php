@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 use App\Models\Medecin;
 use Illuminate\Http\Request;
+use Validator;
 
 class MedecinController extends Controller
 {
@@ -34,7 +35,7 @@ class MedecinController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -80,5 +81,18 @@ class MedecinController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function connexion($email, $mdp)
+    {
+        $medecin = Medecin::where('email', $email)->where('mdp', sha1($mdp))->first();
+        if(is_null($medecin))
+        {
+            return response()->json(null, 404);
+        }
+        else{
+            return response()->json($medecin, 200);
+        }
     }
 }

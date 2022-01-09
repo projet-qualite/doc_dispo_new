@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use DB;
+use Validator;
 
 class PatientController extends Controller
 {
@@ -83,5 +84,48 @@ class PatientController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function connexion($email, $mdp)
+    {
+        $patient = Patient::where('email', $email)->where('mdp', sha1($mdp))->first();
+        if(is_null($patient))
+        {
+            return response()->json(null, 404);
+        }
+        else{
+            return response()->json($patient, 200);
+        }
+    }
+
+    public function inscription(Request $request)
+    {
+        $rules = [
+            'email' => 'required',
+            'mdp' => 'required|min:8'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $patient = Patient::where('email', $request->email)->first();
+
+
+
+        if(is_null($patient))
+        {
+            $data = $request->all();
+            $data['mdp'] = sha1($request->mdp);
+            $patient = Patient::create($data);
+            $patient_cree = Patient::where('email', $data["email"])->where('mdp', $data["mdp"])->first();
+            return response()->json($patient_cree, 201);
+        }
+        else{
+            return response()->json(null, 400);
+        }
     }
 }

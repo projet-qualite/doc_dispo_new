@@ -18,6 +18,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('connexion/medecin/{email}/{mdp}', [\App\Http\Controllers\api\MedecinController::class, 'connexion']);
+Route::get('connexion/patient/{email}/{mdp}', [\App\Http\Controllers\api\PatientController::class, 'connexion']);
+Route::post('inscription', [\App\Http\Controllers\api\PatientController::class, 'inscription']);
 
 Route::apiResource('affilier', \App\Http\Controllers\api\AffilierController::class);
 Route::apiResource('assurance', \App\Http\Controllers\api\AssuranceController::class);

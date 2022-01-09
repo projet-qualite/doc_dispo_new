@@ -4,6 +4,8 @@ namespace App\Http\Controllers\api;
 use App\Models\Proche;
 use Illuminate\Http\Request;
 
+use Validator;
+
 class ProcheController extends Controller
 {
     /**
@@ -34,7 +36,23 @@ class ProcheController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'nom' => 'required',
+            'prenom' => 'required',
+            'telephone' => 'required',
+            'date_naissance' => 'required',
+            'sexe' => 'required',
+            'id_patient' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $proche = Proche::create($request->all());
+        return response()->json($proche, 201);
     }
 
     /**
@@ -68,7 +86,13 @@ class ProcheController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $proche = Proche::find($id);
+        if(is_null($proche))
+        {
+            return response()->json(["message" => "Record not found"], 404);
+        }
+        $proche->update($request->all());
+        return response()->json($proche, 200);
     }
 
     /**
@@ -79,6 +103,12 @@ class ProcheController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $proche = Proche::find($id);
+        if(is_null($proche))
+        {
+            return response()->json(["message" => "Record not found"], 404);
+        }
+        $proche->delete();
+        return response()->json(null, 204);
     }
 }

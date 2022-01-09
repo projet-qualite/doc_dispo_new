@@ -10,9 +10,10 @@ class Rdv extends Model
 {
     use HasFactory;
     use Sluggable;
-    
+
     protected $table = 'rdv';
     public $timestamps = false;
+    protected $guarded = [];
     public function sluggable(): array
     {
         return [

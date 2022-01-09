@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 use App\Models\Creneau;
 use Illuminate\Http\Request;
+use Validator;
 
 class CreneauController extends Controller
 {
@@ -34,7 +35,22 @@ class CreneauController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'jour' => 'required',
+            'heure' => 'required',
+            'etat' => 'required',
+            'id_motif_consult' => 'required',
+            'id_medecin' => 'required'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $creneau = Creneau::create($request->all());
+        return response()->json($creneau, 201);
     }
 
     /**

@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\api;
+use App\Models\Creneau;
 use App\Models\Rdv;
 use Illuminate\Http\Request;
+
+use Validator;
 
 class RdvController extends Controller
 {
@@ -34,7 +37,30 @@ class RdvController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'etat' => 'required',
+            'id_creneau' => 'required',
+            'id_proche' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $creneau = Creneau::find($request->id_creneau);
+        if($creneau->etat == 1)
+        {
+            return response()->json(["message" => "Ce créneau est déjà pris"], 404);
+        }
+        else{
+            $rdv = Rdv::create($request->all());
+            $creneau->etat = 1;
+            $creneau->update();
+            return response()->json($rdv, 201);
+        }
+
     }
 
     /**
@@ -68,7 +94,13 @@ class RdvController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        /*$rdv = Rdv::find($id);
+        if(is_null($rdv))
+        {
+            return response()->json(["message" => "Record not found"], 404);
+        }
+        $rdv->update($request->all());
+        return response()->json($rdv, 200);*/
     }
 
     /**
@@ -79,6 +111,15 @@ class RdvController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $rdv = Rdv::find($id);
+        if(is_null($rdv))
+        {
+            return response()->json(["message" => "Record not found"], 404);
+        }
+        $creneau = Creneau::find($rdv->id_creneau);
+        $creneau->etat = 1;
+        $creneau->update();
+        $rdv->delete();
+        return response()->json(null, 204);
     }
 }

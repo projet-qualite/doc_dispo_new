@@ -10,8 +10,9 @@ class Patient extends Model
 {
     use HasFactory;
     use Sluggable;
-    
+
     protected $table = 'patient';
+    protected $guarded = [];
     public $timestamps = false;
     public function sluggable(): array
     {

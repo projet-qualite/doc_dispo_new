@@ -12,6 +12,7 @@ class Creneau extends Model
     use Sluggable;
 
     protected $table = 'creneau';
+    protected $guarded = [];
     public $timestamps = false;
 
     public function sluggable(): array
