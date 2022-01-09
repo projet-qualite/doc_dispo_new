@@ -1228,8 +1228,8 @@
 					listeUL2.textContent = ''
 
 					for(let i = 0; i < creneaux.length; i++)
-					{	
-						
+					{
+
 						if(creneaux[i].date_creneau === dayValpiere)
 						{
 							let li = document.createElement('li')
@@ -1261,7 +1261,7 @@
 
 
 						}
-						
+
 					}
 
 
@@ -1447,7 +1447,7 @@
 				{
 					return false
 				}
-				
+
 			}
 			return true
 			/*return (
@@ -2081,7 +2081,7 @@
 	* ================== */
 
 	$(document).on(
-		'focus.datepicker.data-api click.datepicker.data-api',
+		'focus.datepicker.data-Api click.datepicker.data-Api',
 		'[data-provide="datepicker"]',
 		function(e){
 			var $this = $(this);

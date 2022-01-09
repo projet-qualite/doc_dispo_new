@@ -33,7 +33,7 @@ class MedecinController extends Controller
                  return redirect('/');
              }
         }
- 
+
         catch(\ Exception $e)
          {
              // Renvoie un message si une exception a été lancée
@@ -41,8 +41,8 @@ class MedecinController extends Controller
              return redirect()->back();
          }
      }
- 
- 
+
+
      // Pour inscrire le medecin via le formulaire
      public static function inscription(Request $request)
      {
@@ -51,10 +51,10 @@ class MedecinController extends Controller
              $medecin->email = $request->email;
              $medecin->telephone = $request->telephone;
              $medecin->mdp = sha1($request->mot_de_passe);
- 
+
              $already_exist = Medecin::where('email', $request->email)->first();
-      
- 
+
+
              if(is_null($already_exist))
              {
                  $medecin->save();
@@ -63,15 +63,15 @@ class MedecinController extends Controller
              else{
                  Session::put('fail', 'Cette adresse mail existe déjà');
              }
-             
-             
+
+
              return redirect()->back();
          }
          catch(\ Exception $e)
          {
              Session::put('fail', 'Inscription échouée. Veuillez saisir correctement les informations. ');
              return redirect()->back();
-         }  
+         }
      }
 
 
@@ -112,7 +112,7 @@ class MedecinController extends Controller
                     ->where('medecin.id', Session::get('medecin')->id)
                     ->first();
 
-            
+
             return view('back.pages.parametre')
                 ->with('hopitaux', $hopitaux)
                 ->with('specialites', $specialitesHopital)
@@ -129,7 +129,7 @@ class MedecinController extends Controller
     public function parametre(Request $request)
     {
 
-        
+
         try{
             if(Session::has('medecin'))
             {
@@ -138,7 +138,7 @@ class MedecinController extends Controller
                         'telephone' => 'required',
                     ]
                 );
-                
+
 
                 if($validator->fails())
                 {
@@ -155,13 +155,13 @@ class MedecinController extends Controller
                     $ext = $image->getClientOriginalExtension();
                     $filesaver = $filename.'_'.time().'.'.$ext;
                     $path = $image->move('front/img/medecins/',$filesaver);
-            
-            
+
+
                     $medecin->img_1 = $filesaver;
                 }
 
 
-            
+
                 $medecin->nom = $request->nom;
                 $medecin->prenom = $request->prenom;
                 $medecin->date_naissance = $request->date_naissance;
@@ -169,7 +169,7 @@ class MedecinController extends Controller
                 $medecin->telephone = $request->telephone;
 
                 $medecin->type = $request->type_medecin;
-                
+
                 $medecin->biographie = $request->biographie;
 
                 if(Session::get('medecin')->etat_compte == 0)
@@ -182,11 +182,11 @@ class MedecinController extends Controller
 
                 }
 
-                
+
                 $medecin->update();
 
 
-    
+
 
                 Session::put('medecin', $medecin);
 
@@ -203,14 +203,14 @@ class MedecinController extends Controller
             Session::put('fail', 'Modification échouée. Veuillez saisir correctement les informations. ');
             return redirect()->back();
         }
-        
+
     }
 
 
     public function parametreSpecialite(Request $request)
     {
 
-        
+
         try{
             if(Session::has('medecin'))
             {
@@ -219,7 +219,7 @@ class MedecinController extends Controller
                         'hopital_specialite' => 'required',
                     ]
                 );
-                
+
 
                 if($validator->fails())
                 {
@@ -245,7 +245,7 @@ class MedecinController extends Controller
             Session::put('fail_', 'Modification échouée. Veuillez saisir correctement les informations. ');
             return redirect()->back();
         }
-        
+
     }
 
 
@@ -261,7 +261,7 @@ class MedecinController extends Controller
                         'c_nouveau_mdp' => 'required|min:8',
                     ]
                 );
-               
+
 
                 if($validator->fails())
                 {
@@ -279,7 +279,7 @@ class MedecinController extends Controller
                     return back()->withErrors($validator)->withInput();
                 }
                 $medecin = Medecin::find(Session::get('medecin')->id);
-            
+
                 $medecin->mdp = sha1($request->nouveau_mdp);
                 $medecin->update();
 
@@ -298,7 +298,7 @@ class MedecinController extends Controller
             Session::put('fail__', 'Modification échouée. Veuillez saisir correctement les informations. ');
             return redirect()->back();
         }
-        
+
     }
 
 
@@ -372,7 +372,7 @@ class MedecinController extends Controller
     {
         $allHopitaux = Hopital::get();
         $allSpecialites = Specialite::get();
-        
+
         $medecins = DB::table('medecin')
                     ->join('specialite', 'specialite.id', '=', 'medecin.id_specialite')
                     ->join('hopital', 'hopital.id', '=', 'medecin.id_hopital')
@@ -391,7 +391,7 @@ class MedecinController extends Controller
                                     ->orderBy('jour', 'DESC')
                                     ->get();
         }
-                
+
 
 
         return view('front.pages.medecins')
@@ -412,7 +412,7 @@ class MedecinController extends Controller
                             ->whereDate('jour', '>=', date('Y-m-d'))
                             ->orderBy('jour', 'ASC')
                             ->orderBy('heure', 'ASC')
-                            ->get();                
+                            ->get();
 
         $motifs = DB::table('motif')
                             ->join('motif_consultation', 'motif_consultation.id_motif', '=', 'motif.id')
@@ -430,7 +430,7 @@ class MedecinController extends Controller
         }
 
 
-        
+
         return view('front.pages.medecin')->with('medecin', $medecin)
                                         ->with('creneaux', $creneaux)
                                         ->with('motifs', $motifs);
@@ -444,7 +444,7 @@ class MedecinController extends Controller
     {
         $allHopitaux = Hopital::get();
         $allSpecialites = Specialite::get();
-        
+
         $medecins = DB::table('medecin')
                     ->join('specialite', 'specialite.id', '=', 'medecin.id_specialite')
                     ->join('hopital', 'hopital.id', '=', 'medecin.id_hopital')
@@ -463,7 +463,7 @@ class MedecinController extends Controller
                                     ->orderBy(DB::raw('HOUR(creneau.heure)'))
                                     ->get();
         }
-                
+
 
 
         return view('front.pages.medecins')
@@ -493,7 +493,7 @@ class MedecinController extends Controller
                 ->orderBy(DB::raw('HOUR(creneau.heure)'))
                 ->get();
 
-               
+
         return view('back.pages.rdv')->with('rdvs', $rdvs);
 
     }
@@ -517,8 +517,8 @@ class MedecinController extends Controller
                 ->orderBy('jour', 'DESC')
                 ->get();
 
-                                   
-        
+
+
         return view('back.pages.rdv')->with('rdvs', $rdvs);
 
     }
@@ -550,6 +550,31 @@ class MedecinController extends Controller
             Session::put('fail', 'Une erreur s\'est produite.');
             return redirect()->back();
        }
+    }
+
+
+    public static function resetUpdate(Request $request, $email)
+    {
+        try{
+            $medecin = Medecin::where('email', $email)->first();
+
+            if(is_null($medecin))
+            {
+                Session::put('fail','Cette adresse mail n\'existe pas');
+            }
+            else{
+                $medecin->mdp = sha1($request->mot_de_passe);
+                $medecin->update();
+                Session::put('success','Mot de passe réinitialisé avec succès');
+            }
+
+            return redirect("/connexion");
+        }
+        catch(\Exception $e)
+        {
+            Session::put('fail', 'Une erreur s\'est produite.');
+            return redirect()->back();
+        }
     }
 
 }

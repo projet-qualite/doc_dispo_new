@@ -13,7 +13,7 @@
                       <div id="custom-search-input">
                         <div class="input-group">
                           <input type="text" class="search-query" required placeholder="Ex. Nom, Specialisation, Hôpital ....">
-                          <input type="submit" class="btn_search" value="Rechercher">
+                          <input type="submit" class="btn_search" value="">
                         </div>
                        <div class="result" style="position: absolute; top: 55px;background-color: white; height: 38vh; z-index: 5;width: 100%; overflow-y: auto">
                        @foreach ($medecins as $medecin)
@@ -27,8 +27,8 @@
                             </div>
                           </a>
                         @endforeach
-                
-                
+
+
                         @foreach ($allSpecialites as $specialite)
                           <a href="{{URL::to('/medecins/specialite/'.$specialite->libelle)}}">
                             <div class="resultElement">
@@ -39,10 +39,10 @@
                             </div>
                           </a>
                         @endforeach
-                
-                
+
+
                         @foreach ($allHopitaux as $hopital)
-                          <a href="{{URL::to('/medecins/hopital/'.$hopital->libelle)}}">
+                          <a href="{{URL::to('/hopital/'.$hopital->libelle)}}">
                             <div class="resultElement">
                               <div class="content">
                                 <small></small>
@@ -51,20 +51,20 @@
                             </div>
                           </a>
                         @endforeach
-                        
-                        
-                
-                
-                        
-                
-                        
+
+
+
+
+
+
+
                        </div>
-                        
+
                       </div>
                     </form>
-                      
+
               </div>
-            
+
           </div>
           <!-- /row -->
       </div>
@@ -72,11 +72,11 @@
   </div>
   <!-- /results -->
 
- 
+
   <!-- /filters -->
 
-  
-  
+
+
   <div class="container margin_60_35">
       <div class="row">
           <div class="col-lg-12" >
@@ -85,7 +85,7 @@
                       @if (count($creneaux[$i]) != 0)
                           <p class="next-rdv">
                               1er rendez-vous disponible <br>
-                              <span class="jour">{{ $creneaux[$i][0]->jour }}</span> - 
+                              <span class="jour">{{ $creneaux[$i][0]->jour }}</span> -
                               <span class="heure">{{ $creneaux[$i][0]->heure }}</span>
                           </p>
                       @else
@@ -93,27 +93,27 @@
                           Pas de créneaux disponibles
                       </p>
                       @endif
-                      
+
                       <figure>
                           <a href="detail-page.html"><img src="{{ isset($medecin->img_1) ? asset('front/img/medecins/'.$medecins[$i]->img_1) : asset('front/img/default.jpg') }}" alt=""></a>
                       </figure>
                       <h3>{{ $medecins[$i]->type }} {{ $medecins[$i]->nom }} {{ ucfirst($medecins[$i]->prenom) }}</h3>
-                      
+
                       <span><small class="specialite">{{ $medecins[$i]->libelle_specialite }}</small></span>
-                          
 
-                      
+
+
                       <small class="hopital" hidden>{{ $medecins[$i]->libelle_hopital }}</small>
-                      
-                      
 
-                     
+
+
+
                       <p>{{ $medecins[$i]->biographie }}</p>
                       <ul>
                           <li><a href="{{ URL::to('/medecin/'.$medecins[$i]->slug) }}">Prendre Rendez-vous</a></li>
                       </ul>
                   </div>
-                  
+
               @endfor
 
               <!--
@@ -133,8 +133,8 @@
                /pagination -->
           </div>
           <!-- /col -->
-          
-          
+
+
       </div>
       <!-- /row -->
   </div>

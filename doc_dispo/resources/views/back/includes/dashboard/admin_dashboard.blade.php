@@ -7,7 +7,7 @@
           </div>
           <div class="mr-5"><h5>Hôpitaux ( {{ $hopitalA }} )</h5></div>
         </div>
-        <a class="card-footer text-white clearfix small z-1" href="{{ URL::to('/liste-proches') }}">
+        <a class="card-footer text-white clearfix small z-1" href="{{ URL::to('/admin/hopitaux') }}">
           <span class="float-left">Voir en détail</span>
           <span class="float-right">
             <i class="fa fa-angle-right"></i>
@@ -23,11 +23,9 @@
           </div>
             <div class="mr-5"><h5>Medecins ( {{ $medecinsA }} )</h5></div>
         </div>
-        <a class="card-footer text-white clearfix small z-1" href="{{ URL::to('/rdv') }}">
-          <span class="float-left">Voir en détail</span>
-          <span class="float-right">
-            <i class="fa fa-angle-right"></i>
-          </span>
+        <a class="card-footer text-white clearfix small z-1">
+          <span class="float-left"></span>
+
         </a>
       </div>
     </div>
@@ -41,14 +39,12 @@
             </div>
               <div class="mr-5"><h5>Rendez-vous ( {{ $rdvA }} )</h5></div>
           </div>
-          <a class="card-footer text-white clearfix small z-1" href="{{ URL::to('/rdv') }}">
-            <span class="float-left">Voir en détail</span>
-            <span class="float-right">
-              <i class="fa fa-angle-right"></i>
-            </span>
+          <a class="card-footer text-white clearfix small z-1" >
+            <span class="float-left"></span>
+
           </a>
         </div>
       </div>
-   
-    
+
+
   </div>

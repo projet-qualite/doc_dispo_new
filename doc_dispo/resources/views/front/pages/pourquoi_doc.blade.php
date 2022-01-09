@@ -5,12 +5,12 @@
 <div id="breadcrumb">
     <div class="container">
         <ul>
-            <li><a href="#">Accueil</a></li>
+            <li><a href="/">Accueil</a></li>
             <li>Pourquoi Doc & Moi ?</li>
         </ul>
     </div>
 </div>
-        
+
         <!--/aside -->
         <br> <br>
 			<div class="container" style="text-align: center">
@@ -43,7 +43,7 @@
 					</div>
 				</div> <br> <br>
 				<!--/row-->
-                
+
 
 
 
@@ -64,7 +64,7 @@
                         </ul>
 					</div>
 				</div> <br> <br>
-                
+
 
 
 
@@ -82,12 +82,12 @@
                             <li>
                                 - En offrant un accompagnement complet aux praticiens et aux établissements de santé.
                             </li>
-                           
+
                         </ul>
 					</div>
 				</div> <br> <br>
 
-                
+
 
 
 
@@ -104,11 +104,11 @@
                             <li>
                                 - En proposant des solutions pour mieux gérer leurs activités.
                             </li>
-                           
+
                         </ul>
 					</div>
 				</div> <br> <br>
- 
+
 
 
                 <div class="row justify-content-center" >
@@ -120,10 +120,10 @@
                                 et économique.
                             </strong>
                         </p>
-                        
+
 					</div>
 				</div>
 			</div> <br> <br>
-	
+
 
 @endsection

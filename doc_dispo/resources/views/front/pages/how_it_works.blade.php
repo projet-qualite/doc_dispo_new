@@ -5,16 +5,16 @@
 <div id="breadcrumb">
     <div class="container">
         <ul>
-            <li><a href="#">Accueil</a></li>
+            <li><a href="/">Accueil</a></li>
             <li>Comment ça marche ?</li>
         </ul>
     </div>
 </div>
 <div class="container margin_60">
     <div class="row">
-        
+
         <!--/aside -->
-        
+
         <div class="col-lg-12" id="faq">
             <div role="tablist" class="add_bottom_45 accordion" id="payment">
                 <div class="card">
@@ -42,15 +42,15 @@
                     </div>
                     <div id="collapseTwo_payment" class="collapse" role="tabpanel" data-parent="#payment">
                         <div class="card-body">
-                            <p>- Si vous êtes déjà patient d’un médecin inscrit sur le site il vous suffit de renseigner le nom de votre médecin en cliquant sur le bouton « Trouver un médecin » dans le 
-                                bandeau supérieur de la page d’accueil. Vous accèderez ainsi au calendrier de ses prochaines disponibilités et 
+                            <p>- Si vous êtes déjà patient d’un médecin inscrit sur le site il vous suffit de renseigner le nom de votre médecin en cliquant sur le bouton « Trouver un médecin » dans le
+                                bandeau supérieur de la page d’accueil. Vous accèderez ainsi au calendrier de ses prochaines disponibilités et
                                 pourrez sélectionner un RDV qui vous convient.
                             </p>
                             <p>
-                                - Vous cherchez un nouveau médecin : il vous suffit de renseigner le nom du médecin ou la spécialité recherchée, votre ville/quartier souhaité dans 
-                                la zone de recherche de la page d’accueil. Vous n’aurez plus qu’à faire votre choix parmi les médecins et les RDV 
-                                disponibles qui vous seront proposés. Un mail et un SMS de confirmation vous sera envoyé à la suite de votre 
-                                validation avec toutes les informations pratiques vous permettant de vous rendre à votre RDV. Vous recevrez 
+                                - Vous cherchez un nouveau médecin : il vous suffit de renseigner le nom du médecin ou la spécialité recherchée, votre ville/quartier souhaité dans
+                                la zone de recherche de la page d’accueil. Vous n’aurez plus qu’à faire votre choix parmi les médecins et les RDV
+                                disponibles qui vous seront proposés. Un mail et un SMS de confirmation vous sera envoyé à la suite de votre
+                                validation avec toutes les informations pratiques vous permettant de vous rendre à votre RDV. Vous recevrez
                                 également des SMS de rappel à J-1 avant votre RDV.
                             </p>
 
@@ -75,12 +75,12 @@
                 <!-- /card -->
             </div>
             <!-- /accordion payment -->
-            
+
             <div role="tablist" class="add_bottom_45 accordion" id="tips">
                 <div class="card">
                     <div class="card-header" role="tab">
                         <h5 class="mb-0">
-                            <a data-toggle="collapse" href="#collapseOne_tips" aria-expanded="true"><i class="indicator icon_plus_alt2"></i>Puis-je prendre RDV avec mon compte pour des 
+                            <a data-toggle="collapse" href="#collapseOne_tips" aria-expanded="true"><i class="indicator icon_plus_alt2"></i>Puis-je prendre RDV avec mon compte pour des
                                 membres de ma famille, un enfant ou pour une tierce personne ?</a>
                         </h5>
                     </div>
@@ -106,8 +106,8 @@
                     <div id="collapseTwo_tips" class="collapse" role="tabpanel" data-parent="#tips">
                         <div class="card-body">
                             <p>
-                                Oui. Vous pouvez modifier ou annuler un RDV 1H avant via le site ou l’application 
-                                mobile.Attention, en cas d'annulations répétées, le praticien a la possibilité de 
+                                Oui. Vous pouvez modifier ou annuler un RDV 1H avant via le site ou l’application
+                                mobile.Attention, en cas d'annulations répétées, le praticien a la possibilité de
                                 vous interdire l'accès à ce service.
 
                             </p>
@@ -126,7 +126,7 @@
                     <div id="collapseThree_tips" class="collapse" role="tabpanel" data-parent="#tips">
                         <div class="card-body">
                             <p>
-                                En cas d'annulation de votre RDV par le praticien, vous serez contacté par son 
+                                En cas d'annulation de votre RDV par le praticien, vous serez contacté par son
                                 secrétariat par mail ou par téléphone.
                             </p>
                         </div>
@@ -135,7 +135,7 @@
                 <!-- /card -->
             </div>
             <!-- /accordion suggestions -->
-            
+
             <div role="tablist" class="add_bottom_45 accordion" id="reccomendations">
                 <div class="card">
                     <div class="card-header" role="tab">
@@ -147,8 +147,8 @@
                     <div id="collapseOne_reccomendations" class="collapse" role="tabpanel" data-parent="#reccomendations">
                         <div class="card-body">
                             <p>
-                                Nous facilitons votre choix en mettant à votre disposition toutes les 
-                                informations dont nous disposons concernant le praticien : informations pratiques 
+                                Nous facilitons votre choix en mettant à votre disposition toutes les
+                                informations dont nous disposons concernant le praticien : informations pratiques
                                 et tarifaires, photos, avis d'autres patients.
 
                             </p>
@@ -167,8 +167,8 @@
                     <div id="collapseTwo_reccomendations" class="collapse" role="tabpanel" data-parent="#reccomendations">
                         <div class="card-body">
                             <p>
-                                Vos données sont uniquement communiquées au médecin et à son secrétariat. 
-                                Nous nous engageons à ne pas transmettre vos informations à des tiers. 
+                                Vos données sont uniquement communiquées au médecin et à son secrétariat.
+                                Nous nous engageons à ne pas transmettre vos informations à des tiers.
                                 Consultez nos conditions d'utilisation.
 
                             </p>
@@ -187,10 +187,10 @@
                     <div id="collapseThree_reccomendations" class="collapse" role="tabpanel" data-parent="#reccomendations">
                         <div class="card-body">
                             <p>
-                                Non, ce service a pour but de faciliter le  travail des secrétaires. Il leur 
-                                permet de leur faire gagner du temps pour se consacrer à d'autres tâches pour 
-                                le médecin (gestion des dossiers, rédaction de courriers, accueil, …). De plus, 
-                                vous avez toujours la possibilité de joindre le secrétariat du médecin pour obtenir 
+                                Non, ce service a pour but de faciliter le  travail des secrétaires. Il leur
+                                permet de leur faire gagner du temps pour se consacrer à d'autres tâches pour
+                                le médecin (gestion des dossiers, rédaction de courriers, accueil, …). De plus,
+                                vous avez toujours la possibilité de joindre le secrétariat du médecin pour obtenir
                                 un complément d'informations ou en cas d'urgence.
 
                             </p>
@@ -200,8 +200,8 @@
                 <!-- /card -->
             </div>
             <!-- /accordion Reccomendations -->
-            
-            
+
+
 
         </div>
         <!-- /col -->

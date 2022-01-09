@@ -30,24 +30,35 @@
             <div class="col-lg-6 col-md-12">
                 <div class="form-group">
                     <input type="text" value="{{ Session::get('hopital')->adresse }}" class="form-control" name="adresse" placeholder="Adresse">
-                    @error('prenom')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                </div>
-            </div>                                    
-           
-          
-            <div class="col-lg-6 col-md-12">
-                <div class="form-group">
-                  
-                    <input type="text" name="telephone" value="{{ Session::get('hopital')->telephone }}" class="form-control" placeholder="Téléphone">
-                    @error('date_naissance')
+                    @error('adresse')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                 </div>
             </div>
 
-            
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="">Logo</label>
+                    <input accept="image/*" type='file' name="logo" id="image">
+
+                    @error('logo')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+
+            <div class="col-lg-6 col-md-12">
+                <div class="form-group">
+
+                    <input type="text" name="telephone" value="{{ Session::get('hopital')->telephone }}" class="form-control" placeholder="Téléphone">
+                    @error('telephone')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                </div>
+            </div>
+
+
             <div class="col-md-12">
                 <button class="btn btn-primary btn-round">Sauvegarder les changements</button>
             </div>
@@ -100,10 +111,10 @@
                     @enderror
                 </div>
             </div>
-                                             
-           
-          
-            
+
+
+
+
             <div class="col-md-12">
                 <button class="btn btn-primary btn-round">Sauvegarder les changements</button>
             </div>

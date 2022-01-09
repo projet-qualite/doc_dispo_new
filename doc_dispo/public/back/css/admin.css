@@ -4,7 +4,7 @@ Theme URI: http://www.ansonika.com/findoctor/
 Author: Ansonika
 Author URI: http://themeforest.net/user/Ansonika/
 
-[Table of contents] 
+[Table of contents]
 
 1. SITE STRUCTURE
 - 1.1 Typography
@@ -99,7 +99,11 @@ i{
 }
 #mainNav .navbar-collapse .navbar-nav .nav-item .nav-link {
   cursor: pointer;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
 }
+
 #mainNav .navbar-collapse .navbar-sidenav .nav-link-collapse:after {
   float: right;
   content: '\f107';
@@ -334,12 +338,23 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
 
 #mainNav.navbar-dark .navbar-collapse .navbar-sidenav .nav-link-collapse:after {
   color: #868e96;
+    position: absolute;
+    right: 20px;
 }
 #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
   color: #ced4da;
+    margin: 0 10px;
 }
-#mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item > .nav-link:hover {
-  color: #f8f9fa;
+.nav-link-text {
+    margin-left: 10px;
+}
+
+
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item > .nav-link.active {
+    background-color: white;
+    margin: 0 10px;
+    color: black;
+    border-radius: 10px;
 }
 #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a,
 #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a {
@@ -508,13 +523,13 @@ strong {
 /*-------- 1.2 Buttons --------*/
 /*General links color*/
 a {
-  color: #007bff;
+  color: #3c8b96;
   text-decoration: none;
-  -moz-transition: all 0.5s ease-in-out;
+  /*-moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
   -webkit-transition: all 0.5s ease-in-out;
   -ms-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;*/
   outline: none;
 }
 a:hover, a:focus {
@@ -534,11 +549,11 @@ a.btn_1,
   outline: none;
   font-size: 13px;
   font-size: 0.8125rem;
-  -moz-transition: all 0.3s ease-in-out;
+  /*-moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;*/
   -webkit-border-radius: 25px;
   -moz-border-radius: 25px;
   -ms-border-radius: 25px;
@@ -1035,11 +1050,11 @@ select.form-control:not([size]):not([multiple]) {
   padding: 0 7px;
   float: none !important;
   border-bottom: solid 1px #ededed;
-  -webkit-transition: all 0.5s ease;
+  /*-webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -ms-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
+  transition: all 0.5s ease;*/
   width: 100%;
 }
 
@@ -1121,16 +1136,10 @@ ion-icon:hover
 }
 
 
-.profil
-{
-  width: 200px;
-  border-radius: 100%;
-}
 
 .profil
 {
   width: 200px;
-  border-radius: 100%;
 }
 
 .detail{

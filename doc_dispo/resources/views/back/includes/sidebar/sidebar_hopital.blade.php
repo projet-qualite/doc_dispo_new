@@ -6,31 +6,31 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="{{ URL::to('/dashboard') }}">
-            <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Tableau de bord</span>
-          </a>
+            <a class="nav-link {{ (Request::segment(1) == 'dashboard' ? 'active' : '') }}" href="{{ URL::to('/dashboard') }}">
+                <ion-icon name="clipboard-outline"></ion-icon>
+                <span class="nav-link-text">Tableau de bord</span>
+            </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="{{ URL::to('/affilier') }}">
-            <i class="fa fa-fw fa-dashboard"></i>
+          <a class="nav-link {{ (Request::segment(1) == 'affilier' ? 'active' : '') }}" href="{{ URL::to('/affilier') }}">
+              <ion-icon name="shield-checkmark-outline"></ion-icon>
             <span class="nav-link-text">Assurances</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="{{ URL::to('/hopital-specialite') }}">
-            <i class="fa fa-fw fa-dashboard"></i>
+          <a class="nav-link {{ (Request::segment(1) == 'hopital-specialite' ? 'active' : '') }}" href="{{ URL::to('/hopital-specialite') }}">
+              <ion-icon name="list-circle-outline"></ion-icon>
             <span class="nav-link-text">Spécialités</span>
           </a>
         </li>
-  
 
-		
+
+
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProfile" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-wrench"></i>
+          <a class="nav-link nav-link-collapse collapsed {{ (Request::segment(1) == 'rdv' ? 'active' : '') }}" data-toggle="collapse" href="#collapseProfile" data-parent="#exampleAccordion">
+              <ion-icon name="calendar-outline"></ion-icon>
             <span class="nav-link-text">Rdv</span>
           </a>
           <ul class="sidenav-second-level collapse" id="collapseProfile">
@@ -43,19 +43,19 @@
           </ul>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
-            <a class="nav-link" href="{{ URL::to('/medecins/hopital') }}">
-              <i class="fa fa-fw fa-plus-circle"></i>
+            <a class="nav-link {{ (Request::segment(1) == 'medecins' ? 'active' : '') }}" href="{{ URL::to('/medecins/hopital') }}">
+                <ion-icon name="medkit-outline"></ion-icon>
               <span class="nav-link-text">Liste des medecins</span>
             </a>
           </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
-            <a class="nav-link" href="{{ URL::to('/parametre') }}">
-              <i class="fa fa-fw fa-plus-circle"></i>
+            <a class="nav-link {{ (Request::segment(1) == 'parametre' ? 'active' : '') }}" href="{{ URL::to('/parametre') }}">
+                <ion-icon name="settings-outline"></ion-icon>
               <span class="nav-link-text">Paramètres du compte</span>
             </a>
           </li>
-		
+
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">

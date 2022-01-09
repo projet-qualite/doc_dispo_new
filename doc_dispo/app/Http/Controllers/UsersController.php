@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Assurance;
 use App\Models\Medecin;
 use App\Models\Hopital;
+use App\Models\PasswordResets;
 use App\Models\Specialite;
 use App\Models\Rdv;
 use Illuminate\Http\Request;
@@ -59,7 +60,7 @@ class UsersController extends Controller
         else if(Session::has('medecin'))
         {
             return MedecinController::dashboard();
-            
+
         }
         else if(Session::has('admin'))
         {
@@ -91,7 +92,7 @@ class UsersController extends Controller
 
     public function connexionView()
     {
-        
+
         if(!(Session::has('admin')) && !(Session::has('medecin')) && !(Session::has('user')))
         {
             return view('front.pages.connexion');
@@ -118,6 +119,12 @@ class UsersController extends Controller
 
         if($validator->fails())
         {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        if($request->c_mot_de_passe != $request->mot_de_passe)
+        {
+            $validator->errors()->add("c_mot_de_passe", "Le mot de passe est incorrect");
             return back()->withErrors($validator)->withInput();
         }
 
@@ -148,7 +155,7 @@ class UsersController extends Controller
         {
             Session::put('fail', 'Une erreur s\'est produite. Veuillez vérifier vos informations.');
             return redirect()->back();
-        } 
+        }
     }
 
 
@@ -160,7 +167,7 @@ class UsersController extends Controller
                 'email' => 'required',
                 'mot_de_passe' => 'required|min:8',
             ]
-        ); 
+        );
 
         if($validator->fails())
         {
@@ -191,7 +198,7 @@ class UsersController extends Controller
         {
             Session::put('fail', 'Une erreur s\'est produite. Veuillez vérifier vos informations.');
             return redirect()->back();
-        } 
+        }
     }
 
 
@@ -207,7 +214,7 @@ class UsersController extends Controller
 
     public function parametreView()
     {
-        
+
         if(Session::has('user') || Session::has('hopital'))
         {
             return view('back.pages.parametre');
@@ -219,7 +226,7 @@ class UsersController extends Controller
             }
         }
         abort(404);
-    
+
     }
 
 
@@ -240,7 +247,7 @@ class UsersController extends Controller
     public function getMedecins(){
         return MedecinController::getMedecins();
     }
-    
+
 
     public function rdvProchains()
     {
@@ -306,26 +313,27 @@ class UsersController extends Controller
         }
 
 
-        //try{
+        try{
             $type = $request->user_type;
+            $token = PasswordResetsController::insert($request);
             switch($type)
             {
                 case 'hopital':
-                    return HopitalController::forgot($request);
+                    return HopitalController::forgot($request, $token);
                     break;
                 case 'medecin':
-                    return MedecinController::forgot($request);
+                    return MedecinController::forgot($request, $token);
                     break;
                 case 'utilisateur':
-                    return PatientController::forgot($request);
+                    return PatientController::forgot($request,$token);
                     break;
             }
-        /*}
+        }
         catch(\ Exception $e)
         {
             Session::put('fail', 'Une erreur s\'est produite. Veuillez vérifier vos informations.');
             return redirect()->back();
-        } */
+        }
     }
-    
+
 }

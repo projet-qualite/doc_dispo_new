@@ -20,7 +20,7 @@
 		markers	: defaultMarkers
 	}
 
-	// Main function code here (ref:google map api v3)
+	// Main function code here (ref:google map Api v3)
 	function addMapMarker(map_element, zoom, center, markers){
 		//console.log($.fn.mapmarker.defaults['center']);
 
@@ -63,7 +63,7 @@
 
 			if(latitude!="" && longitude!=""){
 				var marker = new google.maps.Marker({
-					map: map, 
+					map: map,
 					position: new google.maps.LatLng(latitude,longitude),
 					animation: google.maps.Animation.DROP,
 					icon: icon

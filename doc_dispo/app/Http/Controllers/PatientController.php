@@ -25,7 +25,7 @@ class PatientController extends Controller
             $patient->mdp = sha1($request->mot_de_passe);
 
             $already_exist = Patient::where('email', $request->email)->first();
-     
+
 
             if(is_null($already_exist))
             {
@@ -35,15 +35,15 @@ class PatientController extends Controller
             else{
                 Session::put('fail', 'Cette adresse mail existe déjà');
             }
-            
-            
+
+
             return redirect()->back();
         }
         catch(\ Exception $e)
         {
             Session::put('fail', 'Inscription échouée. Veuillez saisir correctement les informations. ');
             return redirect()->back();
-        } 
+        }
     }
 
 
@@ -52,7 +52,7 @@ class PatientController extends Controller
     {
         try{
             $user = Patient::where('email', $request->email)->where('mdp',sha1($request->mot_de_passe))->first();
-            
+
 
             if(is_null($user))
             {
@@ -80,7 +80,7 @@ class PatientController extends Controller
                     ->select('rdv.*', 'proche.*')
                     ->where('proche.id_patient', Session::get('user')->id)
                     ->get();
-                    
+
         return view('back.pages.dashboard')->with('prochesU', count($prochesU))->with('rdvU', count($rdvU));
     }
 
@@ -98,7 +98,7 @@ class PatientController extends Controller
                         'c_nouveau_mdp' => 'required|min:8',
                     ]
                 );
-               
+
 
                 if($validator->fails())
                 {
@@ -116,7 +116,7 @@ class PatientController extends Controller
                     return back()->withErrors($validator)->withInput();
                 }
                 $patient = Patient::find(Session::get('user')->id);
-            
+
                 $patient->mdp = sha1($request->nouveau_mdp);
                 $patient->update();
 
@@ -135,7 +135,7 @@ class PatientController extends Controller
             Session::put('fail_', 'Modification échouée. Veuillez saisir correctement les informations. ');
             return redirect()->back();
         }
-        
+
     }
 
 
@@ -144,7 +144,7 @@ class PatientController extends Controller
     public function parametre(Request $request)
     {
 
-        
+
         try{
             if(Session::has('user'))
             {
@@ -153,7 +153,7 @@ class PatientController extends Controller
                         'telephone' => 'required',
                     ]
                 );
-                
+
 
                 if($validator->fails())
                 {
@@ -180,7 +180,7 @@ class PatientController extends Controller
             Session::put('fail', 'Modification échouée. Veuillez saisir correctement les informations. ');
             return redirect()->back();
         }
-        
+
     }
 
 
@@ -237,7 +237,7 @@ class PatientController extends Controller
                 ->orderBy(DB::raw('HOUR(creneau.heure)'))
                 ->get();
 
-                                   
+
        // dd($rdvs);
         return view('back.pages.rdv')->with('rdvs', $rdvs);
 
@@ -270,32 +270,33 @@ class PatientController extends Controller
                 ->orderBy('jour', 'DESC')
                 ->get();
 
-                                   
-        
+
+
         return view('back.pages.rdv')->with('rdvs', $rdvs);
 
     }
 
 
      // Pour réinitialiser le mot de passe
-     public static function forgot(Request $request)
+     public static function forgot(Request $request, $token)
      {
          try{
              $patient = Patient::where('email', $request->email)->first();
- 
+
              if(is_null($patient))
              {
                  Session::put('fail','Cette adresse mail n\'existe pas');
              }
              else{
-                 $patient->mdp = sha1('1234567890');
-                 $patient->update();
+                 /*$patient->mdp = sha1('1234567890');
+                 $patient->update();*/
                  $message = "Votre nouveau mot de passe est: 123456789. Veuillez vous connecter et le changer rapidement.";
-                 $informations = ["Mot de passe oublié", $message];
-                 Mail::to($patient->email)->send(new MailAccount($informations));
+                 $link = gethostname()."/forgot/".$token."/".$request->email;
+                 $informations = ["Mot de passe oublié", $message, $link];
+                 //Mail::to($patient->email)->send(new MailAccount($informations));
                  Session::put('success','Vous avez reçu un email pour la réinitialisation du mot de passe');
              }
- 
+
              return redirect()->back();
          }
          catch(\Exception $e)
@@ -304,4 +305,30 @@ class PatientController extends Controller
              return redirect()->back();
         }
      }
+
+
+
+    public static function resetUpdate(Request $request, $email)
+    {
+        try{
+            $patient = Patient::where('email', $email)->first();
+
+            if(is_null($patient))
+            {
+                Session::put('fail','Cette adresse mail n\'existe pas');
+            }
+            else{
+                $patient->mdp = sha1($request->mot_de_passe);
+                $patient->update();
+                Session::put('success','Mot de passe réinitialisé avec succès');
+            }
+
+            return redirect("/connexion");
+        }
+        catch(\Exception $e)
+        {
+            Session::put('fail', 'Une erreur s\'est produite.');
+            return redirect()->back();
+        }
+    }
 }

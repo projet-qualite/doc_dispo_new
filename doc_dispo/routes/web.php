@@ -27,7 +27,7 @@ use App\Http\Controllers\RdvController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/',[UsersController::class, 'homepage']);
 Route::get('/partenaires',[UsersController::class, 'partenaires']);
 Route::get('/comment-ca-marche',[UsersController::class, 'commentCaMarche']);
@@ -144,10 +144,17 @@ Route::post('/ajouter/rdv/{id}', [RdvController::class, 'ajouter']);
 Route::get('/annuler/rdv/{slug}', [RdvController::class, 'supprimer']);
 
 
+Route::get('/forgot/{token}/{email}', [\App\Http\Controllers\PasswordResetsController::class, 'reset']);
+Route::get('/reset/{token}/{email}', [\App\Http\Controllers\PasswordResetsController::class, 'resetUpdate']);
+//Route::get('/annuler/rdv/{slug}', [RdvController::class, 'supprimer']);
+
+
 
 Route::get('/mail',function(){
     return view('mails.mail');
 });
 
 
+*/
+Route::get('/aff',[\App\Http\Controllers\api\AffilierController::class, 'test']);
 

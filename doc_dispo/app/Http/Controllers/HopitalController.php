@@ -40,14 +40,14 @@ class HopitalController extends Controller
             Session::put('fail', 'Connexion échouée. Veuillez saisir correctement les informations. ');
             return redirect()->back();
         }
-        
+
     }
 
 
     // Inscription d'un hôpital
     public static function inscription(Request $request)
     {
-    
+
         try{
             $hopital = new Hopital();
             $hopital->email = $request->email;
@@ -64,10 +64,10 @@ class HopitalController extends Controller
             else{
                 Session::put('fail', 'Cette adresse mail existe déjà');
             }
-            
-            
+
+
             return redirect()->back();
-            
+
         }
         catch(\ Exception $e)
         {
@@ -155,7 +155,7 @@ class HopitalController extends Controller
             ->with('specialites_h', $specialitesHopital);
         }
         abort(404);
-        
+
     }
 
 
@@ -170,18 +170,32 @@ class HopitalController extends Controller
                     [
                         'libelle' => 'required',
                         'telephone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+                        'adresse' => 'required',
+                        'logo' => 'required',
                     ]
                 );
-                
+
 
                 if($validator->fails())
                 {
                     return back()->withErrors($validator)->withInput();
                 }
                 $hopital = Hopital::find(Session::get('hopital')->id);
-            
                 $hopital->libelle = $request->libelle;
                 $hopital->telephone = $request->telephone;
+                $hopital->adresse = $request->adresse;
+
+
+                $image = $request->file('logo');
+                $extention = $image->getClientOriginalName();
+                $filename = pathinfo($extention, PATHINFO_FILENAME);
+                $ext = $image->getClientOriginalExtension();
+                $filesaver = $filename.'_'.time().'.'.$ext;
+                $path = $image->move('front/img/hopitaux/',$filesaver);
+
+                $hopital->img = $filesaver;
+
+
 
                 $hopital->update();
 
@@ -200,7 +214,7 @@ class HopitalController extends Controller
             Session::put('fail', 'Inscription échouée. Veuillez saisir correctement les informations. ');
             return redirect()->back();
         }
-        
+
     }
 
 
@@ -217,7 +231,7 @@ class HopitalController extends Controller
                         'c_nouveau_mdp' => 'required|min:8',
                     ]
                 );
-               
+
 
                 if($validator->fails())
                 {
@@ -235,7 +249,7 @@ class HopitalController extends Controller
                     return back()->withErrors($validator)->withInput();
                 }
                 $hopital = Hopital::find(Session::get('hopital')->id);
-            
+
                 $hopital->mdp = sha1($request->nouveau_mdp);
                 $hopital->update();
 
@@ -254,14 +268,14 @@ class HopitalController extends Controller
             Session::put('fail_', 'Modification échouée. Veuillez saisir correctement les informations. ');
             return redirect()->back();
         }
-        
+
     }
 
 
 
     public function medecins()
     {
-        
+
         if(Session::has('hopital'))
         {
             $medecins = Medecin::where('id_hopital', Session::get('hopital')->id)->get();
@@ -271,8 +285,8 @@ class HopitalController extends Controller
 
 
         abort(404);
-       
-        
+
+
     }
 
 
@@ -308,7 +322,7 @@ class HopitalController extends Controller
                 else{
                     $hopital->etat_compte = 1;
                     $hopital->update();
-                    
+
                     return redirect()->back();
                 }
 
@@ -376,7 +390,7 @@ class HopitalController extends Controller
                             ->with('hopital', $hopital)
                             ->with('specialites', $specialitesHopital);
                 }
-                
+
             }
             else{
                 $specialitesHopital = DB::table('specialite_hopital')
@@ -402,7 +416,7 @@ class HopitalController extends Controller
                     ->select('hopital.*', 'affilier.id_assurance')
                     ->where('affilier.id_assurance', $assurance->id)
                     ->get();
-        
+
 
         //$medecins = Medecin::where('etat_compte', 1)->get();
 
@@ -421,9 +435,9 @@ class HopitalController extends Controller
                         ->where('etat_compte', 1)
                         ->first();
         }
-            
-            
-            
+
+
+
 
         return view('front.pages.hopitaux-assurances')
                     ->with('hopitaux', $hopitaux)
@@ -452,8 +466,8 @@ class HopitalController extends Controller
                             ->select('medecin.*', 'specialite.libelle')
                             ->where('id_hopital', $id)
                             ->get();
-        
-        
+
+
         $creneaux = [];
 
         foreach($all_medecins as $medecin)
@@ -466,7 +480,7 @@ class HopitalController extends Controller
         }
 
 
-        
+
 
 
         $specialites = DB::table('specialite_hopital')
@@ -508,8 +522,8 @@ class HopitalController extends Controller
                 ->orderBy(DB::raw('HOUR(creneau.heure)'))
                 ->get();
 
-                                   
-        
+
+
         return view('back.pages.rdv')->with('rdvs', $rdvs);
 
     }
@@ -539,8 +553,8 @@ class HopitalController extends Controller
                 ->orderBy('jour', 'DESC')
                 ->get();
 
-                                   
-        
+
+
         return view('back.pages.rdv')->with('rdvs', $rdvs);
 
     }
@@ -563,8 +577,8 @@ class HopitalController extends Controller
                 $hopital->update();
                 $message = "Votre nouveau mot de passe est: 123456789. Veuillez vous connecter et le changer rapidement.";
                 $informations = ["Mot de passe oublié", $message];
-                Mail::to($hopital->email)->send(new MailAccount($informations));
-                Session::put('success','Vous avez reçu un email pour la réinitialisation du mot de passe');
+                //Mail::to($hopital->email)->send(new MailAccount($informations));
+                //Session::put('success','Vous avez reçu un email pour la réinitialisation du mot de passe');
             }
 
             return redirect()->back();
@@ -575,5 +589,33 @@ class HopitalController extends Controller
             return redirect()->back();
        }
     }
+
+
+
+    public static function resetUpdate(Request $request, $email)
+    {
+        try{
+            $hopital = Hopital::where('email', $email)->first();
+
+            if(is_null($hopital))
+            {
+                Session::put('fail','Cette adresse mail n\'existe pas');
+            }
+            else{
+                $hopital->mdp = sha1($request->mot_de_passe);
+                $hopital->update();
+                Session::put('success','Mot de passe réinitialisé avec succès');
+            }
+
+            return redirect("/connexion");
+        }
+        catch(\Exception $e)
+        {
+            Session::put('fail', 'Une erreur s\'est produite.');
+            return redirect()->back();
+        }
+    }
+
+
 
 }

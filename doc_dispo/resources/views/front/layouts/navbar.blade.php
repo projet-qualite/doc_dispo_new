@@ -11,7 +11,7 @@
                 @if (Session::has('user') || Session::has('medecin') || Session::has('hopital') || Session::has('admin'))
                     <li id="user">
                         <a href="{{URL::to('/dashboard')}}">
-                            
+
                            @if (Session::has('user'))
                            <figure>
                             <img src="{{ is_null(Session::get('user')->img_1) ? asset('front/img/avatar.png') : asset('front/img/users/'.Session::get('user')->img_1) }}" alt="">
@@ -46,20 +46,20 @@
                     <li><a href="{{URL::to('/connexion')}}"><i class="pe-7s-user"></i></a></li>
                     <li><a href="{{URL::to('/inscription')}}"><i class="pe-7s-add-user"></i></a></li>
                 @endif
-               
-               
-               
+
+
+
             </ul>
             <div class="main-menu">
-                <ul>
-                    <li>
-                        <a href="{{URL::to('/')}}" class="show-submenu">Accueil</a>
-                    </li> 
-                    <li>
-                        <a href="{{URL::to('/medecins')}}" class="show-submenu">Medecins</a>
+                <ul class="nav">
+                    <li class="item">
+                        <a href="{{URL::to('/')}}" class="show-submenu {{ (Request::segment(1) == '' ? 'active' : '') }}">Accueil</a>
                     </li>
                     <li>
-                        <a href="{{URL::to('/comment-ca-marche')}}" class="show-submenu">Comment ça marche ?</a>
+                        <a href="{{URL::to('/medecins')}}" class="show-submenu {{ (Request::segment(1) == 'medecins' ? 'active' : '') }}">Medecins</a>
+                    </li>
+                    <li>
+                        <a href="{{URL::to('/comment-ca-marche')}}" class="show-submenu {{ (Request::segment(1) == 'comment-ca-marche' ? 'active' : '') }}">Comment ça marche ?</a>
                     </li>
 
 

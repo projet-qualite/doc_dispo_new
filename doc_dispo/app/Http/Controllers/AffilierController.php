@@ -29,7 +29,7 @@ class AffilierController extends Controller
                 }
 
                 //dd($request->assurance);
-                
+
                 $affilierExist = Affilier::where('id_hopital', Session::get('hopital')->id)
                                 ->where('id_assurance', $request->assurance)
                                 ->get()
@@ -42,7 +42,7 @@ class AffilierController extends Controller
                     $affilier->id_assurance = $request->assurance;
                     $affilier->save();
                     Session::put('success', 'Affiliation réussie');
-    
+
                     return redirect()->back();
                 }
                 else{
@@ -50,7 +50,7 @@ class AffilierController extends Controller
                     return redirect()->back();
                 }
 
-                
+
             }
             abort(404);
         }
@@ -60,6 +60,11 @@ class AffilierController extends Controller
             Session::put('fail', 'Affiliation échouée. Veuillez saisir correctement les informations. ');
             return redirect()->back();
         }
+    }
+
+    public function test()
+    {
+        return response()->json(Affilier::get(), 200);
     }
 
 

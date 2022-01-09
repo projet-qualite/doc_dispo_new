@@ -4,7 +4,7 @@ Theme URI: http://www.ansonika.com/findoctor/
 Author: Ansonika
 Author URI: http://themeforest.net/user/Ansonika/
 
-[Table of contents] 
+[Table of contents]
 
 1. SITE STRUCTURE and TYPOGRAPHY
 - 1.1 Typography
@@ -21,7 +21,7 @@ Author URI: http://themeforest.net/user/Ansonika/
 - 2.7 Contact page
 - 2.8 Booking page/confirm
 - 2.9 Pricing page
-- 2.10 Submit review 
+- 2.10 Submit review
 - 2.11 Home with map
 - 2.12 About
 
@@ -417,7 +417,7 @@ strong {
 /*-------- 1.2 Buttons --------*/
 /*General links color*/
 a {
-  color: #e74e84;
+  color: #3c8b96;
   text-decoration: none;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -431,7 +431,7 @@ a.how-it-works{
 
 }
 a:hover, a:focus {
-  color: #333;
+  color: #3b8b96;
   text-decoration: none;
   outline: none;
 }
@@ -440,7 +440,7 @@ a.btn_1,
 .btn_1 {
   border: none;
   color: #fff;
-  background: #e74e84;
+  background: #3b8b96;
   cursor: pointer;
   padding: 7px 20px;
   display: inline-block;
@@ -545,7 +545,7 @@ ul#top_access {
   float: right;
   position: relative;
   top: 3px;
-  margin: -1px 0 0 0;
+  margin: 5px 0 0 0;
 }
 @media (max-width: 991px) {
   ul#top_access {
@@ -630,12 +630,12 @@ a.specialite-:hover{
   line-height: 1;
 }
 #logo_home h1 a {
-  width: 200px;
-  height: 56px;
-  display: block;
-  background: url(../img/logo.png) no-repeat 0 0;
-  background-size: 160px 80px;
-  text-indent: -9999px;
+    width: 200px;
+    height: 70px;
+    display: block;
+    background: url(../img/logo.png) no-repeat 0 0;
+    background-size: 148px 83px;
+    text-indent: -9999px;
 }
 
 @media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
@@ -682,7 +682,7 @@ footer ul li a {
   color: #555;
 }
 footer ul li a:hover {
-  color: #e74e84;
+  color: #3b8b96;
 }
 footer ul li a i {
   margin-right: 10px;
@@ -713,7 +713,7 @@ footer ul.links li a:after {
 }
 footer ul.contacts li a i {
   margin-right: 10px;
-  color: #e74e84;
+  color: #3b8b96;
 }
 footer #copy {
   text-align: right;
@@ -742,7 +742,7 @@ footer #copy {
   color: #555;
 }
 .follow_us ul li a i:hover {
-  color: #e74e84;
+  color: #3b8b96;
 }
 
 /* Addtional links / Footer */
@@ -801,7 +801,7 @@ ul#additional_links li:after {
   }
 }
 .hero_home.version_1 {
-  background: #3b8b96 url(../img/hero_home_bg_1.svg) no-repeat center bottom;
+  background: #3b8b96 no-repeat center bottom;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -906,9 +906,8 @@ ul#additional_links li:after {
   vertical-align: middle;
   text-align: center;
   font-size: 21px;
-  font-size: 1.3125rem;
   color: #fff;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+  /*text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);*/
   background-color: #3e3f77;
   background-color: rgba(63, 64, 121, 0.9);
 }
@@ -1104,16 +1103,16 @@ ul#additional_links li:after {
   -moz-border-radius: 0 3px 3px 0;
   -ms-border-radius: 0 3px 3px 0;
   border-radius: 0 3px 3px 0;
-  background-color: #c48600;
+    background: #035864  url(../img/search.svg) no-repeat center center;
 }
 #custom-search-input input[type='submit']:hover {
-  background-color: #e74e84;
+  background-color: #3b8b96;
 }
 @media (max-width: 575px) {
   #custom-search-input input[type='submit'] {
     /* For less than 575px */
     text-indent: -999px;
-    background: #74d1c6 url(../img/search.svg) no-repeat center center;
+    background: #09181a url(../img/search.svg) no-repeat center center;
   }
 }
 
@@ -1148,7 +1147,7 @@ ul#additional_links li:after {
   background: #fff url(../img/icon-home-2.svg) no-repeat center 45px;
 }
 .box_feat#icon_4 {
-  
+
   background: #fff url(../img/icon-home-3.svg) no-repeat center 45px;
 }
 .box_feat span {
@@ -1946,7 +1945,7 @@ iframe {
   top: 15px;
   z-index: 2;
   background-color: black;
-  background-color: #7d4545;
+  background-color: #6a6a6a;
   padding: 9px 10px;
   display: inline-block;
   color: #fff;
@@ -2119,7 +2118,7 @@ iframe {
 }
 /*@media (max-width: 991px) {
   .strip_list ul li:first-child {
-    // For less than 991px 
+    // For less than 991px
     display: none;
   }
 }*/
@@ -5223,7 +5222,49 @@ ul#cat_nav li:last-child a:hover, ul#cat_nav li:last-child a#active, ul#cat_nav 
   font-size: 1.125rem;
   font-weight: normal;
   float: right;
-  color: #e74e84;
+  color: #3b8b96;
+}
+
+.hero_home.version_1 .content-2 img{
+    height: 500px;
+}
+
+@media (max-width: 1290px) {
+    .hero_home.version_1 .content-2 img{
+        height: 400px;
+    }
+
+    .hero_home{
+        height: 400px;
+    }
+}
+
+@media (max-width: 1050px) {
+    .hero_home.version_1 .content-2 img{
+        height: 300px;
+    }
+
+    .hero_home{
+        height: 300px;
+    }
+
+    .hero_home .content h3 {
+
+        font-size: 1.8rem;
+    }
+
+    .hero_home .content {
+        font-size: 15px;
+    }
+}
+
+
+
+@media (max-width: 846px) {
+    .hero_home.version_1 .content-2 img{
+        display: none;
+    }
+
 }
 
 

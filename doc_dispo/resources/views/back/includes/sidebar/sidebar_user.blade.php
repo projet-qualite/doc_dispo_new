@@ -6,17 +6,17 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="{{ URL::to('/dashboard') }}">
-            <i class="fa fa-fw fa-dashboard"></i>
+          <a class="nav-link {{ (Request::segment(1) == 'dashboard' ? 'active' : '') }}" href="{{ URL::to('/dashboard') }}">
+              <ion-icon name="clipboard-outline"></ion-icon>
             <span class="nav-link-text">Tableau de bord</span>
           </a>
         </li>
-		
-		
+
+
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProfile" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-wrench"></i>
+          <a class="nav-link nav-link-collapse collapsed {{ (Request::segment(1) == 'rdv' ? 'active' : '') }}" data-toggle="collapse" href="#collapseProfile" data-parent="#exampleAccordion">
+              <ion-icon name="calendar-outline"></ion-icon>
             <span class="nav-link-text">Rdv</span>
           </a>
           <ul class="sidenav-second-level collapse" id="collapseProfile">
@@ -30,19 +30,19 @@
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
-          <a class="nav-link" href="{{ URL::to('/proche') }}">
-            <i class="fa fa-fw fa-plus-circle"></i>
+          <a class="nav-link {{ (Request::segment(1) == 'proche' ? 'active' : '') }}" href="{{ URL::to('/proche') }}">
+              <ion-icon name="people-outline"></ion-icon>
             <span class="nav-link-text">Mes proches</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
-            <a class="nav-link" href="{{ URL::to('/parametre') }}">
-              <i class="fa fa-fw fa-plus-circle"></i>
+            <a class="nav-link {{ (Request::segment(1) == 'parametre' ? 'active' : '') }}" href="{{ URL::to('/parametre') }}">
+                <ion-icon name="settings-outline"></ion-icon>
               <span class="nav-link-text">Paramètres du compte</span>
             </a>
           </li>
-		
+
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">

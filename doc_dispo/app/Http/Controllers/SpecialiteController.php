@@ -32,20 +32,24 @@ class SpecialiteController extends Controller
                 $validator = Validator::make($request->all(), [
                     'libelle' => 'required',
                 ]);
-        
+
                 if ($validator->fails()) {
                     return back()->withErrors($validator)->withInput();
                 }
-    
-    
-                $specialite = new Specialite();
-                $specialite->libelle = $request->libelle;
-    
-    
-                $specialite->save();
-    
-                Session::put('success', 'Spécialité enregistrée avec succès');
-                
+
+                $alreadyExist = Specialite::where('libelle', $request->libelle)->first();
+                if(is_null($alreadyExist))
+                {
+                    $specialite = new Specialite();
+                    $specialite->libelle = $request->libelle;
+                    $specialite->save();
+                    Session::put('success', 'Spécialité enregistrée avec succès');
+                }
+                else{
+                    Session::put('fail', 'Spécialité déjà existante');
+                }
+
+
                 return redirect()->back();
             }
             abort(404);
@@ -61,7 +65,7 @@ class SpecialiteController extends Controller
     // Suppression d'une spécialité
     public function supprimer(Request $request, $id)
     {
-        
+
         try{
 
             if(Session::has('admin'))
@@ -74,14 +78,14 @@ class SpecialiteController extends Controller
                 return redirect()->back();
             }
             abort(404);
-            
+
         }
         catch(\ Exception $e)
         {
             Session::put('fail_delete', 'Vous ne pouvez pas éffectuer cette opération');
             return redirect()->back();
         }
-        
+
 
     }
 
@@ -103,16 +107,16 @@ class SpecialiteController extends Controller
                 ->with("action", "Modifier")
                 ->with("specialite", $specialite);
             }
-            
+
         }
-        abort(404);        
+        abort(404);
     }
 
 
     //Modification d'une spécialité
     public function modifier(Request $request, $id)
     {
-        
+
         try{
             if(Session::has('admin'))
             {
@@ -124,27 +128,27 @@ class SpecialiteController extends Controller
                 if ($validator->fails()) {
                     return back()->withErrors($validator)->withInput();
                 }
-    
-    
+
+
                 $specialite = Specialite::where('slug', $id)->get()->first();
-        
+
                 $specialite->libelle = $request->libelle;
-                
+
                 $specialite->update();
-    
+
                 Session::put('success', 'Spécialité modifiée avec succès');
-                
+
                 return redirect("/specialite");
             }
             abort(404);
-            
+
         }
         catch(\ Exception $e)
         {
             Session::put('fail', 'Une erreur s\'est produite.');
             return redirect()->back();
         }
-        
+
 
     }
 

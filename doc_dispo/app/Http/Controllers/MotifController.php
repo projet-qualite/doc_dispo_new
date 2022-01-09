@@ -32,7 +32,7 @@ class MotifController extends Controller
                         'libelle' => 'required',
                     ]
                 );
-                
+
 
                 if($validator->fails())
                 {
@@ -40,13 +40,20 @@ class MotifController extends Controller
                 }
 
 
-                $motif = new Motif();
-                $motif->libelle = $request->libelle;
+                $alreadyExist = Motif::where('libelle', $request->libelle)->first();
+                if(is_null($alreadyExist))
+                {
+                    $motif = new Motif();
+                    $motif->libelle = $request->libelle;
+                    $motif->save();
+                    Session::put('success', 'Informations enregistrées avec succès');
+                }
+                else{
+                    Session::put('fail', 'Motif déjà existant');
+                }
 
-                $motif->save();
 
 
-                Session::put('success', 'Informations enregistrées avec succès');
 
                 return redirect()->back();
 
@@ -68,7 +75,7 @@ class MotifController extends Controller
         if(Session::has('admin'))
         {
             $motif = Motif::where('slug', $slug)->get()->first();
-            
+
             if(is_null($motif))
             {
                 abort(404);
@@ -81,9 +88,9 @@ class MotifController extends Controller
             }
 
         }
-        abort(404);        
+        abort(404);
     }
-        
+
 
     public function modifier(Request $request, $id)
     {
@@ -95,7 +102,7 @@ class MotifController extends Controller
                     'libelle' => 'required',
                 ]
                 );
-                
+
 
                 if($validator->fails())
                 {
@@ -119,7 +126,7 @@ class MotifController extends Controller
             Session::put('fail', 'Modification échouée. Veuillez saisir correctement les informations. ');
             return redirect()->back();
         }
-    } 
+    }
 
     public function supprimer(Request $request, $id)
     {
