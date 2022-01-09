@@ -95,4 +95,52 @@ class MedecinController extends Controller
             return response()->json($medecin, 200);
         }
     }
+
+    public function updatePassword($ancien, $nouveau, $id)
+    {
+        $medecin = Medecin::find($id);
+        if(is_null($medecin))
+        {
+            return response()->json(null, 404);
+        }
+        else{
+            if(sha1($ancien) == $medecin->mdp)
+            {
+                $medecin->mdp = sha1($nouveau);
+                $medecin->update();
+                return response()->json($medecin, 200);
+            }
+            else{
+                return response()->json(null, 400);
+            }
+        }
+    }
+
+    public function updateTelephone($telephone, $id)
+    {
+        $medecin = Medecin::find($id);
+        if(is_null($medecin))
+        {
+            return response()->json(null, 404);
+        }
+        else{
+            $medecin->telephone = $telephone;
+            $medecin->update();
+            return response()->json($medecin, 200);
+        }
+    }
+
+    public function updateEmail($email, $id)
+    {
+        $medecin = Medecin::find($id);
+        if(is_null($medecin))
+        {
+            return response()->json(null, 404);
+        }
+        else{
+            $medecin->email = $email;
+            $medecin->update();
+            return response()->json($medecin, 200);
+        }
+    }
 }

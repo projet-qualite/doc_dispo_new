@@ -128,4 +128,52 @@ class PatientController extends Controller
             return response()->json(null, 400);
         }
     }
+
+    public function updatePassword($ancien, $nouveau, $id)
+    {
+        $patient = Patient::find($id);
+        if(is_null($patient))
+        {
+            return response()->json(null, 404);
+        }
+        else{
+            if(sha1($ancien) == $patient->mdp)
+            {
+                $patient->mdp = sha1($nouveau);
+                $patient->update();
+                return response()->json($patient, 200);
+            }
+            else{
+                return response()->json(null, 400);
+            }
+        }
+    }
+
+    public function updateTelephone($telephone, $id)
+    {
+        $patient = Patient::find($id);
+        if(is_null($patient))
+        {
+            return response()->json(null, 404);
+        }
+        else{
+            $patient->telephone = $telephone;
+            $patient->update();
+            return response()->json($patient, 200);
+        }
+    }
+
+    public function updateEmail($email, $id)
+    {
+        $patient = Patient::find($id);
+        if(is_null($patient))
+        {
+            return response()->json(null, 404);
+        }
+        else{
+            $patient->email = $email;
+            $patient->update();
+            return response()->json($patient, 200);
+        }
+    }
 }

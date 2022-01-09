@@ -35,3 +35,12 @@ Route::apiResource('rdv', \App\Http\Controllers\api\RdvController::class);
 Route::apiResource('specialite', \App\Http\Controllers\api\SpecialiteController::class);
 Route::apiResource('specialite_hopital', \App\Http\Controllers\api\SpecialiteHopitalController::class);
 
+
+Route::put('password/medecin/{ancien}/{nouveau}/{id}', [\App\Http\Controllers\api\MedecinController::class, 'updatePassword']);
+Route::put('password/patient/{ancien}/{nouveau}/{id}', [\App\Http\Controllers\api\PatientController::class, 'updatePassword']);
+
+Route::put('email/medecin/{email}/{id}', [\App\Http\Controllers\api\MedecinController::class, 'updateEmail']);
+Route::put('email/patient/{email}/{id}', [\App\Http\Controllers\api\PatientController::class, 'updateEmail']);
+
+Route::put('telephone/medecin/{telephone}/{id}', [\App\Http\Controllers\api\MedecinController::class, 'updateTelephone']);
+Route::put('telephone/patient/{telephone}/{id}', [\App\Http\Controllers\api\PatientController::class, 'updateTelephone']);
