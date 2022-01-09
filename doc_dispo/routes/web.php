@@ -27,7 +27,7 @@ use App\Http\Controllers\RdvController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*
+
 Route::get('/',[UsersController::class, 'homepage']);
 Route::get('/partenaires',[UsersController::class, 'partenaires']);
 Route::get('/comment-ca-marche',[UsersController::class, 'commentCaMarche']);
@@ -155,6 +155,5 @@ Route::get('/mail',function(){
 });
 
 
-*/
-Route::get('/aff',[\App\Http\Controllers\api\AffilierController::class, 'test']);
+
 
