@@ -12,6 +12,7 @@ class Specialite extends Model
     use Sluggable;
 
     protected $table = 'specialite';
+    protected $guarded = [];
     public $timestamps = false;
 
     public function sluggable(): array

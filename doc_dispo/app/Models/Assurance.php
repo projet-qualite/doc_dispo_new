@@ -12,6 +12,7 @@ class Assurance extends Model
     use Sluggable;
 
     protected $table = 'assurance';
+    protected $guarded = [];
     public $timestamps = false;
 
     public function sluggable(): array

@@ -12,6 +12,7 @@ class Hopital extends Model
     use Sluggable;
 
     protected $table = 'hopital';
+    protected $guarded = [];
     public $timestamps = false;
 
     public function sluggable(): array

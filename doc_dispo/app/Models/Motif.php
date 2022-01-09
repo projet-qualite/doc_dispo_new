@@ -12,6 +12,7 @@ class Motif extends Model
     use Sluggable;
 
     protected $table = 'motif';
+    protected $guarded = [];
     public $timestamps = false;
 
 

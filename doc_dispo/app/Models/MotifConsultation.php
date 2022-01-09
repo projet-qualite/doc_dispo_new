@@ -9,5 +9,6 @@ class MotifConsultation extends Model
 {
     use HasFactory;
     protected $table = 'motif_consultation';
+    protected $guarded = [];
     public $timestamps = false;
 }

@@ -12,6 +12,7 @@ class Medecin extends Model
     use Sluggable;
 
     protected $table = 'medecin';
+    protected $guarded = [];
     public $timestamps = false;
 
     public function sluggable(): array

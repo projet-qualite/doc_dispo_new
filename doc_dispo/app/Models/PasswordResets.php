@@ -9,5 +9,6 @@ class PasswordResets extends Model
 {
     use HasFactory;
     protected $table = 'password_resets';
+    protected $guarded = [];
     public $timestamps = false;
 }

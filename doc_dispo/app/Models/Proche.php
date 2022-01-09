@@ -10,9 +10,10 @@ class Proche extends Model
 {
     use HasFactory;
     use Sluggable;
-    
+
     protected $table = 'proche';
     public $timestamps = false;
+    protected $guarded = [];
     public function sluggable(): array
     {
         return [

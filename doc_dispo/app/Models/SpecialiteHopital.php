@@ -10,5 +10,6 @@ class SpecialiteHopital extends Model
     use HasFactory;
 
     protected $table = 'specialite_hopital';
+    protected $guarded = [];
     public $timestamps = false;
 }
