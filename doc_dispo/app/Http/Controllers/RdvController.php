@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Medecin;
 use App\Models\Rdv;
 use App\Models\Creneau;
 use Illuminate\Http\Request;
@@ -20,14 +21,14 @@ class RdvController extends Controller
     {
         if(Session::has('user'))
         {
-            //try{
+            try{
 
 
                 $validator = Validator::make($request->all(), [
                     'proche' => 'required',
                     'id_creneau' => 'required',
                 ]);
-        
+
                 if ($validator->fails()) {
                     return back()->withErrors($validator)->withInput();
                 }
@@ -35,7 +36,7 @@ class RdvController extends Controller
                 $rdv = new Rdv();
                 $rdv->id_proche = $request->proche;
                 $rdv->id_creneau = $request->id_creneau;
-        
+
                 $creneau = Creneau::find($request->id_creneau);
                 if(is_null($creneau))
                 {
@@ -43,28 +44,31 @@ class RdvController extends Controller
                     return back()->withErrors($validator)->withInput();
                 }
 
+                $medecin = Medecin::find($creneau->id_medecin);
+
 
 
                 $creneau->etat = 1;
                 $creneau->update();
-        
+
                 $rdv->save();
 
                 $message = "Le ".$creneau->jour." à ".$creneau->heure;
                 $informations = ["Rappel rendez-vous", $message];
-                Mail::to("marshalfry1998@gmail.com")->send(new MailRdv($informations));
+                Mail::to(Session::get('user')->email)->send(new MailRdv($informations));
+                Mail::to($medecin->email)->send(new MailRdv($informations));
 
                 Session::put('success', 'Le rendez vous a été pris avec succès');
                 return redirect()->back();
-           /*}
+           }
             catch(\ Exception $e)
             {
                 Session::put('fail', 'Une erreur s\'est produite ');
                 return redirect()->back();
-            } */
+            }
         }
         abort(404);
-        
+
     }
 
 
@@ -73,7 +77,7 @@ class RdvController extends Controller
         if(Session::has('user'))
         {
             try{
-                
+
                 $rdv = Rdv::where('slug', $id)->first();
 
                 $creneau = Creneau::find($rdv->id_creneau);
@@ -89,7 +93,7 @@ class RdvController extends Controller
             {
                 Session::put('fail', 'Une erreur s\'est produite ');
                 return redirect()->back();
-            } 
+            }
         }
         abort(404);
     }

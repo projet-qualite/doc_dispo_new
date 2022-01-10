@@ -293,7 +293,7 @@ class PatientController extends Controller
                  $message = "Votre nouveau mot de passe est: 123456789. Veuillez vous connecter et le changer rapidement.";
                  $link = gethostname()."/forgot/".$token."/".$request->email;
                  $informations = ["Mot de passe oublié", $message, $link];
-                 //Mail::to($patient->email)->send(new MailAccount($informations));
+                 Mail::to($patient->email)->send(new MailAccount($informations));
                  Session::put('success','Vous avez reçu un email pour la réinitialisation du mot de passe');
              }
 

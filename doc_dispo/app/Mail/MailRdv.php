@@ -29,6 +29,6 @@ class MailRdv extends Mailable
      */
     public function build()
     {
-        return $this->from('test@crealmnp.fr','Doc & Moi')->subject($this->informations[0])->view('mails.mail')->with('information', $this->informations[1]);
+        return $this->from('ubuntu@docetmoi.com','Doc & Moi')->subject($this->informations[0])->view('mails.mail')->with('information', $this->informations[1]);
     }
 }

@@ -563,7 +563,7 @@ class HopitalController extends Controller
 
     // Reinitialisation d'un mot de passe
 
-    public static function forgot(Request $request)
+    public static function forgot(Request $request, $token)
     {
         try{
             $hopital = Hopital::where('email', $request->email)->first();
@@ -576,9 +576,10 @@ class HopitalController extends Controller
                 $hopital->mdp = sha1('1234567890');
                 $hopital->update();
                 $message = "Votre nouveau mot de passe est: 123456789. Veuillez vous connecter et le changer rapidement.";
-                $informations = ["Mot de passe oublié", $message];
-                //Mail::to($hopital->email)->send(new MailAccount($informations));
-                //Session::put('success','Vous avez reçu un email pour la réinitialisation du mot de passe');
+                $link = gethostname()."/forgot/".$token."/".$request->email;
+                $informations = ["Mot de passe oublié", $message, $link];
+                Mail::to($hopital->email)->send(new MailAccount($informations));
+                Session::put('success','Vous avez reçu un email pour la réinitialisation du mot de passe');
             }
 
             return redirect()->back();

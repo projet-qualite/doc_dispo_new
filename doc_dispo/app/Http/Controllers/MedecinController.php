@@ -525,7 +525,7 @@ class MedecinController extends Controller
 
 
     // Pour réinitialiser le mot de passe
-    public static function forgot(Request $request)
+    public static function forgot(Request $request, $token)
     {
         try{
             $medecin = Medecin::where('email', $request->email)->first();
@@ -535,10 +535,11 @@ class MedecinController extends Controller
                 Session::put('fail','Cette adresse mail n\'existe pas');
             }
             else{
-                $medecin->mdp = sha1('1234567890');
-                $medecin->update();
+                /*$medecin->mdp = sha1('1234567890');
+                $medecin->update();*/
                 $message = "Votre nouveau mot de passe est: 123456789. Veuillez vous connecter et le changer rapidement.";
-                $informations = ["Mot de passe oublié", $message];
+                $link = gethostname()."/forgot/".$token."/".$request->email;
+                $informations = ["Mot de passe oublié", $message, $link];
                 Mail::to($medecin->email)->send(new MailAccount($informations));
                 Session::put('success','Vous avez reçu un email pour la réinitialisation du mot de passe');
             }
