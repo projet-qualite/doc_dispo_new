@@ -29,6 +29,7 @@
           </ul>
         </li>
 
+
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
           <a class="nav-link {{ (Request::segment(1) == 'proche' ? 'active' : '') }}" href="{{ URL::to('/proche') }}">
               <ion-icon name="people-outline"></ion-icon>

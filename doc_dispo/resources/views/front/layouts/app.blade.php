@@ -10,23 +10,22 @@
 	<title>FINDOCTOR - Prenez facilement un rdv chez un medecin</title>
 
 	<!-- Favicons-->
-	
-    
+
+
     <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
 	<!-- BASE CSS -->
 	<link href="{{asset('front/css/bootstrap.min.css')}}" rel="stylesheet">
 	<link href="{{asset('front/css/style.css')}}" rel="stylesheet">
 	<link href="{{asset('front/css/menu.css')}}" rel="stylesheet">
-	<link href="{{asset('front/css/vendors.css')}}" rel="stylesheet">
 	<link href="{{asset('front/css/icon_fonts/css/all_icons_min.css')}}" rel="stylesheet">
-    
+
 	<!-- YOUR CUSTOM CSS -->
 	<link href="{{asset('front/css/custom.css')}}" rel="stylesheet">
 	<link href="{{asset('front/css/style-custom.css')}}" rel="stylesheet">
 
-	
+
 
 </head>
 
@@ -55,10 +54,10 @@
 	<script src="{{asset('front/js/hopital.js')}}"></script>
 
 
-	
+
 	<!-- SPECIFIC SCRIPTS -->
-	
-    
+
+
 
 </body>
 

@@ -19,7 +19,8 @@ class PasswordResetsController extends Controller
             $password->type = $request->user_type;
             $password->email = $request->email;
             $password->token = Str::random(32);
-            $password->date = date("Y-m-d");
+            $password->date = time();
+            $password->expire_date = time() + 3600;
             $password->valid = 1;
 
 
@@ -52,7 +53,7 @@ class PasswordResetsController extends Controller
             abort(404);
         }
         else {
-            if($password->valid == 0)
+            if($password->valid == 0 || time() > $password->expire_date)
             {
                 abort(404);
             }

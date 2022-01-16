@@ -8,7 +8,7 @@
             </p>
             <div class="follow_us">
                 <ul>
-                    <li><a href="#0"><i class="social_facebook"></i></a></li>
+                    <li><a href="https://m.facebook.com/profile.php?id=1944868229071290&ref=content_filter"><i class="social_facebook"></i></a></li>
                     <li><a href="#0"><i class="social_twitter"></i></a></li>
                     <li><a href="#0"><i class="social_linkedin"></i></a></li>
                     <li><a href="#0"><i class="social_instagram"></i></a></li>
