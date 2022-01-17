@@ -11,7 +11,7 @@ class AffilierController extends Controller
 {
     //
 
-
+    // Ajout d'une affiliation entre une assurance et un hôpital
     public function ajouter(Request $request)
     {
         try{
@@ -28,7 +28,6 @@ class AffilierController extends Controller
                     return back()->withErrors($validator)->withInput();
                 }
 
-                //dd($request->assurance);
 
                 $affilierExist = Affilier::where('id_hopital', Session::get('hopital')->id)
                                 ->where('id_assurance', $request->assurance)
@@ -68,15 +67,21 @@ class AffilierController extends Controller
     }
 
 
+    // Suppresion d'une affiliation
     public function supprimer($id_affilier)
     {
         try{
-            if(Session::has('admin') || Session::has('hopital'))
+            if(Session::has('hopital'))
             {
                 $affilier = Affilier::find($id_affilier);
-                $affilier->delete();
-                Session::put('success_', 'Affilitation supprimée.');
-                return redirect()->back();
+                if($affilier->id_hopital == Session::get('hopital')->id)
+                {
+                    $affilier->delete();
+                    Session::put('success_', 'Affilitation supprimée.');
+                    return redirect()->back();
+                }
+                abort(404);
+
             }
             abort(404);
 

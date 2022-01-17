@@ -10,13 +10,14 @@ use Session;
 class SpecialiteController extends Controller
 {
 
+    // Afficher la vue pour ajouter des spécialités
     public function view()
     {
         if(Session::has('admin'))
         {
             return view('back.pages.specialite')
             ->with("action", "Ajouter")
-            ->with("specialites", Specialite::get());
+            ->with("specialites", Specialite::orderBy('libelle', 'asc')->get());
         }
         abort(404);
     }

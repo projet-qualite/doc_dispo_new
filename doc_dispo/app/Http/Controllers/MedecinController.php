@@ -75,7 +75,9 @@ class MedecinController extends Controller
      }
 
 
-
+    /*
+     * Tableau de bord du medecins
+     */
      public static function dashboard()
     {
             $rdvM = DB::table('rdv')
@@ -87,7 +89,7 @@ class MedecinController extends Controller
     }
 
 
-
+    // Vue pour les paramètres
     public static function parametreView()
     {
         if(Session::has('medecin'))
@@ -147,6 +149,7 @@ class MedecinController extends Controller
                 $medecin = Medecin::find(Session::get('medecin')->id);
 
 
+                // Pour l'ajout de la photo de profil du medecin
                 if(!is_null($request->file('photo')))
                 {
                     $image = $request->file('photo');
@@ -206,7 +209,7 @@ class MedecinController extends Controller
 
     }
 
-
+    // Pour l'ajout de la spécialité du medecin
     public function parametreSpecialite(Request $request)
     {
 
@@ -249,6 +252,7 @@ class MedecinController extends Controller
     }
 
 
+    // Pour changer le mot de passe d'un medecin
     public function changeMdp(Request $request)
     {
         try{
@@ -301,7 +305,7 @@ class MedecinController extends Controller
 
     }
 
-
+    // Pour activer le compte d'un medecin
     public function activer($slug)
     {
         if(Session::has('hopital'))
@@ -316,14 +320,13 @@ class MedecinController extends Controller
             else{
                 $medecin->etat_compte = 1;
                 $medecin->update();
-                Session::put('medecin', $medecin);
                 return redirect()->back();
             }
         }
         abort(404);
     }
 
-
+    // Pour désactiver le compte d'un medecin
     public function desactiver($slug)
     {
         if(Session::has('hopital'))
@@ -337,13 +340,13 @@ class MedecinController extends Controller
             else{
                 $medecin->etat_compte = 0;
                 $medecin->update();
-                Session::put('medecin', $medecin);
                 return redirect()->back();
             }
         }
         abort(404);
     }
 
+    // Détail d'un medecin sur la page de d'un hopital
     public function detailMedecin($slug)
     {
         if(Session::has('hopital'))
@@ -367,7 +370,7 @@ class MedecinController extends Controller
 
 
 
-
+    // Liste des médecins pratiquant la spécialité
     public function medecinsSpecialite($specialite)
     {
         $allHopitaux = Hopital::get();
@@ -397,12 +400,12 @@ class MedecinController extends Controller
         return view('front.pages.medecins')
                 ->with('medecins', $medecins)
                 ->with('creneaux', $creneaux)
-                ->with('allSpecialites', $allSpecialites)
-                ->with('allHopitaux', $allHopitaux);
+                ->with('specialites', $allSpecialites)
+                ->with('hopitaux', $allHopitaux);
     }
 
 
-
+    // Page de détail d'un medecin
     public static function medecin($slug)
     {
         $medecin = Medecin::where('slug', $slug)->get()->first();
@@ -411,7 +414,7 @@ class MedecinController extends Controller
                             ->where('etat', 0)
                             ->whereDate('jour', '>=', date('Y-m-d'))
                             ->orderBy('jour', 'ASC')
-                            ->orderBy('heure', 'ASC')
+                            ->orderBy(DB::raw('HOUR(creneau.heure)'), 'ASC')
                             ->get();
 
         $motifs = DB::table('motif')
@@ -442,17 +445,19 @@ class MedecinController extends Controller
     // Renvoie tous les medecins
     public static function getMedecins()
     {
-        $allHopitaux = Hopital::get();
-        $allSpecialites = Specialite::get();
+        $allHopitaux = Hopital::where('etat_compte', 1)->orderBy('libelle', 'asc')->get();
+        $allSpecialites = Specialite::orderBy('libelle', 'asc')->get();
 
         $medecins = DB::table('medecin')
                     ->join('specialite', 'specialite.id', '=', 'medecin.id_specialite')
                     ->join('hopital', 'hopital.id', '=', 'medecin.id_hopital')
                     ->select('medecin.*', 'specialite.slug AS s', 'specialite.libelle AS libelle_specialite', 'hopital.libelle AS libelle_hopital')
                     ->where('medecin.etat_compte', 1)
+                    ->orderBy('nom', 'asc')
                     ->get();
 
         $creneaux = [];
+
 
         foreach($medecins as $medecin)
         {
@@ -460,21 +465,21 @@ class MedecinController extends Controller
                                     ->where('etat', 0)
                                     ->whereDate('jour', '>=', date('Y-m-d'))
                                     ->orderBy('jour', 'ASC')
-                                    ->orderBy(DB::raw('HOUR(creneau.heure)'))
+                                    ->orderBy(DB::raw('HOUR(creneau.heure)'), 'ASC')
                                     ->get();
         }
-
 
 
         return view('front.pages.medecins')
                 ->with('medecins', $medecins)
                 ->with('creneaux', $creneaux)
-                ->with('allSpecialites', $allSpecialites)
-                ->with('allHopitaux', $allHopitaux);
+                ->with('specialites', $allSpecialites)
+                ->with('hopitaux', $allHopitaux);
 
     }
 
 
+    // Prochains rdv d'un medecin
     public static function rdvProchains()
     {
         $rdvs = DB::table('rdv')
@@ -498,7 +503,7 @@ class MedecinController extends Controller
 
     }
 
-
+    // Rdvs passés d'un medecin
     public static function rdvPasses()
     {
         $rdvs = DB::table('rdv')
@@ -537,7 +542,7 @@ class MedecinController extends Controller
             else{
                 /*$medecin->mdp = sha1('1234567890');
                 $medecin->update();*/
-                $message = "Votre nouveau mot de passe est: 123456789. Veuillez vous connecter et le changer rapidement.";
+                $message = "Veuillez réinitialiser votre mot de passe à partir du lien suivant: ";
                 $link = gethostname()."/forgot/".$token."/".$request->email;
                 $informations = ["Mot de passe oublié", $message, $link];
                 Mail::to($medecin->email)->send(new MailAccount($informations));

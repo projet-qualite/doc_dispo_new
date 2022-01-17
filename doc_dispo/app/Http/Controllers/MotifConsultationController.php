@@ -14,7 +14,7 @@ class MotifConsultationController extends Controller
 {
     //
 
-
+    // Vue pour l'ajout d'un motif de consultation
     public function ajouterMotifConsultationView()
     {
         if(Session::has('medecin'))
@@ -33,7 +33,7 @@ class MotifConsultationController extends Controller
     }
 
 
-
+    // Ajout d'un motif de consultation
     public function ajouter(Request $request)
     {
         try{
@@ -50,8 +50,7 @@ class MotifConsultationController extends Controller
                     return back()->withErrors($validator)->withInput();
                 }
 
-                //dd($request->assurance);
-                
+
                 $motifExist = MotifConsultation::where('id_medecin', Session::get('medecin')->id)
                                 ->where('id_motif', $request->motif)
                                 ->get()
@@ -64,7 +63,7 @@ class MotifConsultationController extends Controller
                     $motif->id_motif = $request->motif;
                     $motif->save();
                     Session::put('success', 'Ajout réussi');
-    
+
                     return redirect()->back();
                 }
                 else{
@@ -72,7 +71,7 @@ class MotifConsultationController extends Controller
                     return redirect()->back();
                 }
 
-                
+
             }
             abort(404);
         }
@@ -91,9 +90,14 @@ class MotifConsultationController extends Controller
             if(Session::has('medecin'))
             {
                 $motif = MotifConsultation::find($id_motif_consultation);
-                $motif->delete();
-                Session::put('success_', 'Motif de consultation supprimée.');
-                return redirect()->back();
+                if($motif->id_medecin == Session::get('medecin')->id)
+                {
+                    $motif->delete();
+                    Session::put('success_', 'Motif de consultation supprimée.');
+                    return redirect()->back();
+                }
+                abort(404);
+
             }
             abort(404);
 

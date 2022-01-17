@@ -1,15 +1,18 @@
+/*
+Récupérer les jours d'un mois
+ */
 function getDays(month, year, initialize = true)
 {
-    
+
     let daysInMonth = new Date(year, month, 0).getDate();
     let days = []
     let week = 1;
 
 
-    
+
     for(let i = 1; i <= daysInMonth; i++)
     {
-        dayLabel = new Date(year, month-1, i).getDay()
+        let dayLabel = new Date(year, month-1, i).getDay()
         let selected = false
         let heures = []
 
@@ -18,7 +21,7 @@ function getDays(month, year, initialize = true)
             for(let j = 0; j < creneaux.length ; j++)
             {
                 let d = new Date(creneaux[j].jour)
-            
+
                 if(d.getTime() === new Date(year, month-1, i, 1,0).getTime())
                 {
                     if(creneaux[j].id_motif_consult === 0)
@@ -26,16 +29,16 @@ function getDays(month, year, initialize = true)
                         selected = true
                     }
                     else{
-                    
+
                         if(specialites_medecin.value == creneaux[j].id_motif_consult)
                         {
                             selected = true
                         }
                     }
-                
-                    
+
+
                     heures.push(creneaux[j].heure)
-                    
+
                 }
             }
         }
@@ -55,9 +58,6 @@ function getDays(month, year, initialize = true)
         heures = []
 
     }
-    
-
-    //console.log(days)
 
     return days;
 }
@@ -77,7 +77,7 @@ function hoursOfDay(day)
                     'id': creneaux[i].id,
                     'heure': creneaux[i].heure
                 }
-                
+
                 )
         }
     }
@@ -111,7 +111,7 @@ function dayOfCreneau(){
     let heure = temps1.split('.')[0]
     let minute = temps1.split('.')[1]
 
-   
+
     let minDate = new Date(annee, mois, jour, heure, minute)
     for(let i = 1; i < creneaux.length ; i++)
     {
@@ -200,7 +200,6 @@ carToMonth.set('10','Octobre')
 carToMonth.set('11','Novembre')
 carToMonth.set('12','Décembre')
 
-
 var daysWeek = new Map()
 daysWeek.set(1, 'Lundi')
 daysWeek.set(2, 'Mardi')
@@ -238,14 +237,14 @@ function addDaysToCalendar(arrayDays)
         else{
             dayDiv.classList.add('jour_indisponible')
         }
-        
-        
+
+
         dayDiv.textContent = day.day
         dayDiv.style.gridRow = day.week
         dayDiv.style.gridColumn = (day.dayLabel === 0) ? 7 : day.dayLabel
         calendar.appendChild(dayDiv)
     }
-    
+
 }
 
 addDaysToCalendar(days)
@@ -263,19 +262,19 @@ let div_choice_year = document.getElementById('choice-year-list-div')
 
 btn_choice_month.addEventListener('click', function(){
     div_choice_month.classList.toggle('isNotVisible')
-    
+
     if(!(div_choice_month.classList.contains('isNotVisible')) )
     {
         div_choice_year.classList.add('isNotVisible')
     }
-    
-    
+
+
 })
 
 
 btn_choice_year.addEventListener('click', function(){
     div_choice_year.classList.toggle('isNotVisible')
-    
+
     if(!(div_choice_year.classList.contains('isNotVisible')) )
     {
         div_choice_month.classList.add('isNotVisible')
@@ -344,7 +343,7 @@ document.querySelector('#app-calendar').addEventListener('mouseup', function(){
             let day = (li.textContent < 10) ? '0'+li.textContent : li.textContent
             let month = months2.get(choice_month.textContent)
             let year = choice_year.textContent
-            
+
             let datee = year+'-'+month+'-'+day
 
             let d = new Date(datee).getDay()
@@ -371,11 +370,11 @@ document.querySelector('#app-calendar').addEventListener('mouseup', function(){
             let div = document.createElement('div')
             let div2 = document.createElement('div')
 
-            
+
 
             let hours = hoursOfDay(datee)
             let nb = 0
-            
+
             for(let i = 0; i < hours.length; i++)
             {
                 nb++;
@@ -388,7 +387,7 @@ document.querySelector('#app-calendar').addEventListener('mouseup', function(){
                 a.addEventListener('click', function(event){
                     retiredStyle(a)
                     a.classList.toggle('heure-selected')
-                    
+
                     if(a.classList.contains('heure-selected'))
                     {
                         try{
@@ -399,11 +398,11 @@ document.querySelector('#app-calendar').addEventListener('mouseup', function(){
                             //window.location.replace("/connexion")
                         }
                     }
-                  
+
                  })
 
 
-                 
+
 
                  if(nb )
 
@@ -418,21 +417,21 @@ document.querySelector('#app-calendar').addEventListener('mouseup', function(){
                  }
 
 
-                
+
             }
             div.appendChild(div2)
             li1.appendChild(p)
             li1.appendChild(div)
 
-            
+
             rdv_dispo.appendChild(li1)
 
-            
+
 
         })
     }
 
-    
+
 })
 
 
@@ -456,10 +455,10 @@ specialites_medecin.addEventListener('change', function(){
         addDaysToCalendar(days)
         choice_month.textContent = carToMonth.get(month)
         choice_year.textContent = annee
-    
+
         jour_disponible = document.querySelectorAll('.jour_disponible')
     }
-    
+
 })
 
 

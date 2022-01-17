@@ -14,13 +14,13 @@ class CreneauController extends Controller
 {
     //
 
-
+    // Vue pour l'ajout d'un créneau
     public function ajouterCreneauView()
     {
         if(Session::has('medecin'))
         {
-            $creneauMedecin = Creneau::where('id_medecin', Session::get('medecin')->id)->paginate(10);
-                           
+            $creneauMedecin = Creneau::where('id_medecin', Session::get('medecin')->id)->where('etat', 0)->paginate(10);
+
 
             $motifs = DB::table('motif')
                             ->join('motif_consultation', 'motif_consultation.id_motif', '=', 'motif.id')
@@ -38,6 +38,7 @@ class CreneauController extends Controller
     }
 
 
+    // Ajout d'un créneau
     public function ajouter(Request $request)
     {
         try{
@@ -57,7 +58,10 @@ class CreneauController extends Controller
                 }
 
 
-
+                /*
+                 * Ajout des crénéaux
+                 * Selon le choix fait par le medecin
+                 */
                 if($request->heure_creneau[0] == "all")
                 {
                     $heures = ["8.00", "8.30", "9.00", "9.30", "10.00", "10.30", "11.00", "11.30",
@@ -78,9 +82,14 @@ class CreneauController extends Controller
 
                         if(is_null($creneauExist))
                         {
-                            $creneau->save();
+                            $timeStamp = strtotime($creneau->jour." ".$creneau->heure);
+                            if(time() < $timeStamp)
+                            {
+                                $creneau->save();
+                            }
+
                         }
-                        
+
                     }
                 }
                 else if($request->heure_creneau[0] == "all_am")
@@ -102,9 +111,14 @@ class CreneauController extends Controller
                         $creneauExist = Creneau::where('slug', $slug)->first();
                         if(is_null($creneauExist))
                         {
-                            $creneau->save();
+                            $timeStamp = strtotime($creneau->jour." ".$creneau->heure);
+                            if(time() < $timeStamp)
+                            {
+                                $creneau->save();
+                            }
+
                         }
-                        
+
                     }
                 }
 
@@ -127,9 +141,14 @@ class CreneauController extends Controller
                         $creneauExist = Creneau::where('slug', $slug)->first();
                         if(is_null($creneauExist))
                         {
-                            $creneau->save();
+                            $timeStamp = strtotime($creneau->jour." ".$creneau->heure);
+                            if(time() < $timeStamp)
+                            {
+                                $creneau->save();
+                            }
+
                         }
-                        
+
                     }
                 }
                 else{
@@ -147,14 +166,19 @@ class CreneauController extends Controller
                         $slug = $creneau->jour.'-'.$heure_minutes[0].'-'.$heure_minutes[1].'-'.Session::get('medecin')->id;
 
                         $creneauExist = Creneau::where('slug', $slug)->first();
-                        if(!is_null($creneauExist))
+                        if(is_null($creneauExist))
                         {
-                            $creneau->save();
+                            $timeStamp = strtotime($creneau->jour." ".$creneau->heure);
+                            if(time() < $timeStamp)
+                            {
+                                $creneau->save();
+                            }
+
                         }
-                        
+
                     }
                 }
-                Session::put('success', 'Créneau(x) ajouté(s) avec succès. Il se peut que certains créneaux qui existent déjà n\'aient pas été rajoutés');
+                Session::put('success', 'Créneau(x) ajouté(s) avec succès. Il se peut que certains créneaux qui existent déjà ou dont l\'heure et la date sont déjà passés n\'aient pas été rajoutés');
                 return redirect()->back();
             }
             abort(404);
@@ -169,16 +193,21 @@ class CreneauController extends Controller
     }
 
 
-
+    // Supression d'un créneau
     public function supprimer($id_creneau)
     {
         try{
             if(Session::has('medecin'))
             {
                 $creneau = Creneau::find($id_creneau);
-                $creneau->delete();
-                Session::put('success_delete', 'Créneau supprimée.');
-                return redirect()->back();
+                if($creneau->id_medecin == Session::get('medecin')->id)
+                {
+                    $creneau->delete();
+                    Session::put('success_delete', 'Créneau supprimée.');
+                    return redirect()->back();
+                }
+                abort(404);
+
             }
             abort(404);
 

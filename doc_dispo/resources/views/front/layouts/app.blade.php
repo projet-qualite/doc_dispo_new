@@ -7,10 +7,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Prenez facilement un rdv chez un medecin">
 	<meta name="author" content="Ansonika">
-	<title>FINDOCTOR - Prenez facilement un rdv chez un medecin</title>
+	<title>Doc & Moi - Prenez facilement un rdv chez un medecin</title>
 
 	<!-- Favicons-->
-
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 
     <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">

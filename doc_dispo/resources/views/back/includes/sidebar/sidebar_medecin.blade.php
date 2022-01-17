@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-    <a class="navbar-brand" href="{{ URL::to('/') }}"><img src="{{ asset('front/img/logo_doc.png') }}" data-retina="true" alt="" width="163" height="36"></a>
+    <a class="navbar-brand" href="{{ URL::to('/') }}"><ion-icon name="arrow-back-outline"></ion-icon> Retour au site</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

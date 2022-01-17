@@ -12,6 +12,10 @@ use Validator;
 class PasswordResetsController extends Controller
 {
 
+    /*
+     * Ajout d'une demande de réinitialisation de mot de passe
+     * Génération d'un token valable 1h
+     */
     public static function insert(Request $request)
     {
         try {
@@ -45,6 +49,10 @@ class PasswordResetsController extends Controller
     }
 
 
+    /*
+     * Affichage de la page pour la réintialisation du mot de passe
+     * On vérifie que l'insertion est toujours valide ainsi que le token n'a pas expiré
+     */
     public function reset($token, $email)
     {
         $password = PasswordResets::where("token", $token)->where("email", $email)->first();

@@ -11,13 +11,13 @@ use DB;
 
 class ProcheController extends Controller
 {
-    //
+    // Vue pour l'ajour d'un proche
     public function ajouterProcheView()
     {
         if(Session::has('user'))
         {
             $proches = Proche::where('id_patient', Session::get('user')->id)->paginate(10);
-                           
+
             return view('back.pages.proche')
             ->with("action", "Ajouter")
             ->with('proches', $proches);
@@ -25,6 +25,8 @@ class ProcheController extends Controller
         abort(404);
     }
 
+
+    // Ajout d'un proche
     public function ajouter(Request $request)
     {
         try{
@@ -54,7 +56,7 @@ class ProcheController extends Controller
                 $proche->commune = $request->commune;
                 $proche->id_patient = Session::get('user')->id;
                 $proche->save();
-                
+
                 Session::put('success', 'Votre proche a été ajouté avec succès');
                 return redirect()->back();
             }
@@ -66,45 +68,43 @@ class ProcheController extends Controller
         {
             Session::put('fail', 'Une erreur s\'est produite. Veuillez vérifier vos informations.');
             return redirect()->back();
-        } 
+        }
     }
 
-    // Suppression d'une assurance
-    public function supprimer(Request $request, $id)
+    // Suppression d'un proche
+    public function supprimer($id)
     {
-        
+
         try{
 
             if(Session::has('user'))
             {
                 $patient = Proche::find($id);
-
-
                 $patient->delete();
                 Session::put('success_delete', 'Proche supprimée avec succès');
                 return redirect()->back();
             }
             abort(404);
-            
+
         }
         catch(\ Exception $e)
         {
             Session::put('fail_delete', 'Vous ne pouvez pas éffectuer cette opération');
             return redirect()->back();
         }
-        
+
 
     }
 
 
-    //Modification d'un proche view
+    //Vue pour la Modification d'un proche
     public function modifierView($slug)
     {
         if(Session::has('user'))
         {
             $proche = Proche::where('slug', $slug)->get()->first();
             $proches = Proche::where('id_patient', Session::get('user')->id)->paginate(10);
-            
+
             if(is_null($proche))
             {
                 abort(404);
@@ -117,14 +117,14 @@ class ProcheController extends Controller
             }
 
         }
-        abort(404);        
+        abort(404);
     }
 
 
     //Modification d'un proche
     public function modifier(Request $request, $id)
     {
-        //dd("he");
+
         try{
             if(Session::has('user'))
             {
@@ -143,6 +143,10 @@ class ProcheController extends Controller
                     return back()->withErrors($validator)->withInput();
                 }
                 $proche = Proche::where('slug', $id)->first();
+                if($proche->id_patient != Session::get('user')->id)
+                {
+                    abort(404);
+                }
                 $proche->nom = $request->nom;
                 $proche->prenom = $request->prenom;
                 $proche->date_naissance = $request->date_naissance;
@@ -154,13 +158,13 @@ class ProcheController extends Controller
 
 
                 $proche->update();
-    
+
                 Session::put('success', 'Proche modifiée avec succès');
-                
+
                 return redirect("/proche");
             }
             abort(404);
-            
+
         }
         catch(\ Exception $e)
         {
@@ -168,8 +172,7 @@ class ProcheController extends Controller
             return redirect()->back();
         }
 
-        //dd("H");
-        
+
 
     }
 }

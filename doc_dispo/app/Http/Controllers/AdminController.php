@@ -10,16 +10,16 @@ use Session;
 class AdminController extends Controller
 {
     //
-
+    // Connexion de l'administrateur
     public function connexion(Request $request)
     {
-       
+
         $validator = Validator::make($request->all(),
             [
                 'email' => 'required',
                 'mot_de_passe' => 'required',
             ]
-        ); 
+        );
 
         if($validator->fails())
         {
@@ -44,6 +44,6 @@ class AdminController extends Controller
         {
             Session::put('fail', 'Une erreur s\'est produite. Veuillez vérifier vos informations.');
             return redirect()->back();
-        } 
+        }
     }
 }

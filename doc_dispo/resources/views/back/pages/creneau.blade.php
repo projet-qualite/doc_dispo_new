@@ -13,7 +13,7 @@
     </div>
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12">
-              
+
                 <form action="{{url('/creneau')}}" method="post" id="">
                     {{ csrf_field() }}
                     <div class="body">
@@ -29,8 +29,8 @@
                                 {{ Session::put('fail', null) }}
                             </div>
                         @endif
-                        
-                       
+
+
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <label for="multi-select">Multiple Select</label>
+                                <label for="multi-select">Heures</label>
                                 <div class="select select--multiple">
                                     <select name="heure_creneau[]" multiple="multiple"  class="form-control show-tick">
                                         <option value="all">Toutes les heures</option>
@@ -78,7 +78,7 @@
                                     @foreach ($motifs as $motif)
                                         <option value="{{ $motif->id_consultation }}">{{$motif->libelle}}</option>
                                     @endforeach
-                                   
+
                                 </select>
                                 @error('motif')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -88,15 +88,15 @@
                             <div class="col-sm-12">
                                 <select name="hs" required class="form-control show-tick">
                                     <option value="">- Hopital - Spécialité -</option>
-                                                                  
-                                   
+
+
                                 </select>
-                               
+
                             </div>
                         -->
-                            
-                          
-                            
+
+
+
                             <div class="col-sm-12" style="margin-top: 10px;">
                                 <button type="submit" class="btn btn-primary btn-round">Ajouter un créneau</button>
                             </div>
@@ -106,7 +106,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 <div class="box_general padding_bottom">
@@ -142,7 +142,7 @@
                     <td>
                         {{ $creneau->jour }}
                     </td>
-                    
+
                     <td>
                         {{ $creneau->heure }}
                     </td>
@@ -167,13 +167,13 @@
                             </div>
                           </div>
                     </td>
-                   
-                  
-                   
+
+
+
                 </tr>
-                  
+
               @endforeach
-              
+
           </tbody>
         </table>
         {{ $creneaux_m->links() }}

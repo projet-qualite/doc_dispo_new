@@ -10,18 +10,20 @@ use Validator;
 class MotifController extends Controller
 {
     //
-
+    // Vue de la page pour ajouter les motifs
     public function view()
     {
         if(Session::has('admin'))
         {
             return view('back.pages.motif')
             ->with("action", "Ajouter")
-            ->with("motifs", Motif::get());
+            ->with("motifs", Motif::orderBy('libelle', 'asc')->get());
         }
         abort(404);
     }
 
+
+    // Ajout d'un motif
     public function ajouter(Request $request)
     {
         try{
@@ -70,6 +72,7 @@ class MotifController extends Controller
     }
 
 
+    // Vue pour la modification d'un motif
     public function modifierView($slug)
     {
         if(Session::has('admin'))
@@ -92,6 +95,7 @@ class MotifController extends Controller
     }
 
 
+    // Modifier un motif
     public function modifier(Request $request, $id)
     {
         try{
@@ -128,7 +132,8 @@ class MotifController extends Controller
         }
     }
 
-    public function supprimer(Request $request, $id)
+    // Supression d'un motif
+    public function supprimer($id)
     {
         try{
             if(Session::get('admin'))

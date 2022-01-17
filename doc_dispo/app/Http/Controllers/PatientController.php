@@ -15,7 +15,7 @@ use DB;
 
 class PatientController extends Controller
 {
-    //
+    // Inscription d'un patient
     public static function inscription(Request $request)
     {
         try{
@@ -47,7 +47,7 @@ class PatientController extends Controller
     }
 
 
-
+    // Connexion d'un patient
     public static function connexion(Request $request)
     {
         try{
@@ -71,6 +71,8 @@ class PatientController extends Controller
         }
     }
 
+
+    // Dashboard d'un patient
     public static function dashboard()
     {
         $prochesU = Proche::where('id_patient', Session::get('user')->id)->get();
@@ -85,7 +87,7 @@ class PatientController extends Controller
     }
 
 
-    // Parametre d'un hopital
+    // Modification du mot de passe d'un patient
     public function changeMdp(Request $request)
     {
         try{
@@ -184,34 +186,9 @@ class PatientController extends Controller
     }
 
 
-
+    // Prochains rdv d'un patient
     public static function rdvProchains()
     {
-        /*$rdvs2 = DB::table('rdv')
-                ->join('creneau', 'creneau.id', '=', 'rdv.id_creneau')
-                ->join('medecin', 'medecin.id', '=', 'creneau.id_medecin')
-                ->join('specialite', 'specialite.id', '=', 'medecin.id_specialite')
-                ->join('hopital', 'hopital.id', '=', 'medecin.id_hopital')
-                ->join('proche', 'proche.id', '=', 'rdv.id_proche')
-                ->select(
-                    'creneau.jour',
-                    'creneau.heure',
-                    'rdv.slug as slug_rdv',
-                    'rdv.etat',
-                    'rdv.id_proche',
-                    'hopital.libelle as libelle_hopital',
-                    'specialite.libelle as libelle_specialite',
-                    'medecin.*',
-                    'proche.nom as nom_proche',
-                    'proche.prenom as prenom_proche',
-                )
-                ->where('proche.id_patient', Session::get('user')->id)
-                ->whereDate('creneau.jour', '>=', date('Y-m-d'))
-                ->orderBy('creneau.jour', 'ASC')
-                ->orderBy(DB::raw('HOUR(creneau.heure)'))
-                ->get();
-
-        dd($rdvs2);*/
 
         $rdvs = DB::table('rdv')
                 ->join('creneau', 'creneau.id', '=', 'rdv.id_creneau')
@@ -238,12 +215,11 @@ class PatientController extends Controller
                 ->get();
 
 
-       // dd($rdvs);
         return view('back.pages.rdv')->with('rdvs', $rdvs);
 
     }
 
-
+    // Rdvs passés d'un patient
     public static function rdvPasses()
     {
         $rdvs = DB::table('rdv')
@@ -288,9 +264,8 @@ class PatientController extends Controller
                  Session::put('fail','Cette adresse mail n\'existe pas');
              }
              else{
-                 /*$patient->mdp = sha1('1234567890');
-                 $patient->update();*/
-                 $message = "Votre nouveau mot de passe est: 123456789. Veuillez vous connecter et le changer rapidement.";
+
+                 $message = "Veuillez réinitialiser votre mot de passe à partir du lien suivant:";
                  $link = gethostname()."/forgot/".$token."/".$request->email;
                  $informations = ["Mot de passe oublié", $message, $link];
                  Mail::to($patient->email)->send(new MailAccount($informations));
@@ -307,7 +282,7 @@ class PatientController extends Controller
      }
 
 
-
+    // Modification du mot de passe
     public static function resetUpdate(Request $request, $email)
     {
         try{

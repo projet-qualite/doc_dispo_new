@@ -7,14 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="Ansonika">
-  <title>FINDOCTOR - Admin dashboard</title>
-	
-  <!-- Favicons-->
+  <title>Doc & Moi </title>
 
-	
+  <!-- Favicons-->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
   <!-- GOOGLE WEB FONT -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
-	
+
   <!-- Bootstrap core CSS-->
   <link href="{{ asset('back/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <!-- Icon fonts-->
@@ -25,14 +25,14 @@
   <link href="{{ asset('back/css/admin.css')}}" rel="stylesheet">
   <!-- Your custom styles -->
   <link href="{{ asset('back/css/admin.css')}}" rel="stylesheet">
-	
+
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
   <!-- Navigation-->
  @include('back.includes.sidebar')
   <!-- /Navigation-->
-   
+
 
 
     <div class="content-wrapper">
@@ -79,7 +79,7 @@
     <script src="{{ asset('back/js/script.js')}}"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-	
-	
+
+
 </body>
 </html>

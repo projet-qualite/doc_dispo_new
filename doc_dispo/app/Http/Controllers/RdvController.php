@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Medecin;
 use App\Models\Rdv;
 use App\Models\Creneau;
+use App\Models\Proche;
 use Illuminate\Http\Request;
 use App\Mail\MailRdv;
 use Illuminate\Support\Facades\Mail;
@@ -16,14 +17,12 @@ use DB;
 class RdvController extends Controller
 {
     //
-
-    public function ajouter(Request $request, $id_medecin)
+    // Prise d'un rdv
+    public function ajouter(Request $request)
     {
         if(Session::has('user'))
         {
             try{
-
-
                 $validator = Validator::make($request->all(), [
                     'proche' => 'required',
                     'id_creneau' => 'required',
@@ -71,7 +70,7 @@ class RdvController extends Controller
 
     }
 
-
+    // Suppression d'un rdv
     public function supprimer($id)
     {
         if(Session::has('user'))
@@ -79,15 +78,36 @@ class RdvController extends Controller
             try{
 
                 $rdv = Rdv::where('slug', $id)->first();
+                $proche = Proche::find($rdv->id_proche);
 
-                $creneau = Creneau::find($rdv->id_creneau);
+                if($proche->id_patient == Session::get('user')->id)
+                {
+                    $creneau = Creneau::find($rdv->id_creneau);
+                    $date_creneau = $creneau->jour." ".$creneau->heure;
+                    $timeStamp = strtotime($date_creneau);
 
-                $creneau->etat = 0;
-                $creneau->update();
-                $rdv->delete();
+                    /*
+                     * Un rdv ne peut être annulé qu'au plus tard 2h avant
+                     */
+                    if(($timeStamp - time()) <= 2*60*60 )
+                    {
+                        Session::put('fail', 'Vous ne pouvez pas annuler ce Rdv');
+                    }
+                    else{
+                        $creneau->etat = 0;
+                        $creneau->update();
+                        $rdv->delete();
 
-                Session::put('success', 'Le rendez vous a été annulé avec succès');
-                return redirect()->back();
+                        Session::put('success', 'Le rendez vous a été annulé avec succès');
+                    }
+
+
+                    return redirect()->back();
+                }
+
+                abort(404);
+
+
             }
             catch(\ Exception $e)
             {
