@@ -11,6 +11,7 @@ use App\Mail\MailAccount;
 use Illuminate\Support\Facades\Mail;
 
 use DB;
+use DateTime;
 
 
 class PatientController extends Controller
@@ -210,10 +211,10 @@ class PatientController extends Controller
                 )
                 ->where('proche.id_patient', Session::get('user')->id)
                 ->whereDate('creneau.jour', '>=', date('Y-m-d'))
+                ->whereTime('creneau.heure', '>=', date('H.i'))
                 ->orderBy('creneau.jour', 'ASC')
                 ->orderBy(DB::raw('HOUR(creneau.heure)'))
                 ->get();
-
 
         return view('back.pages.rdv')->with('rdvs', $rdvs);
 
@@ -241,8 +242,8 @@ class PatientController extends Controller
                     'proche.prenom as prenom_proche',
                 )
                 ->where('proche.id_patient', Session::get('user')->id)
-                ->whereDate('creneau.jour', '<', date('Y-m-d'))
-                ->whereDate('creneau.heure', '<', date('H:i'))
+                ->whereDate('creneau.jour', '<=', date('Y-m-d'))
+                ->whereTime('creneau.heure', '<=', date('H.i'))
                 ->orderBy('jour', 'DESC')
                 ->get();
 

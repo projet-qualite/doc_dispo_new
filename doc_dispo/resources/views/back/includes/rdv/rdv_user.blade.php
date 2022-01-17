@@ -39,29 +39,33 @@
                         <li><strong>Telephone</strong> {{ $rdv->telephone }}</li>
                         <li><strong>Email</strong> {{ $rdv->email }}</li>
                     </ul>
-                    <ul class="buttons">
-                        
-                        <li>
-                            <a class="nav-link btn_1 gray delete" data-toggle="modal" data-target="#delete{{ $rdv->slug_rdv }}">
-                                <i class="fa fa-fw fa-times-circle-o"></i> Annuler</a>
+                    @if(Request::segment(2) != 'passes')
+                        <ul class="buttons" >
+
+                            <li>
+                                <a class="nav-link btn_1 gray delete" data-toggle="modal" data-target="#delete{{ $rdv->slug_rdv }}">
+                                    <i class="fa fa-fw fa-times-circle-o"></i> Annuler</a>
                             </li>
                             <div class="modal fade" id="delete{{ $rdv->slug_rdv }}" tabindex="-1" role="dialog" aria-labelledby="delete{{ $rdv->slug_rdv }}" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLabel">Voulez vous annuler le rendez-vous ?</h5>
-                                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                      </button>
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Voulez vous annuler le rendez-vous ?</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler </button>
+                                            <a class="btn btn-primary" href="{{ URL::to('/annuler/rdv/'.$rdv->slug_rdv) }}">Confirmer</a>
+                                        </div>
                                     </div>
-                                    <div class="modal-footer">
-                                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler </button>
-                                      <a class="btn btn-primary" href="{{ URL::to('/annuler/rdv/'.$rdv->slug_rdv) }}">Confirmer</a>
-                                    </div>
-                                  </div>
                                 </div>
-                              </div>
-                    </ul>
+                            </div>
+                        </ul>
+
+                    @endif
+
                 </li>
             @endforeach
         </ul>

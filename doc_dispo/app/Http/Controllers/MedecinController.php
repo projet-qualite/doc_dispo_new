@@ -413,8 +413,9 @@ class MedecinController extends Controller
         $creneaux = Creneau::where('id_medecin', $medecin->id)
                             ->where('etat', 0)
                             ->whereDate('jour', '>=', date('Y-m-d'))
+                            ->whereTime('heure', '>=', date('H.i'))
                             ->orderBy('jour', 'ASC')
-                            ->orderBy(DB::raw('HOUR(creneau.heure)'), 'ASC')
+                            ->orderBy('heure', 'ASC')
                             ->get();
 
         $motifs = DB::table('motif')
@@ -464,8 +465,9 @@ class MedecinController extends Controller
             $creneaux [] = Creneau::where('id_medecin', $medecin->id)
                                     ->where('etat', 0)
                                     ->whereDate('jour', '>=', date('Y-m-d'))
+                                    ->whereTime('heure', '>=', date('H.i'))
                                     ->orderBy('jour', 'ASC')
-                                    ->orderBy(DB::raw('HOUR(creneau.heure)'), 'ASC')
+                                    ->orderBy('heure', 'ASC')
                                     ->get();
         }
 
@@ -494,6 +496,7 @@ class MedecinController extends Controller
                 )
                 ->where('creneau.id_medecin', Session::get('medecin')->id)
                 ->whereDate('creneau.jour', '>=', date('Y-m-d'))
+                ->whereTime('creneau.heure', '>=', date('H.i'))
                 ->orderBy('creneau.jour', 'ASC')
                 ->orderBy(DB::raw('HOUR(creneau.heure)'))
                 ->get();
@@ -517,8 +520,8 @@ class MedecinController extends Controller
                     'proche.*',
                 )
                 ->where('creneau.id_medecin', Session::get('medecin')->id)
-                ->whereDate('creneau.jour', '<', date('Y-m-d'))
-                ->whereDate('creneau.heure', '<', date('H:i'))
+                ->whereDate('creneau.jour', '>=', date('Y-m-d'))
+                ->whereTime('creneau.heure', '>=', date('H.i'))
                 ->orderBy('jour', 'DESC')
                 ->get();
 

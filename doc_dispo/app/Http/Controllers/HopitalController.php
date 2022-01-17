@@ -412,6 +412,7 @@ class HopitalController extends Controller
             $creneaux [] = Creneau::where('id_medecin', $medecin->id)
                 ->where('etat', 0)
                 ->whereDate('jour', '>=', date('Y-m-d'))
+                ->whereTime('heure', '>=', date('H.i'))
                 ->orderBy('jour', 'ASC')
                 ->orderBy(DB::raw('HOUR(creneau.heure)'), 'ASC')
                 ->get();
@@ -457,6 +458,7 @@ class HopitalController extends Controller
             )
             ->where('medecin.id_hopital', Session::get('hopital')->id)
             ->whereDate('creneau.jour', '>=', date('Y-m-d'))
+            ->whereTime('creneau.heure', '>=', date('H.i'))
             ->orderBy('creneau.jour', 'ASC')
             ->orderBy(DB::raw('HOUR(creneau.heure)'))
             ->get();
@@ -488,8 +490,8 @@ class HopitalController extends Controller
                 'proche.prenom as prenom_proche'
             )
             ->where('medecin.id_hopital', Session::get('hopital')->id)
-            ->whereDate('creneau.jour', '<', date('Y-m-d'))
-            ->whereDate('creneau.heure', '<', date('H:i'))
+            ->whereDate('creneau.jour', '<=', date('Y-m-d'))
+            ->whereTime('creneau.heure', '<=', date('H.i'))
             ->orderBy('jour', 'DESC')
             ->get();
 
