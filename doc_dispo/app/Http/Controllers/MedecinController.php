@@ -448,7 +448,7 @@ class MedecinController extends Controller
         {
             $proches = Proche::where('id_patient', Session::get('user')->id)->get();
             return view('front.pages.medecin')->with('medecin', $medecin)
-                                                ->with('creneaux', $creneaux)
+                                                ->with('creneaux', $creneauxM)
                                                 ->with('motifs', $motifs)
                                                 ->with('proches', $proches);
         }
