@@ -30,7 +30,6 @@ class CreneauController extends Controller
             {
                 $creneaux [] = $creneau;
             }
-
         }
         return response()->json($creneaux, 200);
     }
@@ -86,7 +85,14 @@ class CreneauController extends Controller
      */
     public function show($id)
     {
-        //
+        $creneau = Creneau::find($id);
+        if(!is_null($creneau))
+        {
+            return response()->json($creneau, 200);
+        }
+        else{
+            return response()->json(null, 400);
+        }
     }
 
     /**
