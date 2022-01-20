@@ -14,7 +14,13 @@ class CreneauController extends Controller
      */
     public function index()
     {
-        return response()->json(Creneau::get(), 200);
+        $creneaux = Creneau::where('etat', 0)
+                    ->whereDate('jour', '>=', date('Y-m-d'))
+                    ->whereTime('heure', '>=', date('H.i'))
+                    ->orderBy('jour', 'ASC')
+                    ->orderBy('heure', 'ASC')
+                    ->get();
+        return response()->json($creneaux, 200);
     }
 
     /**

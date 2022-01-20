@@ -19,7 +19,13 @@ class CreneauController extends Controller
     {
         if(Session::has('medecin'))
         {
-            $creneauMedecin = Creneau::where('id_medecin', Session::get('medecin')->id)->where('etat', 0)->paginate(10);
+            $creneauMedecin = Creneau::where('id_medecin', Session::get('medecin')->id)
+                ->where('etat', 0)
+                ->whereDate('jour', '>=', date('Y-m-d'))
+                ->whereTime('heure', '>=', date('H.i'))
+                ->orderBy('jour', 'ASC')
+                ->orderBy('heure', 'ASC')
+                ->paginate(10);
 
 
             $motifs = DB::table('motif')
