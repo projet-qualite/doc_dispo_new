@@ -35,6 +35,7 @@ Route::apiResource('rdv', \App\Http\Controllers\api\RdvController::class);
 Route::apiResource('specialite', \App\Http\Controllers\api\SpecialiteController::class);
 Route::apiResource('specialite_hopital', \App\Http\Controllers\api\SpecialiteHopitalController::class);
 
+Route::get('creneaux', [\App\Http\Controllers\api\CreneauController::class, 'allCreneaux']);
 
 Route::put('password/medecin/{ancien}/{nouveau}/{id}', [\App\Http\Controllers\api\MedecinController::class, 'updatePassword']);
 Route::put('password/patient/{ancien}/{nouveau}/{id}', [\App\Http\Controllers\api\PatientController::class, 'updatePassword']);

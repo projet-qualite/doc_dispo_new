@@ -54,8 +54,8 @@ class RdvController extends Controller
             ->join('hopital', 'hopital.id', '=', 'medecin.id_hopital')
             ->join('proche', 'proche.id', '=', 'rdv.id_proche')
             ->select(
-                'creneau.jour',
-                'creneau.heure',
+                'creneau.jour as jour',
+                'creneau.heure as heure',
                 'rdv.*'
             )
             ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'desc')
@@ -71,7 +71,7 @@ class RdvController extends Controller
             $timestamp = strtotime($concat);
             if($timestamp >= time())
             {
-                $rdvsPasses [] = $rdv;
+                $rdvsProchains [] = $rdv;
             }
 
         }

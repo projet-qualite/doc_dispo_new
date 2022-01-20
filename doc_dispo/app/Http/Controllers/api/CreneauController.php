@@ -139,4 +139,10 @@ class CreneauController extends Controller
         }
 
     }
+
+
+    public function allCreneaux()
+    {
+        return response()->json(Creneau::get(), 200);
+    }
 }
