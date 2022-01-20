@@ -6,6 +6,7 @@ use App\Models\Rdv;
 use Illuminate\Http\Request;
 
 use Validator;
+use DB;
 
 class RdvController extends Controller
 {
