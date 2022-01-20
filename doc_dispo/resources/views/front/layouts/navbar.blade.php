@@ -28,7 +28,7 @@
 
                            @if (Session::has('hopital'))
                            <figure>
-                            <img src="{{ is_null(Session::get('hopital')->img_1) ? asset('front/img/avatar.png') : asset('front/img/hopitaux/'.Session::get('hopital')->img_1) }}" alt="">
+                            <img src="{{ is_null(Session::get('hopital')->img) ? asset('front/img/avatar.png') : asset('front/img/hopitaux/'.Session::get('hopital')->img) }}" alt="">
                            </figure>
                             {{Session::get('hopital')->email}}
                            @endif

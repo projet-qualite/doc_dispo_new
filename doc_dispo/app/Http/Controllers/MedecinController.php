@@ -156,7 +156,7 @@ class MedecinController extends Controller
                     $extention = $image->getClientOriginalName();
                     $filename = pathinfo($extention, PATHINFO_FILENAME);
                     $ext = $image->getClientOriginalExtension();
-                    $filesaver = $filename.'_'.time().'.'.$ext;
+                    $filesaver = 'img_h_'.time().'.'.$ext;
                     $path = $image->move('front/img/medecins/',$filesaver);
 
 
