@@ -282,6 +282,11 @@ class HopitalController extends Controller
                 if (is_null($hopital)) {
                     abort(404);
                 } else {
+                    if(is_null($hopital->libelle) || is_null($hopital->img) || is_null($hopital->telephone))
+                    {
+                        Session::put('fail', 'Vous ne pouvez pas activer ce compte. Des informations sont manquantes.');
+                        return redirect()->back();
+                    }
                     $hopital->etat_compte = 1;
                     $hopital->update();
 

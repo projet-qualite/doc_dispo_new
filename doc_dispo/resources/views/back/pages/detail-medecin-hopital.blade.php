@@ -8,11 +8,11 @@
       <div class="card mb-3">
         <div class="card-header">
           <i class="fa fa-table"></i> Détail medecin</div>
-        
+
             <div class="row detail">
-              
+
                 <div class="col-sm-3">
-                        
+
                     <img class="profil" src="{{ isset($medecin->img_1) ? asset('front/img/medecins/'.$medecin->img_1) : asset('front/img/avatar.png') }}" alt="">
                 </div>
 
@@ -81,16 +81,26 @@
                                  <h5 class="content">{{ (isset($medecin->specialite)) ? $medecin->specialite : 'Non défini'  }}</h5>
                             </div>
                         </div>
+
+
+                    <div class="row info">
+                        <div class="col-sm-3">
+                            <h5>Biographie</h5>
+                        </div>
+                        <div class="col-sm-9 content">
+                            <h5 class="content">{{ (isset($medecin->biographie)) ? $medecin->biographie : 'Non défini'  }}</h5>
+                        </div>
+                    </div>
                 </div>
-                
-                
-             
-              
-                
-                
-                
+
+
+
+
+
+
+
             </div>
-       
+
         </div>
       </div>
 	  <!-- /tables-->

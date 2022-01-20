@@ -14,7 +14,7 @@ class MedecinController extends Controller
      */
     public function index()
     {
-        return response()->json(Medecin::get(), 200);
+        return response()->json(Medecin::where('etat_compte', 1)->orderBy('nom')->get(), 200);
     }
 
     /**

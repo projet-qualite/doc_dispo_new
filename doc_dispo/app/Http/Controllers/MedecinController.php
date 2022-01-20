@@ -312,12 +312,23 @@ class MedecinController extends Controller
         {
             $medecin = Medecin::where('slug', $slug)->first();
 
+            if($medecin->id_hopital != Session::get('hopital')->id)
+            {
+                abort(404);
+            }
+
 
             if(is_null($medecin))
             {
                 abort(404);
             }
             else{
+                if(is_null($medecin->nom) || is_null($medecin->prenom)
+                    || is_null($medecin->biographie) || is_null($medecin->type )|| is_null($medecin->id_specialite))
+                {
+                    Session::put('fail', 'Vous ne pouvez pas activer ce compte. Des informations sont manquantes.');
+                    return redirect()->back();
+                }
                 $medecin->etat_compte = 1;
                 $medecin->update();
                 return redirect()->back();

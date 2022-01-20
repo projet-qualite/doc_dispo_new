@@ -14,7 +14,7 @@ class HopitalController extends Controller
      */
     public function index()
     {
-        return response()->json(Hopital::where('etat_compte', 1)->get(), 200);
+        return response()->json(Hopital::where('etat_compte', 1)->orderBy('libelle')->get(), 200);
     }
 
     /**
