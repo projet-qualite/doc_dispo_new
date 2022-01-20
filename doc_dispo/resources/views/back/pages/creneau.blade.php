@@ -176,7 +176,7 @@
 
           </tbody>
         </table>
-        {{ $creneaux_m->links() }}
+
       </div>
     </div>
 </div>

@@ -198,8 +198,8 @@ class PatientController extends Controller
                 ->join('hopital', 'hopital.id', '=', 'medecin.id_hopital')
                 ->join('proche', 'proche.id', '=', 'rdv.id_proche')
                 ->select(
-                    'creneau.jour',
-                    'creneau.heure',
+                    'creneau.jour as jour',
+                    'creneau.heure as heure',
                     'rdv.slug as slug_rdv',
                     'rdv.etat',
                     'rdv.id_proche',
@@ -210,12 +210,25 @@ class PatientController extends Controller
                     'proche.prenom as prenom_proche',
                 )
                 ->where('proche.id_patient', Session::get('user')->id)
-                ->whereDate(DB::raw("CONVERT(CONCAT(creneau.jour, ' ', creneau.heure), DATETIME)"), '>=', time())
-                ->orderBy('creneau.jour', 'asc')
-                ->orderBy(DB::raw("CONVERT(creneau.heure, DOUBLE)"), 'asc')
+                ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'asc')
+                ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'asc')
                 ->get();
 
-        return view('back.pages.rdv')->with('rdvs', $rdvs);
+
+        $rdvsProchains = [];
+
+        foreach ($rdvs as $rdv)
+        {
+            $concat = $rdv->jour." ".$rdv->heure;
+            $timestamp = strtotime($concat);
+            if($timestamp >= time())
+            {
+                $rdvsProchains [] = $rdv;
+            }
+
+        }
+
+        return view('back.pages.rdv')->with('rdvs', $rdvsProchains);
 
     }
 
@@ -229,8 +242,8 @@ class PatientController extends Controller
                 ->join('hopital', 'hopital.id', '=', 'medecin.id_hopital')
                 ->join('proche', 'proche.id', '=', 'rdv.id_proche')
                 ->select(
-                    'creneau.jour',
-                    'creneau.heure',
+                    'creneau.jour as jour',
+                    'creneau.heure as heure',
                     'rdv.slug as slug_rdv',
                     'rdv.etat',
                     'rdv.id_proche',
@@ -241,14 +254,24 @@ class PatientController extends Controller
                     'proche.prenom as prenom_proche',
                 )
                 ->where('proche.id_patient', Session::get('user')->id)
-                ->whereDate(DB::raw("CONVERT(CONCAT(creneau.jour, ' ', creneau.heure), DATETIME)"), '<=', time())
-                ->orderBy('creneau.jour', 'asc')
-                ->orderBy(DB::raw("CONVERT(creneau.heure, DOUBLE)"), 'asc')
+                ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'desc')
+                ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'desc')
                 ->get();
 
+        $rdvsPasses = [];
 
+        foreach ($rdvs as $rdv)
+        {
+            $concat = $rdv->jour." ".$rdv->heure;
+            $timestamp = strtotime($concat);
+            if($timestamp <= time())
+            {
+                $rdvsPasses [] = $rdv;
+            }
 
-        return view('back.pages.rdv')->with('rdvs', $rdvs);
+        }
+
+        return view('back.pages.rdv')->with('rdvs', $rdvsPasses);
 
     }
 

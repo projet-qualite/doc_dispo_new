@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Models\Creneau;
 use Illuminate\Http\Request;
 use Validator;
+use DB;
 
 class CreneauController extends Controller
 {
@@ -15,12 +16,22 @@ class CreneauController extends Controller
      */
     public function index()
     {
-        $creneaux = Creneau::where('etat', 0)
-            ->whereDate('jour', '>=', date('Y-m-d'))
-            ->whereTime('heure', '>=', date('H.i'))
-            ->orderBy('jour', 'ASC')
-            ->orderBy('heure', 'ASC')
+        $creneauxQuery = Creneau::where('etat', 0)
+            ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'asc')
+            ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'asc')
             ->get();
+
+        $creneaux = [];
+        foreach ($creneauxQuery as $creneau)
+        {
+            $concat = $creneau->jour." ".$creneau->heure;
+            $timestamp = strtotime($concat);
+            if($timestamp > time())
+            {
+                $creneaux [] = $creneau;
+            }
+
+        }
         return response()->json($creneaux, 200);
     }
 
@@ -55,8 +66,16 @@ class CreneauController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $creneau = Creneau::create($request->all());
-        return response()->json($creneau, 201);
+        try{
+            $creneau = Creneau::create($request->all());
+            return response()->json($creneau, 201);
+
+        }catch (\ Exception $e) {
+            // Renvoie un message si une exception a été lancée
+            return response()->json(null, 404);
+        }
+
+
     }
 
     /**

@@ -423,11 +423,20 @@ class MedecinController extends Controller
         $id = $medecin->id;
         $creneaux = Creneau::where('id_medecin', $medecin->id)
                             ->where('etat', 0)
-                            ->whereDate('jour', '>=', date('Y-m-d'))
-                            ->whereTime('heure', '>=', date('H.i'))
-                            ->orderBy('jour', 'ASC')
-                            ->orderBy('heure', 'ASC')
+                            ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'asc')
+                            ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'asc')
                             ->get();
+
+        $creneauxM = [];
+        foreach ($creneaux as $creneau)
+        {
+            $concat = $creneau->jour." ".$creneau->heure;
+            $timestamp = strtotime($concat);
+            if($timestamp > time())
+            {
+                $creneauxM [] = $creneau;
+            }
+        }
 
         $motifs = DB::table('motif')
                             ->join('motif_consultation', 'motif_consultation.id_motif', '=', 'motif.id')
@@ -447,7 +456,7 @@ class MedecinController extends Controller
 
 
         return view('front.pages.medecin')->with('medecin', $medecin)
-                                        ->with('creneaux', $creneaux)
+                                        ->with('creneaux', $creneauxM)
                                         ->with('motifs', $motifs);
 
 
@@ -473,13 +482,25 @@ class MedecinController extends Controller
 
         foreach($medecins as $medecin)
         {
-            $creneaux [] = Creneau::where('id_medecin', $medecin->id)
-                                    ->where('etat', 0)
-                                    ->whereDate('jour', '>=', date('Y-m-d'))
-                                    ->whereTime('heure', '>=', date('H.i'))
-                                    ->orderBy('jour', 'ASC')
-                                    ->orderBy('heure', 'ASC')
-                                    ->get();
+
+            $creneauxMedecin = Creneau::where('id_medecin', $medecin->id)
+                    ->where('etat', 0)
+                    ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'asc')
+                    ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'asc')
+                    ->get();
+
+            $creneauxM = [];
+            foreach ($creneauxMedecin as $creneau)
+            {
+                $concat = $creneau->jour." ".$creneau->heure;
+                $timestamp = strtotime($concat);
+                if($timestamp > time())
+                {
+                    $creneauxM [] = $creneau;
+                }
+            }
+
+            $creneaux [] = $creneauxM;
         }
 
 
@@ -506,13 +527,25 @@ class MedecinController extends Controller
                     'proche.*',
                 )
                 ->where('creneau.id_medecin', Session::get('medecin')->id)
-                ->whereDate(DB::raw("CONVERT(CONCAT(creneau.jour, ' ', creneau.heure), DATETIME)"), '>=', time())
-                ->orderBy('creneau.jour', 'asc')
-                ->orderBy(DB::raw("CONVERT(creneau.heure, DOUBLE)"), 'asc')
+                ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'asc')
+                ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'asc')
                 ->get();
 
+        $rdvsProchains = [];
 
-        return view('back.pages.rdv')->with('rdvs', $rdvs);
+
+        foreach ($rdvs as $rdv)
+        {
+            $concat = $rdv->jour." ".$rdv->heure;
+            $timestamp = strtotime($concat);
+            if($timestamp >= time())
+            {
+                $rdvsProchains [] = $rdv;
+            }
+
+        }
+
+        return view('back.pages.rdv')->with('rdvs', $rdvsProchains);
 
     }
 
@@ -530,14 +563,24 @@ class MedecinController extends Controller
                     'proche.*',
                 )
                 ->where('creneau.id_medecin', Session::get('medecin')->id)
-                ->whereDate(DB::raw("CONVERT(CONCAT(creneau.jour, ' ', creneau.heure), DATETIME)"), '<=', time())
-                ->orderBy('creneau.jour', 'asc')
-                ->orderBy(DB::raw("CONVERT(creneau.heure, DOUBLE)"), 'asc')
+                ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'desc')
+                ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'desc')
                 ->get();
 
+        $rdvsPasses = [];
 
 
-        return view('back.pages.rdv')->with('rdvs', $rdvs);
+        foreach ($rdvs as $rdv)
+        {
+            $concat = $rdv->jour." ".$rdv->heure;
+            $timestamp = strtotime($concat);
+            if($timestamp <= time())
+            {
+                $rdvsPasses [] = $rdv;
+            }
+
+        }
+        return view('back.pages.rdv')->with('rdvs', $rdvsPasses);
 
     }
 

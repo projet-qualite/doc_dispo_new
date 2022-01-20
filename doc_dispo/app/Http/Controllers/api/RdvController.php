@@ -17,7 +17,37 @@ class RdvController extends Controller
      */
     public function index()
     {
-        $rdvsPasses = DB::table('rdv')
+        $rdvsPa = DB::table('rdv')
+            ->join('creneau', 'creneau.id', '=', 'rdv.id_creneau')
+            ->join('medecin', 'medecin.id', '=', 'creneau.id_medecin')
+            ->join('specialite', 'specialite.id', '=', 'medecin.id_specialite')
+            ->join('hopital', 'hopital.id', '=', 'medecin.id_hopital')
+            ->join('proche', 'proche.id', '=', 'rdv.id_proche')
+            ->select(
+                'creneau.jour as jour',
+                'creneau.heure as heure',
+                'rdv.*'
+            )
+            ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'asc')
+            ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'asc')
+            ->get();
+
+
+        $rdvsPasses = [];
+
+        foreach ($rdvsPa as $rdv)
+        {
+            $concat = $rdv->jour." ".$rdv->heure;
+            $timestamp = strtotime($concat);
+            if($timestamp <= time())
+            {
+                $rdvsPasses [] = $rdv;
+            }
+
+        }
+
+
+        $rdvsPro = DB::table('rdv')
             ->join('creneau', 'creneau.id', '=', 'rdv.id_creneau')
             ->join('medecin', 'medecin.id', '=', 'creneau.id_medecin')
             ->join('specialite', 'specialite.id', '=', 'medecin.id_specialite')
@@ -28,27 +58,23 @@ class RdvController extends Controller
                 'creneau.heure',
                 'rdv.*'
             )
-            ->whereDate(DB::raw("CONVERT(CONCAT(creneau.jour, ' ', creneau.heure), DATETIME)"), '<=', time())
-            ->orderBy('creneau.jour', 'asc')
-            ->orderBy(DB::raw("CONVERT(creneau.heure, DOUBLE)"), 'asc')
+            ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'desc')
+            ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'desc')
             ->get();
 
 
-        $rdvsProchains = DB::table('rdv')
-            ->join('creneau', 'creneau.id', '=', 'rdv.id_creneau')
-            ->join('medecin', 'medecin.id', '=', 'creneau.id_medecin')
-            ->join('specialite', 'specialite.id', '=', 'medecin.id_specialite')
-            ->join('hopital', 'hopital.id', '=', 'medecin.id_hopital')
-            ->join('proche', 'proche.id', '=', 'rdv.id_proche')
-            ->select(
-                'creneau.jour',
-                'creneau.heure',
-                'rdv.*'
-            )
-            ->whereDate(DB::raw("CONVERT(CONCAT(creneau.jour, ' ', creneau.heure), DATETIME)"), '>=', time())
-            ->orderBy('creneau.jour', 'asc')
-            ->orderBy(DB::raw("CONVERT(creneau.heure, DOUBLE)"), 'asc')
-            ->get();
+        $rdvsProchains = [];
+
+        foreach ($rdvsPro as $rdv)
+        {
+            $concat = $rdv->jour." ".$rdv->heure;
+            $timestamp = strtotime($concat);
+            if($timestamp >= time())
+            {
+                $rdvsPasses [] = $rdv;
+            }
+
+        }
 
         return response()->json([$rdvsProchains, $rdvsPasses], 200);
     }

@@ -21,11 +21,21 @@ class CreneauController extends Controller
         {
             $creneauMedecin = Creneau::where('id_medecin', Session::get('medecin')->id)
                 ->where('etat', 0)
-                ->whereDate(DB::raw("CONVERT(CONCAT(jour, ' ', heure), DATETIME)"), '>=', time())
-                ->orderBy('jour', 'asc')
+                ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'asc')
                 ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'asc')
-                ->paginate(10);
+                ->get();
 
+            $creneauxM = [];
+            foreach ($creneauMedecin as $creneau)
+            {
+                $concat = $creneau->jour." ".$creneau->heure;
+                $timestamp = strtotime($concat);
+                if($timestamp > time())
+                {
+                    $creneauxM [] = $creneau;
+                }
+
+            }
 
             $motifs = DB::table('motif')
                             ->join('motif_consultation', 'motif_consultation.id_motif', '=', 'motif.id')
@@ -37,7 +47,7 @@ class CreneauController extends Controller
 
             return view('back.pages.creneau')
             ->with('motifs', $motifs)
-            ->with('creneaux_m', $creneauMedecin);
+            ->with('creneaux_m', $creneauxM);
         }
         abort(404);
     }

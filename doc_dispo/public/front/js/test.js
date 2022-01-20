@@ -394,7 +394,7 @@ document.querySelector('#app-calendar').addEventListener('mouseup', function(){
                             creneau_input.setAttribute("value", a.getAttribute('id_creneau'))
                         }catch(e)
                         {
-                            document.getElementById('message').textContent = "Veuillez vous connecter pour pouvoir prendre un rendez-vous"
+                            document.getElementById('message').textContent = "Veuillez vous connecter en tant que patient pour pouvoir prendre un rendez-vous"
                             //window.location.replace("/connexion")
                         }
                     }
