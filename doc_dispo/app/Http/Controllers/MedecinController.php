@@ -506,10 +506,9 @@ class MedecinController extends Controller
                     'proche.*',
                 )
                 ->where('creneau.id_medecin', Session::get('medecin')->id)
-                ->whereDate('creneau.jour', '>=', date('Y-m-d'))
-                ->whereTime('creneau.heure', '>=', date('H.i'))
-                ->orderBy('creneau.jour', 'ASC')
-                ->orderBy(DB::raw('HOUR(creneau.heure)'))
+                ->whereDate(DB::raw("CONVERT(CONCAT(creneau.jour, ' ', creneau.heure), DATETIME)"), '>=', time())
+                ->orderBy('creneau.jour', 'asc')
+                ->orderBy(DB::raw("CONVERT(creneau.heure, DOUBLE)"), 'asc')
                 ->get();
 
 
@@ -531,9 +530,9 @@ class MedecinController extends Controller
                     'proche.*',
                 )
                 ->where('creneau.id_medecin', Session::get('medecin')->id)
-                ->whereDate('creneau.jour', '>=', date('Y-m-d'))
-                ->whereTime('creneau.heure', '>=', date('H.i'))
-                ->orderBy('jour', 'DESC')
+                ->whereDate(DB::raw("CONVERT(CONCAT(creneau.jour, ' ', creneau.heure), DATETIME)"), '<=', time())
+                ->orderBy('creneau.jour', 'asc')
+                ->orderBy(DB::raw("CONVERT(creneau.heure, DOUBLE)"), 'asc')
                 ->get();
 
 

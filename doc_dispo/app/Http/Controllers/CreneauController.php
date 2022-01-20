@@ -21,10 +21,9 @@ class CreneauController extends Controller
         {
             $creneauMedecin = Creneau::where('id_medecin', Session::get('medecin')->id)
                 ->where('etat', 0)
-                ->whereDate('jour', '>=', date('Y-m-d'))
-                ->whereTime('heure', '>=', date('H.i'))
-                ->orderBy('jour', 'ASC')
-                ->orderBy('heure', 'ASC')
+                ->whereDate(DB::raw("CONVERT(CONCAT(jour, ' ', heure), DATETIME)"), '>=', time())
+                ->orderBy('jour', 'asc')
+                ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'asc')
                 ->paginate(10);
 
 

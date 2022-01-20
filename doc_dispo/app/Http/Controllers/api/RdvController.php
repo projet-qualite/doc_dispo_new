@@ -17,27 +17,39 @@ class RdvController extends Controller
      */
     public function index()
     {
-        $rdvsProchains = DB::table('rdv')
-            ->join('creneau', 'creneau.id', '=', 'rdv.id_creneau')
-            ->select(
-                'rdv.*',
-            )
-            ->whereDate('creneau.jour', '>=', date('Y-m-d'))
-            ->whereTime('creneau.heure', '>=', date('H.i'))
-            ->orderBy('creneau.jour', 'ASC')
-            ->orderBy(DB::raw('HOUR(creneau.heure)'))
-            ->get();
-
-
         $rdvsPasses = DB::table('rdv')
             ->join('creneau', 'creneau.id', '=', 'rdv.id_creneau')
+            ->join('medecin', 'medecin.id', '=', 'creneau.id_medecin')
+            ->join('specialite', 'specialite.id', '=', 'medecin.id_specialite')
+            ->join('hopital', 'hopital.id', '=', 'medecin.id_hopital')
+            ->join('proche', 'proche.id', '=', 'rdv.id_proche')
             ->select(
-                'rdv.*',
+                'creneau.jour',
+                'creneau.heure',
+                'rdv.*'
             )
-            ->whereDate('creneau.jour', '>=', date('Y-m-d'))
-            ->whereTime('creneau.heure', '>=', date('H.i'))
-            ->orderBy('jour', 'DESC')
+            ->whereDate(DB::raw("CONVERT(CONCAT(creneau.jour, ' ', creneau.heure), DATETIME)"), '<=', time())
+            ->orderBy('creneau.jour', 'asc')
+            ->orderBy(DB::raw("CONVERT(creneau.heure, DOUBLE)"), 'asc')
             ->get();
+
+
+        $rdvsProchains = DB::table('rdv')
+            ->join('creneau', 'creneau.id', '=', 'rdv.id_creneau')
+            ->join('medecin', 'medecin.id', '=', 'creneau.id_medecin')
+            ->join('specialite', 'specialite.id', '=', 'medecin.id_specialite')
+            ->join('hopital', 'hopital.id', '=', 'medecin.id_hopital')
+            ->join('proche', 'proche.id', '=', 'rdv.id_proche')
+            ->select(
+                'creneau.jour',
+                'creneau.heure',
+                'rdv.*'
+            )
+            ->whereDate(DB::raw("CONVERT(CONCAT(creneau.jour, ' ', creneau.heure), DATETIME)"), '>=', time())
+            ->orderBy('creneau.jour', 'asc')
+            ->orderBy(DB::raw("CONVERT(creneau.heure, DOUBLE)"), 'asc')
+            ->get();
+
         return response()->json([$rdvsProchains, $rdvsPasses], 200);
     }
 
