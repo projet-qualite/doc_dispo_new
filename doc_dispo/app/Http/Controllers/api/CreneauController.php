@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\api;
+
 use App\Models\Creneau;
 use Illuminate\Http\Request;
 use Validator;
@@ -15,11 +16,11 @@ class CreneauController extends Controller
     public function index()
     {
         $creneaux = Creneau::where('etat', 0)
-                    ->whereDate('jour', '>=', date('Y-m-d'))
-                    ->whereTime('heure', '>=', date('H.i'))
-                    ->orderBy('jour', 'ASC')
-                    ->orderBy('heure', 'ASC')
-                    ->get();
+            ->whereDate('jour', '>=', date('Y-m-d'))
+            ->whereTime('heure', '>=', date('H.i'))
+            ->orderBy('jour', 'ASC')
+            ->orderBy('heure', 'ASC')
+            ->get();
         return response()->json($creneaux, 200);
     }
 
@@ -36,7 +37,7 @@ class CreneauController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -50,8 +51,7 @@ class CreneauController extends Controller
         ];
 
         $validator = Validator::make($request->all(), $rules);
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
 
@@ -62,7 +62,7 @@ class CreneauController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -73,7 +73,7 @@ class CreneauController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -84,8 +84,8 @@ class CreneauController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -96,11 +96,22 @@ class CreneauController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+
+        try {
+            $creneau = Creneau::find($id);
+            $creneau->delete();
+            return response()->json(null, 200);
+
+
+        } catch (\ Exception $e) {
+            // Renvoie un message si une exception a été lancée
+            return response()->json($creneau, 400);
+        }
+
     }
 }
