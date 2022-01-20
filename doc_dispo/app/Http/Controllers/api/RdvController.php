@@ -16,7 +16,28 @@ class RdvController extends Controller
      */
     public function index()
     {
-        return response()->json(Rdv::get(), 200);
+        $rdvsProchains = DB::table('rdv')
+            ->join('creneau', 'creneau.id', '=', 'rdv.id_creneau')
+            ->select(
+                'rdv.*',
+            )
+            ->whereDate('creneau.jour', '>=', date('Y-m-d'))
+            ->whereTime('creneau.heure', '>=', date('H.i'))
+            ->orderBy('creneau.jour', 'ASC')
+            ->orderBy(DB::raw('HOUR(creneau.heure)'))
+            ->get();
+
+
+        $rdvsPasses = DB::table('rdv')
+            ->join('creneau', 'creneau.id', '=', 'rdv.id_creneau')
+            ->select(
+                'rdv.*',
+            )
+            ->whereDate('creneau.jour', '>=', date('Y-m-d'))
+            ->whereTime('creneau.heure', '>=', date('H.i'))
+            ->orderBy('jour', 'DESC')
+            ->get();
+        return response()->json([$rdvsProchains, $rdvsPasses], 200);
     }
 
     /**
