@@ -302,7 +302,7 @@ class HopitalController extends Controller
         abort(404);
     }
 
-    // Désactiber le compte d'un hôpital
+    // Désactiver le compte d'un hôpital
     public function desactiver($slug)
     {
         if (Session::has('admin')) {
@@ -462,14 +462,24 @@ class HopitalController extends Controller
                 'proche.prenom as prenom_proche'
             )
             ->where('medecin.id_hopital', Session::get('hopital')->id)
-            ->whereDate('creneau.jour', '>=', date('Y-m-d'))
-            ->whereTime('creneau.heure', '>=', date('H.i'))
-            ->orderBy('creneau.jour', 'ASC')
-            ->orderBy(DB::raw('HOUR(creneau.heure)'))
+            ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'asc')
+            ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'asc')
             ->get();
 
+        $rdvsProchains = [];
 
-        return view('back.pages.rdv')->with('rdvs', $rdvs);
+
+        foreach ($rdvs as $rdv)
+        {
+            $concat = $rdv->jour." ".$rdv->heure;
+            $timestamp = strtotime($concat);
+            if($timestamp >= time())
+            {
+                $rdvsProchains [] = $rdv;
+            }
+
+        }
+        return view('back.pages.rdv')->with('rdvs', $rdvsProchains);
 
     }
 
@@ -495,13 +505,24 @@ class HopitalController extends Controller
                 'proche.prenom as prenom_proche'
             )
             ->where('medecin.id_hopital', Session::get('hopital')->id)
-            ->whereDate('creneau.jour', '<=', date('Y-m-d'))
-            ->whereTime('creneau.heure', '<=', date('H.i'))
-            ->orderBy('jour', 'DESC')
+            ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'desc')
+            ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'desc')
             ->get();
 
+        $rdvsPasses = [];
 
-        return view('back.pages.rdv')->with('rdvs', $rdvs);
+
+        foreach ($rdvs as $rdv)
+        {
+            $concat = $rdv->jour." ".$rdv->heure;
+            $timestamp = strtotime($concat);
+            if($timestamp <= time())
+            {
+                $rdvsPasses [] = $rdv;
+            }
+
+        }
+        return view('back.pages.rdv')->with('rdvs', $rdvsPasses);
 
     }
 

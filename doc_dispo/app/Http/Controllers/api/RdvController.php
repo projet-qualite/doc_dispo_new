@@ -28,8 +28,8 @@ class RdvController extends Controller
                 'creneau.heure as heure',
                 'rdv.*'
             )
-            ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'asc')
-            ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'asc')
+            ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'desc')
+            ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'desc')
             ->get();
 
 
@@ -58,8 +58,8 @@ class RdvController extends Controller
                 'creneau.heure as heure',
                 'rdv.*'
             )
-            ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'desc')
-            ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'desc')
+            ->orderBy(DB::raw("CONVERT(jour, DATETIME)"), 'asc')
+            ->orderBy(DB::raw("CONVERT(heure, DOUBLE)"), 'asc')
             ->get();
 
 
@@ -177,6 +177,16 @@ class RdvController extends Controller
             return response()->json(["message" => "Record not found"], 404);
         }
         $creneau = Creneau::find($rdv->id_creneau);
+        $date_creneau = $creneau->jour." ".$creneau->heure;
+        $timeStamp = strtotime($date_creneau);
+
+        /*
+         * Un rdv ne peut être annulé qu'au plus tard 2h avant
+         */
+        if(($timeStamp - time()) <= 2*60*60 )
+        {
+            return response()->json(null, 403);
+        }
         $creneau->etat = 1;
         $creneau->update();
         $rdv->delete();
