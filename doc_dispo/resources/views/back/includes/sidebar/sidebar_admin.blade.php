@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-    <a class="navbar-brand" href="{{ URL::to('/') }}"><ion-icon name="arrow-back-outline"></ion-icon> Retour au site</a>
+    @include('back.includes.toogle-back')
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -44,17 +44,39 @@
               <span class="nav-link-text">Specialités</span>
             </a>
           </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
+              <a class="nav-link nav-link-collapse collapsed {{ (Request::segment(1) == 'page' ? 'active' : '') }}" data-toggle="collapse" href="#collapseProfile" data-parent="#exampleAccordion">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  <span class="nav-link-text">Pages</span>
+              </a>
+              <ul class="sidenav-second-level collapse" id="collapseProfile">
+                  <li>
+                      <a href="{{URL::to('/page/entite/3')}}">Comment ça marche</a>
+                  </li>
+                  <li>
+                      <a href="{{URL::to('/page/entite/8')}}">Footer</a>
+                  </li>
+                  <li>
+                      <a href="{{URL::to('/page/img/entite/10')}}">Logo - Banner image</a>
+                  </li>
+                  <li>
+                      <a href="{{URL::to('/page/entite/9')}}">Navbar</a>
+                  </li>
+                  <li>
+                      <a href="{{ URL::to('/page/entite/1') }}">Page d'accueil</a>
+                  </li>
+                  <li>
+                      <a href="{{ URL::to('/page/entite/11') }}">Politique de confidentialité</a>
+                  </li>
+
+
+              </ul>
+          </li>
 
 
 
       </ul>
-      <ul class="navbar-nav sidenav-toggler">
-        <li class="nav-item">
-          <a class="nav-link text-center" id="sidenavToggler">
-            <i class="fa fa-fw fa-angle-left"></i>
-          </a>
-        </li>
-      </ul>
+        @include('back.includes.toogle')
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="{{URL::to('/logout')}}" data-toggle="modal" data-target="#exampleModal">

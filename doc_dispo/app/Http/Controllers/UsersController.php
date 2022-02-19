@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assurance;
+use App\Models\Entite;
 use App\Models\Medecin;
 use App\Models\Hopital;
 use App\Models\PasswordResets;
@@ -30,6 +31,8 @@ class UsersController extends Controller
         $hopitaux = Hopital::where('etat_compte', 1)->get();
         $assurances = Assurance::orderBy('libelle', 'asc')->get();
 
+
+
         return view('front.pages.home')->with('medecins', $medecins)
             ->with('hopitaux', $hopitaux)
             ->with('specialites', $specialites)
@@ -52,6 +55,16 @@ class UsersController extends Controller
     public function pourquoiDoc()
     {
         return view('front.pages.pourquoi_doc');
+    }
+
+    public function accessibilite()
+    {
+        return view('front.pages.accessibilite');
+    }
+
+    public function politiqueDeConfidentialite()
+    {
+        return view('front.pages.politique_de_confidentialite');
     }
 
 

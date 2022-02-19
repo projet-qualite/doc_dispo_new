@@ -32,6 +32,9 @@ Route::get('/',[UsersController::class, 'homepage']);
 Route::get('/partenaires',[UsersController::class, 'partenaires']);
 Route::get('/comment-ca-marche',[UsersController::class, 'commentCaMarche']);
 Route::get('/pourquoi-doc-et-moi',[UsersController::class, 'pourquoiDoc']);
+Route::get('/accessibilite',[UsersController::class, 'accessibilite']);
+Route::get('/politique-de-confidentialite',[UsersController::class, 'politiqueDeConfidentialite']);
+
 Route::get('/medecins', [UsersController::class, 'getMedecins']);
 Route::get('/medecin/{slug}', [UsersController::class, 'medecin']);
 Route::get('/hopital/{slug}', [UsersController::class, 'hopital']);
@@ -156,4 +159,20 @@ Route::get('/mail',function(){
 
 
 
+Route::get('/page/home', [AdminController::class, 'home']);
+Route::get('/page/comment_ca_marche', [AdminController::class, 'commentCaMarche']);
+Route::get('/page/connexion', [AdminController::class, 'connexion']);
+Route::get('/page/inscription', [AdminController::class, 'inscription']);
+Route::get('/page/mot_de_passe_oublie', [AdminController::class, 'motDePasseOublie']);
+Route::get('/page/footer', [AdminController::class, 'footer']);
 
+
+
+Route::post('/page/entite/{id}', [\App\Http\Controllers\EntiteController::class, 'ajouter']);
+Route::get('/page/entite/{id}', [AdminController::class, 'showView']);
+Route::get('/page/entite/mod/{id_partie}/{id}', [AdminController::class, 'modifierEntiteView']);
+Route::put('/page/entite/mod/{id_partie}/{id}', [\App\Http\Controllers\EntiteController::class, 'modifier']);
+
+
+Route::get('/page/img/entite/{id}', [AdminController::class, 'showView']);
+Route::put('/page/img/entite/{id}', [\App\Http\Controllers\EntiteController::class, 'imgModifier']);

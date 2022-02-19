@@ -1,7 +1,7 @@
 <form method="" action="" style="margin-left: 20px">
     <div id="custom-search-input">
         <div class="input-group">
-            <input type="text" class="search-query" required placeholder="Ex. Nom, Specialisation, Hôpital ....">
+            <input type="text" class="search-query" required placeholder="{{getEntite(9)->texte}}">
             <input type="submit" class="btn_search" value="">
         </div>
         <div class="result" style="position: absolute;z-index: 10; top: 55px;background-color: white; height: 38vh; width: 100%; overflow-y: auto">

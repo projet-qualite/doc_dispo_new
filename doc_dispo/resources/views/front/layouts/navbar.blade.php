@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-3 col-6">
             <div id="logo_home">
-                <h1><a href="{{URL::to('/')}}" title="Findoctor">Doc Dispo</a></h1>
+                <a href="{{URL::to('/')}}" title="Findoctor"> <img id="logo_home" src="{{asset('front/img/'.getEntite(45)->img)}}" /> </a>
             </div>
         </div>
         <nav class="col-lg-9 col-6">
@@ -52,17 +52,11 @@
             </ul>
             <div class="main-menu">
                 <ul class="nav">
-                    <li class="item">
-                        <a href="{{URL::to('/')}}" class="show-submenu {{ (Request::segment(1) == '' ? 'active' : '') }}">Accueil</a>
-                    </li>
-                    <li>
-                        <a href="{{URL::to('/medecins')}}" class="show-submenu {{ (Request::segment(1) == 'medecins' ? 'active' : '') }}">Medecins</a>
-                    </li>
-                    <li>
-                        <a href="{{URL::to('/comment-ca-marche')}}" class="show-submenu {{ (Request::segment(1) == 'comment-ca-marche' ? 'active' : '') }}">Comment ça marche ?</a>
-                    </li>
-
-
+                    @foreach(getEntites(9) as $items)
+                        <li class="item">
+                            <a href="{{URL::to('/'.$items->lien)}}" class="show-submenu {{ (Request::segment(1) == $items->lien ? 'active' : '') }}">{{$items->texte}}</a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
             <!-- /main-menu -->

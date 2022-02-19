@@ -2,40 +2,42 @@
     <div class="row">
         <div class="col-lg-3 col-md-12">
             <p>
-                <a href="index.html" title="Findoctor">
-                    <img src="{{asset('front/img/logo.png')}}" data-retina="true" alt="" width="163" height="36" class="img-fluid">
+                <a href="{{URL::to('/')}}" title="Findoctor">
+                    <img src="{{asset('front/img/'.getEntite(45)->img)}}" data-retina="true" alt="" width="163" height="36" class="img-fluid">
                 </a>
             </p>
             <div class="follow_us">
                 <ul>
-                    <li><a href="https://m.facebook.com/profile.php?id=1944868229071290&ref=content_filter"><i class="social_facebook"></i></a></li>
-                    <li><a href="#0"><i class="social_twitter"></i></a></li>
-                    <li><a href="#0"><i class="social_linkedin"></i></a></li>
-                    <li><a href="#0"><i class="social_instagram"></i></a></li>
+                    @foreach( getEntitesInRange(30, 33) as $social)
+                        <li><a href="{{$social->lien}}"><i class="{{$social->img}}"></i></a></li>
+                    @endforeach
                 </ul>
             </div>
-            <a href="#0" class="fadeIn"><img src="{{asset('front/img/apple_app.png')}}" alt="" width="150" height="50" data-retina="true"></a>
-            <a href="#0" class="fadeIn"><img src="{{asset('front/img/google_play_app.png')}}" alt="" width="150" height="50" data-retina="true"></a>
+            <a href="{{getEntite(34)->img}}" class="fadeIn"><img src="{{asset('front/img/'.getEntite(34)->img)}}" alt="" width="150" height="50" data-retina="true"></a>
         </div>
         <div class="col-lg-3 col-md-4">
-            <h5>En savoir plus</h5>
+            <h5>{{getEntite(18)->titre}}</h5>
             <ul class="links">
-                <li><a href="{{URL::to('/pourquoi-doc-et-moi')}}">Pourquoi Doc & Moi ?</a></li>
-                <li><a href="{{URL::to('/comment-ca-marche')}}">Comment ça marche ?</a></li>
+                @foreach( getEntitesInRange(19, 21) as $link)
+                    <li><a href="{{URL::to('/'.$link->lien)}}">{{$link->texte}}</a></li>
+                @endforeach
+
             </ul>
         </div>
         <div class="col-lg-2 col-md-4">
-            <h5>Liens utiles</h5>
+            <h5>{{getEntite(22)->titre}}</h5>
             <ul class="links">
-                <li><a href="{{ URL::to('/medecins') }}">Medecins</a></li>
-                <li><a href="https://pharma-consults.net/pharmacies-gardes">Pharmacies de garde</a></li>
+                @foreach( getEntitesInRange(23, 24) as $link)
+                    <li><a href="{{URL::to('/'.$link->lien)}}">{{$link->texte}}</a></li>
+                @endforeach
             </ul>
         </div>
         <div class="col-lg-4 col-md-4">
-            <h5>Une question ?</h5>
+            <h5>{{getEntite(25)->titre}}</h5>
             <ul class="contacts">
-                <li><a href="tel://61280932400"><i class="icon_mobile"></i> <strong>Appelez nous:</strong> + 225 0000000000</a></li>
-                <li><a href="mailto:info@findoctor.com"><i class="icon_mail_alt"></i><strong>Ecrivez nous:</strong> help@rdv.com</a></li>
+
+                    <li><a href="'tel://'.{{ getEntite(26)->lien  }}"><i class="{{getEntite(26)->img}}"></i> <strong>{{getEntite(26)->titre}}</strong> {{getEntite(26)->texte}}</a></li>
+                    <li><a href="'mailto:'.{{ getEntite(29)->lien  }}"><i class="{{ getEntite(29)->img  }}"></i><strong>{{ getEntite(29)->titre  }}</strong> {{ getEntite(29)->texte  }}</a></li>
             </ul>
 
         </div>
@@ -45,8 +47,7 @@
     <div class="row">
         <div class="col-md-8">
             <ul id="additional_links">
-                <li><a href="">Termes et conditions</a></li>
-                <li><a href="">Politique de confidentialité</a></li>
+                <li><a href="{{URL::to('/'.getEntite(35)->lien)}}">{{getEntite(35)->titre}}</a></li>
             </ul>
         </div>
         <div class="col-md-4">

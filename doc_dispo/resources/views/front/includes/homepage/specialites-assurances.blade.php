@@ -4,7 +4,7 @@
         <div class="col-xl-6 col-lg-5 col-md-6">
             <div class="list_home">
                 <div class="list_title">
-                    <h3>Rechercher par assurances</h3>
+                    <h3>{{getEntite(16)->titre}}</h3>
                 </div>
                 <ul>
                     @foreach ($assurances as $assurance)
@@ -23,7 +23,7 @@
         <div class="col-xl-6 col-lg-5 col-md-6">
             <div class="list_home">
                 <div class="list_title">
-                    <h3>Rechercher par spécialités</h3>
+                    <h3>{{getEntite(17)->titre}}</h3>
                 </div>
                 <ul>
                     @foreach ($specialites as $specialite)

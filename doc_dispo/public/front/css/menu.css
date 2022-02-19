@@ -3,13 +3,16 @@
   position: relative;
   z-index: 9;
   width: auto;
-  top: 11px;
   float: right;
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+}
+
+#logo_home{
+    width: 150px;
 }
 .main-menu ul, .main-menu ul li {
   position: relative;

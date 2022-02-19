@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-    <a class="navbar-brand" href="{{ URL::to('/') }}"><ion-icon name="arrow-back-outline"></ion-icon> Retour au site</a>
+    @include('back.includes.toogle-back')
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -16,7 +16,7 @@
               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
                   <a class="nav-link nav-link-collapse collapsed {{ (Request::segment(1) == 'rdv' ? 'active' : '') }}" data-toggle="collapse" href="#collapseProfile" data-parent="#exampleAccordion">
                       <ion-icon name="calendar-outline"></ion-icon>
-                      <span class="nav-link-text">Rdv</span>
+                      <span class="nav-link-text">Liste des rendez-vous</span>
                   </a>
                   <ul class="sidenav-second-level collapse" id="collapseProfile">
                       <li>
@@ -32,7 +32,7 @@
               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
                   <a class="nav-link {{ (Request::segment(1) == 'creneau' ? 'active' : '') }}" href="{{ URL::to('creneau') }}">
                       <ion-icon name="alarm-outline"></ion-icon>
-                      <span class="nav-link-text">Créneau</span>
+                      <span class="nav-link-text">Gérer vos créneaux</span>
                   </a>
               </li>
 
@@ -54,13 +54,7 @@
           </li>
 
       </ul>
-      <ul class="navbar-nav sidenav-toggler">
-        <li class="nav-item">
-          <a class="nav-link text-center" id="sidenavToggler">
-            <i class="fa fa-fw fa-angle-left"></i>
-          </a>
-        </li>
-      </ul>
+        @include('back.includes.toogle')
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="{{URL::to('/logout')}}" data-toggle="modal" data-target="#exampleModal">

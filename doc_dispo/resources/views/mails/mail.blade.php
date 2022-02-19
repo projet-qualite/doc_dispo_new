@@ -28,7 +28,7 @@
                                                     <td>
                                                         <table border="0" cellpadding="0" cellspacing="0" style="min-width:100%"><tbody><tr><td valign="middle">
                                                             <a href="" >
-                                                                <img src="{{ asset('front/img/logo.png') }}"  width="101"  alt="">
+                                                                <img src="{{ asset('front/img/'.getEntite(45)->img) }}"  width="101"  alt="">
                                                             </a>
                                                         </td>
                                                         <td align="right" style="font-size:16px;line-height:35px;color:#ffffff">
@@ -75,10 +75,10 @@
                                                     <tr>
                                                         <td align="center">
                                                             <table border="0" cellpadding="0" cellspacing="0" style="display:inline-block;margin:7px" width="unset">
-                                                                
+
                                                                     </table></td></tr><tr><td></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>
                                                             </td></tr><tr height="14"></tr><tr><td>
-                                                                    
+
 </td></tr>
 
 </div></div>

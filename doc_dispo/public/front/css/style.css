@@ -518,6 +518,9 @@ header.header_sticky {
   -webkit-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+    height: 83px;
+    display: flex;
+    align-items: center;
 }
 header.header_sticky.sticky {
   border-bottom: 1px solid #ededed;
@@ -544,7 +547,7 @@ header.static {
 ul#top_access {
   float: right;
   position: relative;
-  top: 3px;
+    bottom: 6px;
   margin: 5px 0 0 0;
 }
 @media (max-width: 991px) {
@@ -633,14 +636,12 @@ a.specialite-:hover{
     width: 200px;
     height: 70px;
     display: block;
-    background: url(../img/logo.png) no-repeat 0 0;
     background-size: 148px 83px;
     text-indent: -9999px;
 }
 
 @media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   #logo_home h1 a {
-    background-image: url(../img/logo.png);
   }
 }
 /* Footer */
