@@ -5,7 +5,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tableau de bord">
           <a class="nav-link {{ (Request::segment(1) == 'dashboard' ? 'active' : '') }}" href="{{ URL::to('/dashboard') }}">
               <ion-icon name="clipboard-outline"></ion-icon>
             <span class="nav-link-text">Tableau de bord</span>
@@ -14,7 +14,7 @@
 
 
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Mes rendez-vous">
           <a class="nav-link nav-link-collapse collapsed {{ (Request::segment(1) == 'rdv' ? 'active' : '') }}" data-toggle="collapse" href="#collapseProfile" data-parent="#exampleAccordion">
               <ion-icon name="calendar-outline"></ion-icon>
             <span class="nav-link-text">Rdv</span>
@@ -30,14 +30,14 @@
         </li>
 
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Mes proches">
           <a class="nav-link {{ (Request::segment(1) == 'proche' ? 'active' : '') }}" href="{{ URL::to('/proche') }}">
               <ion-icon name="people-outline"></ion-icon>
             <span class="nav-link-text">Mes proches</span>
           </a>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Paramètres">
             <a class="nav-link {{ (Request::segment(1) == 'parametre' ? 'active' : '') }}" href="{{ URL::to('/parametre') }}">
                 <ion-icon name="settings-outline"></ion-icon>
               <span class="nav-link-text">Paramètres du compte</span>

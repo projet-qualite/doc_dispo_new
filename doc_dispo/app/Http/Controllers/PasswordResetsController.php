@@ -39,8 +39,9 @@ class PasswordResetsController extends Controller
                     $already_exist = PasswordResets::where('token', $password->token)->first();
                 }
                 $password->save();
-
             }
+
+            return $password->token;
 
 
         } catch (\ Exception $e) {

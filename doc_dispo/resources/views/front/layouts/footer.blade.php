@@ -27,9 +27,8 @@
         <div class="col-lg-2 col-md-4">
             <h5>{{getEntite(22)->titre}}</h5>
             <ul class="links">
-                @foreach( getEntitesInRange(23, 24) as $link)
-                    <li><a href="{{URL::to('/'.$link->lien)}}">{{$link->texte}}</a></li>
-                @endforeach
+                <li><a href="{{URL::to('/'.getEntite(23)->lien)}}">{{getEntite(23)->texte}}</a></li>
+                <li><a href="{{getEntite(24)->lien}}">{{getEntite(24)->texte}}</a></li>
             </ul>
         </div>
         <div class="col-lg-4 col-md-4">

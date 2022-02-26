@@ -29,6 +29,6 @@ class MailAccount extends Mailable
      */
     public function build()
     {
-        return $this->from('ubuntu@docetmoi.com','Doc & Moi')->subject($this->informations[0])->view('mails.mail_forgot')->with('informations', $this->informations);
+        return $this->from('contact@doc-et-moi.com','Doc & Moi')->subject($this->informations[0])->view('mails.mail_forgot')->with('informations', $this->informations);
     }
 }

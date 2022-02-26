@@ -420,6 +420,11 @@ class MedecinController extends Controller
     public static function medecin($slug)
     {
         $medecin = Medecin::where('slug', $slug)->get()->first();
+
+        if(is_null($medecin))
+        {
+            abort(404);
+        }
         $id = $medecin->id;
         $creneaux = Creneau::where('id_medecin', $medecin->id)
                             ->where('etat', 0)
@@ -599,7 +604,7 @@ class MedecinController extends Controller
                 /*$medecin->mdp = sha1('1234567890');
                 $medecin->update();*/
                 $message = "Veuillez réinitialiser votre mot de passe à partir du lien suivant: ";
-                $link = gethostname()."/forgot/".$token."/".$request->email;
+                $link = $_SERVER['SERVER_NAME']."/forgot/".$token."/".$request->email;
                 $informations = ["Mot de passe oublié", $message, $link];
                 Mail::to($medecin->email)->send(new MailAccount($informations));
                 Session::put('success','Vous avez reçu un email pour la réinitialisation du mot de passe');

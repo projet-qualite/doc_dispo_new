@@ -223,7 +223,7 @@ i{
 }
 @media (min-width: 992px) {
   #mainNav.fixed-top .navbar-sidenav {
-    height: calc(100vh - 97px);
+    height: calc(100vh - 20px);
   }
   #mainNav.fixed-top .sidenav-toggler {
     position: absolute;
@@ -246,8 +246,7 @@ i{
   }
 }
 #mainNav.fixed-top.navbar-dark .sidenav-toggler {
-  background-color: #212529;
-  border-top: 1px solid #343a40;
+    border-right: solid 1px #d8d8d8;
 }
 #mainNav.fixed-top.navbar-dark .sidenav-toggler a i {
   color: #adb5bd;
@@ -261,7 +260,7 @@ i{
 
 body.sidenav-toggled #mainNav.fixed-top .sidenav-toggler {
   overflow-x: hidden;
-  width: 55px;
+  width: 76px;
 }
 body.sidenav-toggled #mainNav.fixed-top .sidenav-toggler .nav-item,
 body.sidenav-toggled #mainNav.fixed-top .sidenav-toggler .nav-link {
@@ -314,12 +313,12 @@ body.sidenav-toggled #mainNav.static-top #sidenavToggler i {
 
 @media (min-width: 992px) {
   body.sidenav-toggled .content-wrapper {
-    margin-left: 55px;
+    margin-left: 76px;
   }
 }
 body.sidenav-toggled .navbar-sidenav {
   overflow-x: hidden;
-  width: 55px;
+  width: 76px;
 }
 body.sidenav-toggled .navbar-sidenav .nav-link-text {
   display: none;
@@ -360,29 +359,33 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
 #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a {
   color: #ced4da;
 }
-#mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a:focus, #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a:hover,
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a:focus,
 #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a:focus,
 #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a:hover {
   color: #f8f9fa;
+}
+
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a:hover{
+    color: black;
 }
 #mainNav.navbar-dark .navbar-collapse .navbar-nav > .nav-item.dropdown > .nav-link:after {
   color: #adb5bd;
 }
 @media (min-width: 992px) {
   #mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
-    background: #212529;
-    padding-top: 10px;
+      border-right: solid 1px #d8d8d8;
+      padding-top: 10px;
   }
   #mainNav.navbar-dark .navbar-collapse .navbar-sidenav li.active a {
     color: white !important;
     background-color: #343a40;
   }
   #mainNav.navbar-dark .navbar-collapse .navbar-sidenav li.active a:focus, #mainNav.navbar-dark .navbar-collapse .navbar-sidenav li.active a:hover {
-    color: white;
+    color: black;
   }
   #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level,
   #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level {
-    background: #343a40;
+    background: #f8f8f8;
   }
 }
 
@@ -427,19 +430,24 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
 /*-------- Cards and footer --------*/
 .card.dashboard {
   border: none;
+    background-color: #ffffff!important;
 }
 .card.dashboard h5 {
-  color: #fff !important;
+  color: #000 !important;
 }
 
-.card-body-icon {
+.card-body-text {
   position: absolute;
   z-index: 0;
   top: 10px;
   right: 10px;
   font-size: 32px;
   font-size: 2rem;
-  opacity: 0.3;
+    color: black;
+}
+
+.card-footer-white{
+    background-color: white !important;
 }
 
 @media (min-width: 576px) {
@@ -475,7 +483,7 @@ footer.sticky-footer {
 
 @media (min-width: 992px) {
   body.sidenav-toggled footer.sticky-footer {
-    width: calc(100% - 55px);
+    width: calc(100% - 76px);
   }
 }
 
@@ -484,8 +492,7 @@ body {
   background: #f8f8f8;
   color: #777 !important;
   font-family: "Poppins", Helvetica, sans-serif;
-  font-size: 14px;
-  font-size: 0.875rem;
+  font-size: 12px;
 }
 
 .content-wrapper {
@@ -1154,4 +1161,20 @@ h5.content {
 .info{
   margin: 20px 0 20px 0;
   border-bottom: 1px solid rgba(87, 87, 87, 0.5);
+}
+
+.bg-1{
+    border-left: solid 3px #007bff !important;
+}
+
+.bg-2{
+    border-left: solid 3px #ffc107 !important;
+}
+
+.bg-3{
+    border-left: solid 3px #3c8b96 !important;
+}
+
+.bg-4{
+    border-left: solid 3px red !important;
 }

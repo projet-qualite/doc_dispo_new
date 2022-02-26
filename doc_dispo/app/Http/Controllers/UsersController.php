@@ -117,6 +117,18 @@ class UsersController extends Controller
     }
 
 
+    public function connexionAdmin()
+    {
+        if (!(Session::has('admin')) && !(Session::has('medecin')) && !(Session::has('user')) && !(Session::has('hopital'))) {
+            return view('front.pages.connexion_admin');
+        } else {
+
+            return redirect("/");
+        }
+
+    }
+
+
     /*
      * Inscription des utilisateurs
      */
@@ -292,6 +304,16 @@ class UsersController extends Controller
                     abort(404);
                 }
             }
+        }
+    }
+
+
+    public function mdp_oublie(){
+        if (!(Session::has('admin')) && !(Session::has('medecin')) && !(Session::has('user')) && !(Session::has('hopital'))) {
+            return view('front.pages.forgot');
+        } else {
+
+            return redirect("/");
         }
     }
 

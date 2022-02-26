@@ -44,13 +44,9 @@ Route::get('/rdv/prochains', [UsersController::class, 'rdvProchains']);
 Route::get('/rdv/passes', [UsersController::class, 'rdvPasses']);
 
 Route::get('/connecter_admin', [AdminController::class, 'connexion']);
-Route::get('/connexion_admin', function(){
-    return view('front.pages.connexion_admin');
-});
+Route::get('/connexion_admin', [UsersController::class, 'connexionAdmin']);
 
-Route::get('/forgot', function(){
-    return view('front.pages.forgot');
-});
+Route::get('/forgot', [UsersController::class, 'mdp_oublie']);
 Route::get('/mdp_oublie', [UsersController::class, 'forgot']);
 
 
@@ -176,3 +172,8 @@ Route::put('/page/entite/mod/{id_partie}/{id}', [\App\Http\Controllers\EntiteCon
 
 Route::get('/page/img/entite/{id}', [AdminController::class, 'showView']);
 Route::put('/page/img/entite/{id}', [\App\Http\Controllers\EntiteController::class, 'imgModifier']);
+
+
+Route::get('/mail', function (){
+    return view('mails.mail');
+});

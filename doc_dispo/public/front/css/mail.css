@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+ion-icon{
+    font-size: 30px;
+    color: white;
+}
+
+body{
+    height: 100vh;
+    background-color: rgb(238 242 246)
+}
+
+.main{
+    background-color: rgb(255,255,255);
+    width:50%;
+    height: 90%;
+    margin: 10px auto;
+    border-radius: 10px;
+}
+
+.main img{
+    width: 8rem;
+}
+
+
+.band{
+    display: flex;
+    background-color: rgb(43, 150, 154);
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.type{
+    display: flex;
+    align-items: center;
+}
+.band .type p{
+    color: white;
+    margin-right: 15px;
+}
+
+.informations{
+    padding: 20px;
+    height: 50%;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.btn-primary{
+    background-color: rgb(43, 150, 154);
+    padding: 10px;
+    color: white;
+}
+
+.mg-t-10{
+    margin-top: 20px;
+}
+
+.btn{
+    width: 150px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    margin: auto;
+}

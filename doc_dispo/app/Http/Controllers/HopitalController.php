@@ -539,7 +539,7 @@ class HopitalController extends Controller
                 $hopital->mdp = sha1('1234567890');
                 $hopital->update();
                 $message = "Veuillez réinitialiser votre mot de passe à partir du lien suivant:";
-                $link = gethostname() . "/forgot/" . $token . "/" . $request->email;
+                $link = $_SERVER['SERVER_NAME']."/forgot/".$token."/".$request->email;
                 $informations = ["Mot de passe oublié", $message, $link];
                 Mail::to($hopital->email)->send(new MailAccount($informations));
                 Session::put('success', 'Vous avez reçu un email pour la réinitialisation du mot de passe');

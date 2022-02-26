@@ -289,7 +289,7 @@ class PatientController extends Controller
              else{
 
                  $message = "Veuillez réinitialiser votre mot de passe à partir du lien suivant:";
-                 $link = gethostname()."/forgot/".$token."/".$request->email;
+                 $link = $_SERVER['SERVER_NAME']."/forgot/".$token."/".$request->email;
                  $informations = ["Mot de passe oublié", $message, $link];
                  Mail::to($patient->email)->send(new MailAccount($informations));
                  Session::put('success','Vous avez reçu un email pour la réinitialisation du mot de passe');

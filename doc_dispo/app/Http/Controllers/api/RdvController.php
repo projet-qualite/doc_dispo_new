@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\api;
+use App\Mail\MailRdv;
 use App\Models\Creneau;
+use App\Models\Medecin;
 use App\Models\Rdv;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Mail;
 use Validator;
 use DB;
 
@@ -115,6 +118,14 @@ class RdvController extends Controller
             return response()->json(["message" => "Ce créneau est déjà pris"], 404);
         }
         else{
+            setlocale(LC_TIME, "fr_FR");
+            date_default_timezone_set('Europe/Paris');
+
+            $message = "Votre rendez-vous est prévu le : <strong>". strftime("%A%e %B %Y", strtotime($creneau->jour))." à ".$creneau->heure."</strong>";
+            $informations = ["Rappel rendez-vous", $message];
+            Mail::to(Session::get('user')->email)->send(new MailRdv($informations));
+            Mail::to(Medecin::where('id', $creneau->id_medecin)->first()->email)->send(new MailRdv($informations));
+
             $rdv = Rdv::create($request->all());
             $creneau->etat = 1;
             $creneau->update();
@@ -187,6 +198,12 @@ class RdvController extends Controller
         {
             return response()->json(null, 403);
         }
+        setlocale(LC_TIME, "fr_FR");
+        date_default_timezone_set('Europe/Paris');
+        $message = "Votre rendez-vous prévu le : <strong>". strftime("%A%e %B %Y", strtotime($creneau->jour))." à ".$creneau->heure."</strong> a été annulé";
+        $informations = ["Annulation de rendez-vous", $message];
+        Mail::to(Session::get('user')->email)->send(new MailRdv($informations));
+        Mail::to(Medecin::where('id', $creneau->id_medecin)->first()->email)->send(new MailRdv($informations));
         $creneau->etat = 1;
         $creneau->update();
         $rdv->delete();
