@@ -4,6 +4,8 @@ namespace App\Http\Controllers\api;
 use App\Mail\MailRdv;
 use App\Models\Creneau;
 use App\Models\Medecin;
+use App\Models\Patient;
+use App\Models\Proche;
 use App\Models\Rdv;
 use Illuminate\Http\Request;
 
@@ -202,7 +204,7 @@ class RdvController extends Controller
         date_default_timezone_set('Europe/Paris');
         $message = "Votre rendez-vous prévu le : <strong>". strftime("%A%e %B %Y", strtotime($creneau->jour))." à ".$creneau->heure."</strong> a été annulé";
         $informations = ["Annulation de rendez-vous", $message];
-        Mail::to(Session::get('user')->email)->send(new MailRdv($informations));
+        Mail::to(Patient::where('id', Proche::find($rdv->id_proche)->id_patient)->first()->email)->send(new MailRdv($informations));
         Mail::to(Medecin::where('id', $creneau->id_medecin)->first()->email)->send(new MailRdv($informations));
         $creneau->etat = 1;
         $creneau->update();
