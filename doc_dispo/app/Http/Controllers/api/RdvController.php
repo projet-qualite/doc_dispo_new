@@ -125,7 +125,7 @@ class RdvController extends Controller
 
             $message = "Votre rendez-vous est prévu le : <strong>". strftime("%A%e %B %Y", strtotime($creneau->jour))." à ".$creneau->heure."</strong>";
             $informations = ["Rappel rendez-vous", $message];
-            Mail::to(Session::get('user')->email)->send(new MailRdv($informations));
+            Mail::to(Patient::where('id', Proche::find($request->id_proche)->id_patient)->first()->email)->send(new MailRdv($informations));
             Mail::to(Medecin::where('id', $creneau->id_medecin)->first()->email)->send(new MailRdv($informations));
 
             $rdv = Rdv::create($request->all());
