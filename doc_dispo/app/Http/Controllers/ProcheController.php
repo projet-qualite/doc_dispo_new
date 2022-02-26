@@ -18,9 +18,20 @@ class ProcheController extends Controller
         {
             $proches = Proche::where('id_patient', Session::get('user')->id)->paginate(10);
 
+            $definedOwner = false;
+
+            foreach ($proches as $proche)
+            {
+                if($proche->owner == 1)
+                {
+                    $definedOwner = true;
+                }
+            }
+
             return view('back.pages.proche')
-            ->with("action", "Ajouter")
-            ->with('proches', $proches);
+                ->with("action", "Ajouter")
+                ->with("definedOwner", $definedOwner)
+                ->with('proches', $proches);
         }
         abort(404);
     }
@@ -38,6 +49,7 @@ class ProcheController extends Controller
                         'prenom' => 'required',
                         'sexe' => 'required',
                         'date_naissance' => 'required',
+                        'owner' => 'required',
                         'telephone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10'
                     ]
                 );
@@ -55,6 +67,27 @@ class ProcheController extends Controller
                 $proche->ville = $request->ville;
                 $proche->commune = $request->commune;
                 $proche->id_patient = Session::get('user')->id;
+
+                if($request->owner != 1 && $request->owner != 0)
+                {
+                    $proche->owner = 0;
+                }
+                else if($request->owner == 1){
+
+                    $proches = Proche::where('owner', 1)->get();
+                    if(is_null($proches))
+                    {
+                        $proche->owner = 1;
+                    }
+                    else{
+                        $proche->owner = 0;
+                    }
+                }
+                else{
+                    $proche->owner = 0;
+                }
+
+
                 $proche->save();
 
                 Session::put('success', 'Votre proche a été ajouté avec succès');
@@ -155,6 +188,12 @@ class ProcheController extends Controller
                 $proche->ville = $request->ville;
                 $proche->commune = $request->commune;
                 $proche->id_patient = Session::get('user')->id;
+
+
+                if(isset($request->owner))
+                {
+                    $proche->owner = $request->owner;
+                }
 
 
                 $proche->update();

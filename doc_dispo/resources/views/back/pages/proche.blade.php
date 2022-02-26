@@ -29,8 +29,8 @@
                 {{ Session::put('fail', null) }}
             </div>
             @endif
-           
-            
+
+
             <div class="row clearfix">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -43,7 +43,7 @@
                         @error('nom')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                        
+
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -72,7 +72,7 @@
                         @error('date_naissance')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                        
+
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -93,10 +93,10 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
 
-                        
+
                     </select>
                 </div>
-                
+
                 <div class="col-sm-6">
                     <div class="form-group">
                         @if (isset($proche))
@@ -104,13 +104,13 @@
                         @else
                             <input type="text" required class="form-control" name="telephone" placeholder="Téléphone">
                         @endif
-                        
+
                         @error('telephone')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
-        
+
                 <div class="col-sm-6">
                     <div class="form-group">
 
@@ -138,9 +138,34 @@
                         @enderror
                     </div>
                 </div>
-              
-                
-                
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+
+                        @if (isset($proche))
+                            <select name="owner" required class="form-control show-tick">
+                                <option value="">- C'est bien vous ? -</option>
+                                <option value="1" {{ ($proche->owner == 1) ? 'selected': '' }}>Oui</option>
+                                <option value="0" {{ ($proche->owner == 0) ? 'selected': '' }}>Non</option>
+                            </select>
+                        @else
+                            @if(!$definedOwner)
+                                <select name="owner" required class="form-control show-tick">
+                                    <option value="">C'est bien vous ?</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0" >Non</option>
+                                </select>
+                            @endif
+
+                        @endif
+                        @error('owner')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+
+
                 <div class="col-sm-12">
                     <button type="submit" class="btn btn-primary btn-round">{{$action}} un proche</button>
                 </div>
@@ -206,13 +231,13 @@
                     <td>
                         {{ ($proche->sexe == "m") ? "Masculin" : "Feminin"  }}
                     </td>
-                    
+
 
                     <td style="display: flex; justify-content: center; align-content: center">
                         <a href="{{ URL::to('/proche/'.$proche->slug) }}" class="nav-link">
                             <i class="fa fa-edit fa-2x"></i>
                         </a>
-                       
+
                         <a class="nav-link" data-toggle="modal" data-target="#delete{{ $proche->id }}">
                             <i class="fa fa-trash fa-2x" style="margin-right: 10px"></i>
                         </li>
@@ -233,13 +258,13 @@
                             </div>
                           </div>
                     </td>
-                   
-                  
-                   
+
+
+
                 </tr>
-                  
+
               @endforeach
-              
+
           </tbody>
         </table>
       </div>

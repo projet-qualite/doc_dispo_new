@@ -6,17 +6,17 @@
 <main>
 
     <div class="info-profil">
-        
+
         <div id="profil_medecin">
             <img id="profil-pic" src="{{ is_null($medecin->img_1) ? asset('front/img/default.jpg') : asset('front/img/medecins/'.$medecin->img_1) }}"  alt="">
             <div id="profil-info">
                 <h1>{{ (isset($medecin->type_medecin)) ? $medecin->type_medecin : '' }} {{ strtoupper($medecin->nom) }} {{ $medecin->prenom }}</h1>
                <div id="specialites-medecin">
-                    
+
                </div>
-                
+
                 <div id="coord-medecin">
-                    
+
                     <p>
                         <img src="{{ asset('/front/img/phone.png') }}" alt="">
                         <a href="tel://{{ $medecin->telephone }}">{{ $medecin->telephone }}</a>
@@ -82,17 +82,17 @@
                 <p id="alert_choice" style="display: none;"></p>
                 <div id="gif_load_rdv_dispo" style="display: none;"><img src="/img/gif_load.gif" alt="chargement"></div>
                 <ul id="rdv_dispo_list">
-                    
-                  
+
+
                 </ul>
                 @if (!Session::has('user'))
                     <p id="message">
 
                     </p>
-       
+
                 @endif
             </div>
-    
+
             <div class="calendar">
                 <div id="choice-month-year">
                   <div id="choice-month-div">
@@ -122,8 +122,8 @@
                       <p id="label-choice-year">2021</p>
                       <img id="btn-choice-year" src="{{ asset('/front/img/select.png') }}" alt="">
                     </div>
-                    
-            
+
+
                     <div id="choice-year-list-div" class="isNotVisible">
                       <ul id="choice-year-list">
                         <li class="choice-year-value">2021</li>
@@ -148,8 +148,8 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
 
-        
-        
+
+
     </div>
 
 
@@ -157,35 +157,39 @@
     <div id="carte_container" class="block_profil">
             <form action="{{url('/ajouter/rdv/'.$medecin->id)}}" method="post">
                 {{ csrf_field() }}
-            
+
                 <input type="text" name="id_creneau" id="id_creneau" hidden>
 
                 <!-- /row -->
-                
+
                 <div class="main_title_3 second" id="patient">
                     <h3>Selectionnez le patient</h3>
                 </div>
 
                     <select name="proche" id="" class="form-control">
-                        <option disabled selected value="">Selectionnez votre proche</option>
+                        <option disabled selected value="">Selectionnez le patient</option>
                         @foreach ($proches as $proche)
-                            <option value="{{ $proche->id }}">{{ $proche->nom }} {{ $proche->prenom }}</option>
+                            <option value="{{ $proche->id }}">{{ $proche->nom }} {{ $proche->prenom }}
+                                @if($proche->owner == 1)
+                                    ( Moi )
+                                @endif
+                            </option>
                         @endforeach
                         @error('proche')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </select>
-                
-            
+
+
 
                 <p class="text-center" style="margin-top: 20px"><button class="btn_1 second medium">Valider</button></p>
-                
-            </form>		
+
+            </form>
         </div>
-       
+
    @endif
-    
-   
+
+
 </main>
 
 
