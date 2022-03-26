@@ -15,15 +15,16 @@ function getDays(month, year, initialize = true)
         let dayLabel = new Date(year, month-1, i).getDay()
         let selected = false
         let heures = []
-
         if(initialize)
         {
+
             for(let j = 0; j < creneaux.length ; j++)
             {
                 let d = new Date(creneaux[j].jour)
-
-                if(d.getTime() === new Date(year, month-1, i, 1,0).getTime())
+                let timezone = (d.getTimezoneOffset()*-1)/60
+                if(d.getTime() === new Date(year, month-1, i, timezone,0).getTime())
                 {
+
                     if(creneaux[j].id_motif_consult === 0)
                     {
                         selected = true
@@ -338,7 +339,6 @@ document.querySelector('#app-calendar').addEventListener('mouseup', function(){
         let li = jour_disponible[i]
         li.addEventListener('click', function(){
             rdv_dispo.textContent = ''
-            console.log(li)
 
             let day = (li.textContent < 10) ? '0'+li.textContent : li.textContent
             let month = months2.get(choice_month.textContent)

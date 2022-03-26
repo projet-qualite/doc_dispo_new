@@ -100,7 +100,7 @@ class RdvController extends Controller
                     else{
                         setlocale(LC_TIME, "fr_FR");
                         date_default_timezone_set('Europe/Paris');
-                        $message = "Votre rendez-vous prévu le : <strong>". strftime("%A%e %B %Y", strtotime($creneau->jour))." à ".$creneau->heure."</strong> a été annulé";
+                        $message = "Votre rendez-vous prévu le : <strong>". strftime("%A %e %B %Y", strtotime($creneau->jour))." à ".$creneau->heure."</strong> a été annulé";
                         $informations = ["Annulation de rendez-vous", $message];
                         Mail::to(Session::get('user')->email)->send(new MailRdv($informations));
                         Mail::to(Medecin::where('id', $creneau->id_medecin)->first()->email)->send(new MailRdv($informations));

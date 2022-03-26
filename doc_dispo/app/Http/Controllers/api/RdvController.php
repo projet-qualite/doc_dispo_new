@@ -123,7 +123,7 @@ class RdvController extends Controller
             setlocale(LC_TIME, "fr_FR");
             date_default_timezone_set('Europe/Paris');
 
-            $message = "Votre rendez-vous est prévu le : <strong>". strftime("%A%e %B %Y", strtotime($creneau->jour))." à ".$creneau->heure."</strong>";
+            $message = "Votre rendez-vous est prévu le : <strong>". strftime("%A %e %B %Y", strtotime($creneau->jour))." à ".$creneau->heure."</strong>";
             $informations = ["Rappel rendez-vous", $message];
             Mail::to(Patient::where('id', Proche::find($request->id_proche)->id_patient)->first()->email)->send(new MailRdv($informations));
             Mail::to(Medecin::where('id', $creneau->id_medecin)->first()->email)->send(new MailRdv($informations));
@@ -202,11 +202,11 @@ class RdvController extends Controller
         }
         setlocale(LC_TIME, "fr_FR");
         date_default_timezone_set('Europe/Paris');
-        $message = "Votre rendez-vous prévu le : <strong>". strftime("%A%e %B %Y", strtotime($creneau->jour))." à ".$creneau->heure."</strong> a été annulé";
+        $message = "Votre rendez-vous prévu le : <strong>". strftime("%A %e %B %Y", strtotime($creneau->jour))." à ".$creneau->heure."</strong> a été annulé";
         $informations = ["Annulation de rendez-vous", $message];
         Mail::to(Patient::where('id', Proche::find($rdv->id_proche)->id_patient)->first()->email)->send(new MailRdv($informations));
         Mail::to(Medecin::where('id', $creneau->id_medecin)->first()->email)->send(new MailRdv($informations));
-        $creneau->etat = 1;
+        $creneau->etat = 0;
         $creneau->update();
         $rdv->delete();
         return response()->json(null, 204);
