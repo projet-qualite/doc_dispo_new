@@ -554,7 +554,6 @@ ul#top_access {
   ul#top_access {
     /* For less than 991px */
     right: 45px;
-    top: 2px;
   }
 }
 ul#top_access li {
